@@ -1,9 +1,9 @@
-class FavoriteProduct {
+class FavoriteProductModel {
   final String name;
   final String price;
   final String image;
 
-  FavoriteProduct({
+  FavoriteProductModel({
     required this.name,
     required this.price,
     required this.image,
