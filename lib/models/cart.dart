@@ -10,6 +10,6 @@ class Cart {
     required this.userId,
     required this.productName,
     required this.productPrice,
-    this.quantity = 01,
+    this.quantity = 1,
   });
 }
