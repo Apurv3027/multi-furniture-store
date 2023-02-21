@@ -7,6 +7,7 @@ import 'package:multi_furniture_store/utils/textstyle_utilites.dart';
 import 'package:multi_furniture_store/views/buyers/screens/product_details_screen.dart';
 
 class ProductWidget extends StatelessWidget {
+
   final Stream<QuerySnapshot> _productsStream =
       FirebaseFirestore.instance.collection('products').snapshots();
 
@@ -73,6 +74,25 @@ class ProductWidget extends StatelessWidget {
                               iconSize: 35,
                               isFavorite: _like,
                               valueChanged: (_isFavorite) {
+                                if(_isFavorite == true){
+                                  FirebaseFirestore.instance
+                                      .collection('favorites')
+                                      .doc(productData['productID'])
+                                      .set({
+                                    'buyerId': FirebaseAuth.instance.currentUser!.uid,
+                                    'productId': productData['productID'],
+                                    'image': productData['image'],
+                                    'productName': productData['productName'],
+                                    'productPrice': productData['productPrice'],
+                                  });
+                                  print('Added to Favorite Product');
+                                } else{
+                                  FirebaseFirestore.instance
+                                      .collection('favorites')
+                                      .doc(productData['productID'])
+                                      .delete();
+                                  print('Delete from Favorite Product');
+                                }
                                 print(
                                   'Is Favorite $_isFavorite ${index + 1}',
                                 );
