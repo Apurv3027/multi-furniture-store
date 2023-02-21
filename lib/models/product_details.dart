@@ -12,5 +12,5 @@ class ProductDetails {
     required this.image,
     required this.quantity,
   });
-
+  
 }
