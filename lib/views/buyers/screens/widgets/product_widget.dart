@@ -50,12 +50,12 @@ class ProductWidget extends StatelessWidget {
               // });
               return GestureDetector(
                 onTap: () {
-                  // Get.to(
-                  //   ProductDetailsScreen(
-                  //     productId: productData['productID'],
-                  //     userId: firebaseUser!.uid,
-                  //   ),
-                  // );
+                  Get.to(
+                    ProductDetailsScreen(
+                      productId: productData['productID'],
+                      userId: firebaseUser!.uid,
+                    ),
+                  );
                 },
                 child: Container(
                   width: 180,
