@@ -29,7 +29,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   final CartService _cartService = CartService();
 
   final CollectionReference productsRef =
-      FirebaseFirestore.instance.collection('products');
+  FirebaseFirestore.instance.collection('products');
 
   final firebaseUser = FirebaseAuth.instance.currentUser;
 
@@ -105,7 +105,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               ),
               SliverList(
                 delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) {
+                      (BuildContext context, int index) {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -132,10 +132,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             ),
                             Padding(
                               padding:
-                                  const EdgeInsets.symmetric(horizontal: 18.0),
+                              const EdgeInsets.symmetric(horizontal: 18.0),
                               child: Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     '\$' + productDetails.price,
@@ -195,7 +195,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                             decoration: BoxDecoration(
                                               color: colors[index],
                                               borderRadius:
-                                                  BorderRadius.circular(50),
+                                              BorderRadius.circular(50),
                                             ),
                                             child: index == selectedcolor.value
                                                 ? Icon(Icons.done)
@@ -229,7 +229,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             ),
                             Padding(
                               padding:
-                                  const EdgeInsets.symmetric(horizontal: 18.0),
+                              const EdgeInsets.symmetric(horizontal: 18.0),
                               child: SizedBox(
                                 width: 450,
                                 child: Text(
@@ -245,14 +245,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             ),
                             Padding(
                               padding:
-                                  const EdgeInsets.symmetric(horizontal: 18.0),
+                              const EdgeInsets.symmetric(horizontal: 18.0),
                               child: Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                MainAxisAlignment.spaceBetween,
                                 children: [
                                   Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         sku,
@@ -278,7 +278,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   ),
                                   Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         model,
