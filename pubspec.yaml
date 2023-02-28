@@ -47,6 +47,7 @@ dependencies:
   favorite_button: ^0.0.4
   file_picker: ^5.2.5
   flutter_easyloading: ^3.0.5
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:

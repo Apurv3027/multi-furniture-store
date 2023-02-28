@@ -53,6 +53,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     colorE5E5EA,
   ];
 
+  String? myEmail;
+  String? myName;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,6 +80,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           print('Product Name: ' + snapshot.data!['productName']);
           print('Product Price: ' + '\$' + snapshot.data!['productPrice']);
           print('Product Detail: ' + snapshot.data!['productDetail']);
+          // print('Name: ' + myName!);
 
           return CustomScrollView(
             slivers: [
@@ -313,6 +317,84 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               ),
                             ),
                             ProductWidget().paddingAll(10),
+                            Divider(
+                              height: 1,
+                              thickness: 1,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 18.0, vertical: 10),
+                              child: Text(
+                                userDetails,
+                                style: color000000w60020,
+                              ),
+                            ),
+                            Container(
+                              width: double.infinity,
+                              padding: EdgeInsets.all(14),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: colorCCCCCC),
+                                borderRadius:BorderRadius.circular(5),
+                              ),
+                              child: FutureBuilder(
+                                future: _fetch(),
+                                builder: (context, snapshot) {
+                                  if(snapshot.connectionState != ConnectionState.done)
+                                    return Text(
+                                      'Loading Data...Please Wait',
+                                      style: color999999w40016,
+                                    );
+                                  return Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'User ' + nameSuggestion,
+                                        style: color999999w40016,
+                                      ),
+                                      Text(
+                                        myName!,
+                                        style: color000000w90020,
+                                      ).paddingOnly(top: 5),
+                                    ],
+                                  );
+                                },
+                              ),
+                            ).paddingAll(18),
+                            Container(
+                              width: double.infinity,
+                              padding: EdgeInsets.all(14),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: colorCCCCCC),
+                                borderRadius:BorderRadius.circular(5),
+                              ),
+                              child: FutureBuilder(
+                                future: _fetch(),
+                                builder: (context, snapshot) {
+                                  if(snapshot.connectionState != ConnectionState.done)
+                                    return Text(
+                                      'Loading Data...Please Wait',
+                                      style: color999999w40016,
+                                    );
+                                  return Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'User ' + emailSuggestion,
+                                        style: color999999w40016,
+                                      ),
+                                      Text(
+                                        myEmail!,
+                                        style: color000000w90020,
+                                      ).paddingOnly(top: 5),
+                                    ],
+                                  );
+                                },
+                              ),
+                            ).paddingAll(18),
+                            Divider(
+                              height: 1,
+                              thickness: 1,
+                            ),
                             SizedBox(
                               height: 20,
                             ),
@@ -331,7 +413,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                     productId: widget.productId,
                                     userId: firebaseUser!.uid,
                                     productName: productDetails.name,
-                                    productPrice: productDetails.price,
+                                    productPrice: '\$' + productDetails.price,
+                                    userName: myName.toString(),
+                                    userEmail: myEmail.toString(),
+                                    image: productDetails.image,
                                   );
                                   await _cartService.addToCart(cart);
                                   setState(() {
@@ -368,4 +453,20 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       ),
     );
   }
+
+  _fetch() async {
+    final firebaseUser = await FirebaseAuth.instance.currentUser;
+    if(firebaseUser != null)
+      await FirebaseFirestore.instance
+          .collection('buyers')
+          .doc(firebaseUser.uid)
+          .get()
+          .then((ds){
+        myEmail=ds.data()!['email'];
+        myName=ds.data()!['fullName'];
+      }).catchError((e){
+        print(e);
+      });
+  }
+
 }

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:multi_furniture_store/views/buyers/screens/add_to_cart_screen.dart';
 import 'package:multi_furniture_store/views/buyers/screens/profile_page.dart';
 import 'package:multi_furniture_store/views/buyers/screens/cart_screen.dart';
 import 'package:multi_furniture_store/views/buyers/screens/category_screen.dart';
@@ -126,10 +127,16 @@ class _Home_ScreenExState extends State<Home_ScreenEx> {
         iconTheme: const IconThemeData(color: color000000),
         actions: [
           GestureDetector(
-            child: const Image(
-              image: AssetImage('assets/icons/notification.png'),
-            ),
-            onTap: () {},
+            // child: const Image(
+            //   image: AssetImage('assets/icons/notification.png'),
+            // ),
+            child: SvgPicture.asset(
+              'assets/icons/carticon.svg',
+              width: 20,
+            ).paddingOnly(right: 20),
+            onTap: () {
+              Get.to(AddToCartScreen());
+            },
           ),
         ],
       ),
@@ -138,29 +145,29 @@ class _Home_ScreenExState extends State<Home_ScreenEx> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: double.infinity,
-              height: 52,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                border: Border.all(
-                  color: colorCCCCCC,
-                ),
-              ),
-              child: Row(
-                children: [
-                  const Icon(
-                    Icons.search_rounded,
-                    color: colorCCCCCC,
-                    size: 26,
-                  ),
-                  Text(
-                    search,
-                    style: colorCCCCCCw90018,
-                  ).paddingOnly(left: 10),
-                ],
-              ).paddingAll(10),
-            ).paddingSymmetric(horizontal: 18).paddingOnly(top: 25),
+            // Container(
+            //   width: double.infinity,
+            //   height: 52,
+            //   decoration: BoxDecoration(
+            //     borderRadius: BorderRadius.circular(5),
+            //     border: Border.all(
+            //       color: colorCCCCCC,
+            //     ),
+            //   ),
+            //   child: Row(
+            //     children: [
+            //       const Icon(
+            //         Icons.search_rounded,
+            //         color: colorCCCCCC,
+            //         size: 26,
+            //       ),
+            //       Text(
+            //         search,
+            //         style: colorCCCCCCw90018,
+            //       ).paddingOnly(left: 10),
+            //     ],
+            //   ).paddingAll(10),
+            // ).paddingSymmetric(horizontal: 18).paddingOnly(top: 25),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -262,7 +269,7 @@ class _Home_ScreenExState extends State<Home_ScreenEx> {
     if(firebaseUser != null)
       await FirebaseFirestore.instance
           .collection('buyers')
-          .doc(firebaseUser.uid)
+          .doc(firebaseUser!.uid)
           .get()
           .then((ds){
         myName=ds.data()!['fullName'];

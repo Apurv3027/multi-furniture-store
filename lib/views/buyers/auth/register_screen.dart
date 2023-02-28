@@ -10,6 +10,7 @@ import 'package:multi_furniture_store/utils/text_utilities.dart';
 import 'package:multi_furniture_store/utils/textstyle_utilites.dart';
 import 'package:multi_furniture_store/views/buyers/auth/email_verification_screen.dart';
 import 'package:multi_furniture_store/views/buyers/auth/login_screen.dart';
+import 'package:multi_furniture_store/views/buyers/main_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
 
@@ -41,6 +42,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           _isLoading = false;
         });
       });
+      Get.offAll(Home_ScreenEx());
       // Get.to(EmailVerificationScreen());
       return showSnack(context, 'Congratulations An Account Has Been Created For You');
     }else{

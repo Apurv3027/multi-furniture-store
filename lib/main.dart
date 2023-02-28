@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:multi_furniture_store/views/buyers/screens/wellcome_screen.dart';
+import 'package:multi_furniture_store/views/buyers/screens/splash_screen.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'Brand-Bold',
       ),
-      home: WelcomeScreen(),
+      home: SplashScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

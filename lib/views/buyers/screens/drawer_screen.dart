@@ -6,6 +6,7 @@ import 'package:multi_furniture_store/utils/color_utilites.dart';
 import 'package:multi_furniture_store/utils/text_utilities.dart';
 import 'package:multi_furniture_store/utils/textstyle_utilites.dart';
 import 'package:multi_furniture_store/views/buyers/auth/login_screen.dart';
+import 'package:multi_furniture_store/views/buyers/screens/contact_us_screen.dart';
 import 'package:multi_furniture_store/views/buyers/screens/favorite_product_screen.dart';
 import 'package:multi_furniture_store/views/buyers/screens/profile_page.dart';
 
@@ -113,15 +114,16 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   style: color000000w50022,
                 ),
                 onTap: () {
-                  // Get.to(FavoriteProductScreen());
+                  Get.to(FavoriteProductScreen());
                 },
               ).paddingOnly(top: 25),
               GestureDetector(
                 child: Text(
-                  aboutUs,
+                  contactUs,
                   style: color000000w50022,
                 ),
                 onTap: () {
+                  Get.to(ContactUsScreen());
                   // Get.to(const About_Us_Screen());
                 },
               ).paddingOnly(top: 25),

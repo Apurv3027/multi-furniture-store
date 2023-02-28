@@ -77,7 +77,7 @@ class ProductWidget extends StatelessWidget {
                                 if(_isFavorite == true){
                                   FirebaseFirestore.instance
                                       .collection('favorites')
-                                      .doc(productData['productID'])
+                                      .doc()
                                       .set({
                                     'buyerId': FirebaseAuth.instance.currentUser!.uid,
                                     'productId': productData['productID'],
@@ -86,12 +86,14 @@ class ProductWidget extends StatelessWidget {
                                     'productPrice': productData['productPrice'],
                                   });
                                   print('Added to Favorite Product');
+                                  _isFavorite = true;
                                 } else{
                                   FirebaseFirestore.instance
                                       .collection('favorites')
-                                      .doc(productData['productID'])
+                                      .doc()
                                       .delete();
                                   print('Delete from Favorite Product');
+                                  _isFavorite = false;
                                 }
                                 print(
                                   'Is Favorite $_isFavorite ${index + 1}',
