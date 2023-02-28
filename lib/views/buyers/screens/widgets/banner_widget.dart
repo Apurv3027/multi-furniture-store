@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -43,6 +44,15 @@ class _BannerWidgetState extends State<BannerWidget> {
           color: Colors.yellow.shade900,
           borderRadius: BorderRadius.circular(10),
         ),
+        // child: CarouselSlider(
+        //   items: ,
+        //   options: CarouselOptions(
+        //     autoPlay: true,
+        //       height: 350,
+        //       pauseAutoPlayOnTouch: true,
+        //       viewportFraction: 1.0
+        //   ),
+        // ),
         child: PageView.builder(
           itemCount: _bannerImage.length,
           scrollDirection: Axis.horizontal,

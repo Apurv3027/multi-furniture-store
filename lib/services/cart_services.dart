@@ -8,8 +8,11 @@ class CartService {
     await _cartRef.doc().set({
       'productId': cart.productId,
       'userId': cart.userId,
+      'image': cart.image,
       'productName': cart.productName,
       'productPrice': cart.productPrice,
+      'userName': cart.userName,
+      'userEmail': cart.userEmail,
       'quantity': cart.quantity,
     }, SetOptions(merge: true));
   }
