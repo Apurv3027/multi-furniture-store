@@ -17,7 +17,7 @@ samples, guidance on mobile development, and a full API reference.
 
 <table>
     <tr>
-        <td>
+        <td colspan=3>
         <label>Demo card for razorpay payment in application...</label></tr>
         </td>
     <tr>
