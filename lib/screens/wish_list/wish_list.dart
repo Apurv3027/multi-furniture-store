@@ -52,6 +52,7 @@ class _WishLsitState extends State<WishLsit> {
     wishListProvider = Provider.of(context);
     wishListProvider.getWishtListData();
     return Scaffold(
+      backgroundColor: colorFFFFFF,
       appBar: AppBar(
         backgroundColor: color5254A8,
         title: Text(
@@ -76,7 +77,7 @@ class _WishLsitState extends State<WishLsit> {
                 productId: data.productId,
                 productQuantity: data.productQuantity,
                 onDelete: () {
-                  showAlertDialog(context,data);
+                  showAlertDialog(context, data);
                 },
                 wishList: true,
               ),

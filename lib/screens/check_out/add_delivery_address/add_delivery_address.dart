@@ -21,6 +21,7 @@ class _AddDeliverAddressState extends State<AddDeliverAddress> {
   Widget build(BuildContext context) {
     CheckoutProvider checkoutProvider = Provider.of(context);
     return Scaffold(
+      backgroundColor: colorFFFFFF,
       appBar: AppBar(
         backgroundColor: color5254A8,
         title: Text(
@@ -33,25 +34,25 @@ class _AddDeliverAddressState extends State<AddDeliverAddress> {
         height: 48,
         child: checkoutProvider.isloadding == false
             ? MaterialButton(
-          onPressed: () {
-            checkoutProvider.validator(context, myType);
-          },
-          child: Text(
-            "Add Address",
-            style: TextStyle(
-              color: colorFFFFFF,
-            ),
-          ),
-          color: primaryColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-              30,
-            ),
-          ),
-        )
+                onPressed: () {
+                  checkoutProvider.validator(context, myType);
+                },
+                child: Text(
+                  "Add Address",
+                  style: TextStyle(
+                    color: colorFFFFFF,
+                  ),
+                ),
+                color: primaryColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(
+                    30,
+                  ),
+                ),
+              )
             : Center(
-          child: CircularProgressIndicator(),
-        ),
+                child: CircularProgressIndicator(),
+              ),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(

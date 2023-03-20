@@ -18,6 +18,7 @@ class _DeliveryAddressState extends State<DeliveryAddress> {
     CheckoutProvider deliveryAddressProvider = Provider.of(context);
     deliveryAddressProvider.getDeliveryAddressData();
     return Scaffold(
+      backgroundColor: colorFFFFFF,
       appBar: AppBar(
         backgroundColor: color5254A8,
         title: Text("Delivery Address"),
@@ -28,9 +29,7 @@ class _DeliveryAddressState extends State<DeliveryAddress> {
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => AddDeliverAddress(
-
-              ),
+              builder: (context) => AddDeliverAddress(),
             ),
           );
         },
@@ -55,31 +54,31 @@ class _DeliveryAddressState extends State<DeliveryAddress> {
           ),
           deliveryAddressProvider.getDeliveryAddressList.isEmpty
               ? Center(
-            child: Container(
-              child: Center(
-                child: Text("No Data"),
-              ),
-            ),
-          )
+                  child: Container(
+                    child: Center(
+                      child: Text("No Data"),
+                    ),
+                  ),
+                )
               : Column(
-            children: deliveryAddressProvider.getDeliveryAddressList
-                .map<Widget>((e) {
-              setState(() {
-                value  = e;
-              });
-              return SingleDeliveryItem(
-                address:
-                "${e.aera}, ${e.street}, ${e.scoirty}, \npincode - ${e.pinCode}",
-                title: "${e.firstName} ${e.lastName}",
-                number: e.mobileNo,
-                addressType: e.addressType == "AddressTypes.Home"
-                    ? "Home"
-                    : e.addressType == "AddressTypes.Other"
-                    ? "Other"
-                    : "Work",
-              );
-            }).toList(),
-          )
+                  children: deliveryAddressProvider.getDeliveryAddressList
+                      .map<Widget>((e) {
+                    setState(() {
+                      value = e;
+                    });
+                    return SingleDeliveryItem(
+                      address:
+                          "${e.aera}, ${e.street}, ${e.scoirty}, \npincode - ${e.pinCode}",
+                      title: "${e.firstName} ${e.lastName}",
+                      number: e.mobileNo,
+                      addressType: e.addressType == "AddressTypes.Home"
+                          ? "Home"
+                          : e.addressType == "AddressTypes.Other"
+                              ? "Other"
+                              : "Work",
+                    );
+                  }).toList(),
+                )
         ],
       ),
     );
