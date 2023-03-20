@@ -10,18 +10,19 @@ class AuthController {
     String res = 'Some error occurred';
     try {
       if(email.isNotEmpty && fullName.isNotEmpty && phoneNumber.isNotEmpty && password.isNotEmpty){
-      //Create the users
-      UserCredential cred = await _auth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      await _firestore.collection('buyers').doc(cred.user!.uid).set({
+        //Create the users
+        UserCredential cred = await _auth.createUserWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+        await _firestore.collection('buyers').doc(cred.user!.uid).set({
           'email' : email,
           'fullName' : fullName,
           'phoneNumber' : phoneNumber,
-          'password' : password,
+          'googleId' : '',
           'buyerId' : cred.user!.uid,
           'address' : '',
+          'profile' : '',
         });
         res = 'Success';
       }else{
