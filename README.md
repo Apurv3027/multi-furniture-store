@@ -17,8 +17,8 @@ samples, guidance on mobile development, and a full API reference.
 
 <table>
     <tr>
-        <td>Hello</td>
-        <td>Hello</td>
-        <td>Hello</td>
+        <td><b><u>Card Network</u></b></td>
+        <td><b><u>Domestic / International</u></b></td>
+        <td><b><u>Card Number</u></b></td>
     </tr>
 </table>
