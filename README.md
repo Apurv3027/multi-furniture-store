@@ -16,7 +16,10 @@ For help getting started with Flutter development, view the
 samples, guidance on mobile development, and a full API reference.
 
 <table>
-    <tr><label>Demo card for razorpay payment in application...</label></tr>
+    <tr>
+        <td>
+        <label>Demo card for razorpay payment in application...</label></tr>
+        </td>
     <tr>
         <td><b><u>Card Network</u></b></td>
         <td><b><u>Domestic / International</u></b></td>
