@@ -41,14 +41,14 @@ class _RazorPayState extends State<RazorPay> {
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     // Do something when payment succeeds
     print('Payment Success');
-    Fluttertoast.showToast(msg: 'Success');
+    Fluttertoast.showToast(msg: 'Payment Success');
     Get.to(ReferFriends());
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
     // Do something when payment fails
     print('Payment Fail');
-    Fluttertoast.showToast(msg: 'Failure' + response.code.toString());
+    Fluttertoast.showToast(msg: 'Failed to Payment');
     Get.back();
   }
 
@@ -157,12 +157,12 @@ class _RazorPayState extends State<RazorPay> {
                   //Amount will be multiple of 100
                   // 'amount': 50000, // Amount in paisa = Rs/100
                   'amount': widget.paymentAmount * 100,
-                  'name': 'Apurv Patel',
+                  'name': myName,
                   'description': 'Demo Payment',
                   'timeout': 120, // in seconds
                   'prefill': {
-                    'contact': '4589745623',
-                    'email': 'demo.pay@gmail.com'
+                    'contact': myPhoneNum,
+                    'email': myEmail
                   }
                 };
                 try {

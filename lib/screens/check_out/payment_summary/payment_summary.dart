@@ -44,6 +44,7 @@ class _PaymentSummaryState extends State<PaymentSummary> {
     }
 
     return Scaffold(
+      backgroundColor: colorFFFFFF,
       appBar: AppBar(
         backgroundColor: color5254A8,
         title: Text(
@@ -67,8 +68,8 @@ class _PaymentSummaryState extends State<PaymentSummary> {
             onPressed: () {
               myType == AddressTypes.OnlinePayment
                   ? Get.to(RazorPay(
-                    paymentAmount: total.toInt(),
-                  ))
+                      paymentAmount: total.toInt(),
+                    ))
                   // ? Get.to(OnlinePayment())
                   : Container();
             },

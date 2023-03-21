@@ -19,6 +19,7 @@ class _DeliveryDetailsState extends State<DeliveryDetails> {
     CheckoutProvider deliveryAddressProvider = Provider.of(context);
     deliveryAddressProvider.getDeliveryAddressData();
     return Scaffold(
+      backgroundColor: colorFFFFFF,
       appBar: AppBar(
         backgroundColor: color5254A8,
         title: Text("Delivery Details"),
