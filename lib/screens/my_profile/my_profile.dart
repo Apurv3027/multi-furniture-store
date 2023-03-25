@@ -9,6 +9,7 @@ import 'package:multi_furniture_store/config/text_style.dart';
 import 'package:multi_furniture_store/providers/user_provider.dart';
 import 'package:multi_furniture_store/screens/check_out/delivery_details/delivery_address.dart';
 import 'package:multi_furniture_store/screens/my_profile/edit_profile_page.dart';
+import 'package:multi_furniture_store/screens/new_features/my_order.dart';
 import 'package:multi_furniture_store/screens/new_features/refer_a_friends.dart';
 
 class MyProfile extends StatefulWidget {
@@ -20,7 +21,6 @@ class MyProfile extends StatefulWidget {
 }
 
 class _MyProfileState extends State<MyProfile> {
-
   String? myEmail;
   String? myName;
   String? myProfile;
@@ -88,7 +88,8 @@ class _MyProfileState extends State<MyProfile> {
                         FutureBuilder(
                           future: _fetch(),
                           builder: (context, snapshot) {
-                            if (snapshot.connectionState != ConnectionState.done)
+                            if (snapshot.connectionState !=
+                                ConnectionState.done)
                               return Text(
                                 'Loading Data...Please Wait',
                                 style: colorFFFFFFw80024,
@@ -115,7 +116,8 @@ class _MyProfileState extends State<MyProfile> {
                                 children: [
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         myName!,
@@ -220,7 +222,9 @@ class _MyProfileState extends State<MyProfile> {
                           leading: Icon(Icons.shop_outlined),
                           title: Text('My Orders'),
                           trailing: Icon(Icons.arrow_forward_ios),
-                          onTap: () {},
+                          onTap: () {
+                            Get.to(MyOrder());
+                          },
                         )
                       ],
                     ),
@@ -330,7 +334,7 @@ class _MyProfileState extends State<MyProfile> {
                 return CircleAvatar(
                   backgroundImage: myProfile == null || myProfile == ''
                       ? AssetImage('assets/icons/accountrb.png')
-                  as ImageProvider
+                          as ImageProvider
                       : NetworkImage(myProfile!),
                   backgroundColor: colorFFCA27,
                   radius: 50,
@@ -361,5 +365,4 @@ class _MyProfileState extends State<MyProfile> {
         print(e);
       });
   }
-
 }

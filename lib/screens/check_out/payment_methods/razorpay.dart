@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:multi_furniture_store/config/text.dart';
+import 'package:multi_furniture_store/screens/home/home_screen.dart';
+// import 'package:multi_furniture_store/models/order_model.dart';
 import 'package:multi_furniture_store/screens/new_features/refer_a_friends.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:get/get.dart';
@@ -10,11 +12,17 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:multi_furniture_store/config/text_style.dart';
+import 'package:multi_furniture_store/models/review_cart_model.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class RazorPay extends StatefulWidget {
   final int paymentAmount;
+  final int paymentShippingCharge;
+  final int paymentDiscountValue;
   RazorPay({
     required this.paymentAmount,
+    required this.paymentShippingCharge,
+    required this.paymentDiscountValue,
   });
 
   @override
@@ -22,10 +30,37 @@ class RazorPay extends StatefulWidget {
 }
 
 class _RazorPayState extends State<RazorPay> {
+  TextEditingController _reviewController = TextEditingController();
+  double _rating = 0.0;
+
+  //Buyers
   String? myEmail;
   String? myName;
   String? myPhoneNum;
   String? myProfile;
+
+  //Review Cart
+  String? cartId;
+  String? cartImage;
+  String? paymentMethod;
+  String? paymentStatus;
+  String? cartName;
+  String? cartPrice;
+  String? cartQuantity;
+
+  String img = '';
+  String name = '';
+  String id = '';
+  int price = 0;
+  int qun = 0;
+
+  final Stream<QuerySnapshot> _cartStream = FirebaseFirestore.instance
+      .collection('ReviewCart')
+      .doc(FirebaseAuth.instance.currentUser!.uid)
+      .collection("YourReviewCart")
+      .where('paymentMethod', isEqualTo: '')
+      .where('paymentStatus', isEqualTo: '')
+      .snapshots();
 
   var _razorpay = Razorpay();
 
@@ -34,15 +69,82 @@ class _RazorPayState extends State<RazorPay> {
     // TODO: implement initState
     _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
-    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+    // _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
     super.initState();
   }
 
-  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+  void _handlePaymentSuccess(PaymentSuccessResponse response) async {
     // Do something when payment succeeds
     print('Payment Success');
-    Fluttertoast.showToast(msg: 'Payment Success');
-    Get.to(ReferFriends());
+    Fluttertoast.showToast(msg: 'Payment Success: ' + myName!);
+    CollectionReference ref = FirebaseFirestore.instance
+        .collection("ReviewCart")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("YourReviewCart");
+
+    QuerySnapshot eventsQuery = await ref
+        .where('paymentMethod', isEqualTo: '')
+        .where('paymentStatus', isEqualTo: '')
+        .get();
+
+    eventsQuery.docs.forEach((msgDoc) {
+      msgDoc.reference.update({
+        "paymentMethod": 'Online Payment',
+        "paymentStatus": 'Payment Success',
+      });
+    });
+    Get.off(HomeScreen());
+    // List<OrderModel>? oderItemList;
+    // FirebaseFirestore.instance
+    //     .collection("Order")
+    //     .doc(FirebaseAuth.instance.currentUser!.uid)
+    //     .collection("MyOrders")
+    //     .doc()
+    //     .set(
+    //   {
+    //     "subTotal": widget.paymentAmount,
+    //     "Shipping Charge": widget.paymentShippingCharge,
+    //     "Discount": widget.paymentDiscountValue,
+    //     "orderTime": DateTime.now(),
+    //     "orderItems": oderItemList!
+    //         .map((e) => {
+    //               "productId": e.id,
+    //               "productImage": e.img,
+    //               "productName": e.name,
+    //               "productPrice": e.price,
+    //               "productQuantity": e.qun
+    //             })
+    //         .toList(),
+
+    //     // "subTotal": widget.paymentAmount,
+    //     // "Shipping Charge": widget.paymentShippingCharge,
+    //     // "Discount": widget.paymentDiscountValue,
+    //     // "orderTime": DateTime.now(),
+    //     // "orderItems": {
+    //     //   "orderId": id,
+    //     //   "orderImage": img,
+    //     //   "orderName": name,
+    //     //   "orderPrice": price,
+    //     //   "orderQuantity": qun,
+    //     // }
+    //   },
+    //   SetOptions(merge: true),
+    // );
+    // print(oderItemList);
+    // FirebaseFirestore.instance
+    //     .collection('Order')
+    //     .doc(FirebaseAuth.instance.currentUser!.uid)
+    //     .collection("MyOrders")
+    //     .doc()
+    //     .set({
+    //       "subTotal": widget.paymentAmount,
+    //       "Shipping Charge": "",
+    //       "Discount": "10",
+    //       "orderTime": DateTime.now(),
+    //       "orderImage": e.cartImage,
+    //       "orderPrice": e.cartPrice,
+    //       "orderQuantity": e.cartQuantity
+    //     });
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
@@ -52,10 +154,10 @@ class _RazorPayState extends State<RazorPay> {
     Get.back();
   }
 
-  void _handleExternalWallet(ExternalWalletResponse response) {
-    // Do something when an external wallet is selected
-    Fluttertoast.showToast(msg: 'Sucess Wallet payment');
-  }
+  // void _handleExternalWallet(ExternalWalletResponse response) {
+  //   // Do something when an external wallet is selected
+  //   Fluttertoast.showToast(msg: 'Sucess Wallet payment');
+  // }
 
   TextEditingController amountController = TextEditingController();
 
@@ -70,145 +172,270 @@ class _RazorPayState extends State<RazorPay> {
           style: TextStyle(fontSize: 18),
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              color: color5254A8,
-              border: Border.all(
-                width: 8,
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: color5254A8,
+                border: Border.all(
+                  width: 8,
+                ),
+                borderRadius: BorderRadius.circular(12),
               ),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Column(
-              children: [
-                FutureBuilder(
-                  future: _fetch(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState != ConnectionState.done)
+              child: Column(
+                children: [
+                  FutureBuilder(
+                    future: _fetch(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState != ConnectionState.done)
+                        return Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                          ).paddingOnly(top: 20),
+                        );
                       return Center(
-                        child: CircularProgressIndicator(
-                          color: Colors.white,
-                        ).paddingOnly(top: 20),
+                        child: CircleAvatar(
+                          backgroundImage: myProfile == null || myProfile == ''
+                              ? AssetImage('assets/icons/accountrb.png')
+                                  as ImageProvider
+                              : NetworkImage(myProfile!),
+                          backgroundColor: colorFFCA27,
+                          radius: 50,
+                        ),
                       );
-                    return Center(
-                      child: CircleAvatar(
-                        backgroundImage: myProfile == null || myProfile == ''
-                            ? AssetImage('assets/icons/accountrb.png')
-                                as ImageProvider
-                            : NetworkImage(myProfile!),
-                        backgroundColor: colorFFCA27,
-                        radius: 50,
-                      ),
-                    );
-                  },
-                ).paddingOnly(top: 30),
-                FutureBuilder(
-                  future: _fetch(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState != ConnectionState.done)
-                      return Text(
-                        'Loading Data...Please Wait',
-                        style: colorFFFFFFw80024,
-                      ).paddingOnly(top: 30);
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Name: ' + myName!,
-                          style: colorFFFFFFw80024.copyWith(fontSize: 22),
-                        ).paddingOnly(top: 30),
-                        Text(
-                          'Email: ' + myEmail!,
-                          style: colorFFFFFFw50016.copyWith(fontSize: 15),
-                        ).paddingOnly(top: 20),
-                        Text(
-                          // 'Phone Number: ' + myPhoneNum!,
-                          myPhoneNum == null || myPhoneNum == ''
-                              ? 'Phone Number Not Found'
-                              : myPhoneNum!,
-                          style: colorFFFFFFw50016.copyWith(fontSize: 15),
-                        ).paddingOnly(top: 20),
-                      ],
-                    );
-                  },
-                ),
-                Text(
-                  'Total Amount',
-                  style: colorFFFFFFw50016.copyWith(fontSize: 15),
-                ).paddingOnly(top: 20),
-                Text(
-                  rupees + ' ' + widget.paymentAmount.toString(),
-                  style: colorFFFFFFw50016.copyWith(fontSize: 15),
-                ).paddingOnly(top: 5, bottom: 20),
-              ],
-            ),
-          ).paddingAll(20),
-          Container(
-            width: 160,
-            height: 50,
-            child: MaterialButton(
-              onPressed: () async {
-                ///Make Payment
-                var options = {
-                  'key': 'rzp_test_Iv5oyKJHohxjk5',
-                  //Amount will be multiple of 100
-                  // 'amount': 50000, // Amount in paisa = Rs/100
-                  'amount': widget.paymentAmount * 100,
-                  'name': myName,
-                  'description': 'Demo Payment',
-                  'timeout': 120, // in seconds
-                  'prefill': {
-                    'contact': myPhoneNum,
-                    'email': myEmail
+                    },
+                  ).paddingOnly(top: 30),
+                  FutureBuilder(
+                    future: _fetch(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState != ConnectionState.done)
+                        return Text(
+                          'Loading Data...Please Wait',
+                          style: colorFFFFFFw80024,
+                        ).paddingOnly(top: 30);
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Name: ' + myName!,
+                            style: colorFFFFFFw80024.copyWith(fontSize: 22),
+                          ).paddingOnly(top: 30),
+                          Text(
+                            'Email: ' + myEmail!,
+                            style: colorFFFFFFw50016.copyWith(fontSize: 15),
+                          ).paddingOnly(top: 20),
+                          Text(
+                            myPhoneNum == null || myPhoneNum == ''
+                                ? 'Phone Number Not Found'
+                                : myPhoneNum!,
+                            style: colorFFFFFFw50016.copyWith(fontSize: 15),
+                          ).paddingOnly(top: 20),
+                        ],
+                      );
+                    },
+                  ),
+                  Text(
+                    'Total Amount',
+                    style: colorFFFFFFw50016.copyWith(fontSize: 15),
+                  ).paddingOnly(top: 20),
+                  Text(
+                    rupees + ' ' + widget.paymentAmount.toString(),
+                    style: colorFFFFFFw50016.copyWith(fontSize: 15),
+                  ).paddingOnly(top: 5),
+                  Text(
+                    'Shipping Charge',
+                    style: colorFFFFFFw50016.copyWith(fontSize: 15),
+                  ).paddingOnly(top: 20),
+                  Text(
+                    rupees + ' ' + widget.paymentShippingCharge.toString(),
+                    style: colorFFFFFFw50016.copyWith(fontSize: 15),
+                  ).paddingOnly(top: 5),
+                  Text(
+                    'Discount',
+                    style: colorFFFFFFw50016.copyWith(fontSize: 15),
+                  ).paddingOnly(top: 20),
+                  Text(
+                    rupees + ' ' + widget.paymentDiscountValue.toString(),
+                    style: colorFFFFFFw50016.copyWith(fontSize: 15),
+                  ).paddingOnly(top: 5, bottom: 20),
+                  // FutureBuilder(
+                  //   future: _fetchReviewCart(),
+                  //   builder: (context, snapshot) {
+                  //     if (snapshot.connectionState != ConnectionState.done)
+                  //       return Text(
+                  //         'Loading Data...Please Wait',
+                  //         style: colorFFFFFFw80024,
+                  //       ).paddingOnly(top: 30);
+                  //     return Text(
+                  //       'Name: ' + cartName!,
+                  //       style: colorFFFFFFw80024.copyWith(fontSize: 22),
+                  //     ).paddingOnly(top: 30);
+                  //   },
+                  // ),
+                ],
+              ),
+            ).paddingAll(20),
+            // StreamBuilder<QuerySnapshot>(
+            //   stream: _cartStream,
+            //   builder: (BuildContext context,
+            //       AsyncSnapshot<QuerySnapshot> snapshot) {
+            //     if (snapshot.hasError) {
+            //       return Text('Something went wrong');
+            //     }
+
+            //     if (snapshot.connectionState == ConnectionState.waiting) {
+            //       return Center(
+            //         child: CircularProgressIndicator(
+            //           color: Colors.cyan,
+            //         ),
+            //       );
+            //     }
+
+            //     return SizedBox(
+            //       height: 300,
+            //       child: ListView.builder(
+            //         padding: const EdgeInsets.symmetric(horizontal: 10),
+            //         scrollDirection: Axis.horizontal,
+            //         itemCount: snapshot.data!.size,
+            //         itemBuilder: (context, index) {
+            //           final productData = snapshot.data!.docs[index];
+            //           final firebaseUser = FirebaseAuth.instance.currentUser;
+            //           cartId = productData['cartId'];
+            //           cartImage = productData['cartImage'];
+            //           cartName = productData['cartName'];
+            //           paymentMethod = productData['paymentMethod'];
+            //           paymentStatus = productData['paymentStatus'];
+            //           cartPrice = productData['cartPrice'];
+            //           cartQuantity = productData['cartQuantity'];
+            //           return GestureDetector(
+            //             onTap: () {},
+            //             child: Container(
+            //               width: 180,
+            //               child: Column(
+            //                 crossAxisAlignment: CrossAxisAlignment.start,
+            //                 children: [
+            //                   Image.network(productData['cartImage']),
+            //                   Text(
+            //                     productData['cartName'],
+            //                     style: TextStyle(
+            //                             color: Color(0xFF000000),
+            //                             fontSize: 20,
+            //                             fontWeight: FontWeight.w500,
+            //                             fontFamily: 'Poppins')
+            //                         .copyWith(),
+            //                     overflow: TextOverflow.ellipsis,
+            //                     maxLines: 2,
+            //                   ).paddingOnly(top: 10),
+            //                   Text(
+            //                     'Price: ' +
+            //                         rupees +
+            //                         productData['cartPrice'].toString(),
+            //                     style: TextStyle(
+            //                             color: Color(0xFF999999),
+            //                             fontSize: 14,
+            //                             fontWeight: FontWeight.w400,
+            //                             fontFamily: 'Poppins')
+            //                         .copyWith(fontSize: 18),
+            //                   ).paddingOnly(top: 5),
+            //                   Text(
+            //                     'Quantity: ' +
+            //                         productData['cartQuantity'].toString(),
+            //                     style: TextStyle(
+            //                             color: Color(0xFF999999),
+            //                             fontSize: 14,
+            //                             fontWeight: FontWeight.w400,
+            //                             fontFamily: 'Poppins')
+            //                         .copyWith(fontSize: 18),
+            //                   ).paddingOnly(top: 5),
+            //                 ],
+            //               ).paddingOnly(top: 10),
+            //             ),
+            //           ).paddingOnly(left: 10);
+            //         },
+            //       ),
+            //     );
+            //   },
+            // ).paddingAll(20),
+            Container(
+              width: 160,
+              height: 50,
+              child: MaterialButton(
+                onPressed: () async {
+                  ///Make Payment
+                  var options = {
+                    'key': 'rzp_test_Iv5oyKJHohxjk5',
+                    //Amount will be multiple of 100
+                    // 'amount': 50000, // Amount in paisa = Rs/100
+                    'amount': widget.paymentAmount * 100,
+                    'name': myName,
+                    'description': 'Demo Payment',
+                    'timeout': 120, // in seconds
+                    'prefill': {'contact': myPhoneNum, 'email': myEmail}
+                  };
+                  try {
+                    _razorpay.open(options);
+                  } catch (e) {
+                    print(e);
                   }
-                };
-                try {
-                  _razorpay.open(options);
-                } catch (e) {
-                  print(e);
-                }
-              },
-              child: Text(
-                "Pay Amount",
-                style: TextStyle(
-                  color: colorFFFFFF,
+                },
+                child: Text(
+                  "Pay Amount",
+                  style: TextStyle(
+                    color: colorFFFFFF,
+                  ),
+                ),
+                color: primaryColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              color: primaryColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
             ),
-          ),
-          // CupertinoButton(
-          //   color: Colors.grey,
-          //   child: Text('Pay Amount'),
-          //   onPressed: () async {
-          //     ///Make Payment
-          //     var options = {
-          //       'key': 'rzp_test_Iv5oyKJHohxjk5',
-          //       //Amount will be multiple of 100
-          //       // 'amount': 50000, // Amount in paisa = Rs/100
-          //       'amount': widget.paymentAmount * 100,
-          //       'name': 'Apurv Patel',
-          //       'description': 'Demo Payment',
-          //       'timeout': 120, // in seconds
-          //       'prefill': {
-          //         'contact': '4589745623',
-          //         'email': 'demo.pay@gmail.com'
-          //       }
-          //     };
-          //     try {
-          //       _razorpay.open(options);
-          //     } catch (e) {
-          //       print(e);
-          //     }
-          //   },
-          // ),
-        ],
+            StreamBuilder<QuerySnapshot>(
+              stream: _cartStream,
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.hasError) {
+                  return Text('Something went wrong');
+                }
+
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.cyan,
+                    ),
+                  );
+                }
+
+                return SizedBox(
+                  height: 270,
+                  child: ListView.builder(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: snapshot.data!.size,
+                    itemBuilder: (context, index) {
+                      final productData = snapshot.data!.docs[index];
+                      final firebaseUser = FirebaseAuth.instance.currentUser;
+                      img = productData['cartImage'];
+                      id = productData['cartId'];
+                      name = productData['cartName'];
+                      price = productData['cartPrice'];
+                      qun = productData['cartQuantity'];
+                      // print("CartImage: " + img);
+                      // print("CartId: " + id);
+                      // print("CartName: " + name);
+                      // print("CartPrice: " + price.toString());
+                      // print("CartQun: " + qun.toString());
+                      return Container().paddingOnly(left: 10);
+                    },
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -225,6 +452,29 @@ class _RazorPayState extends State<RazorPay> {
         myName = ds.data()!['fullName'];
         myPhoneNum = ds.data()!['phoneNumber'];
         myProfile = ds.data()!['profile'];
+        print(myName);
+        print(myEmail);
+        print(myPhoneNum);
+        print(myProfile);
+      }).catchError((e) {
+        print(e);
+      });
+  }
+
+  _fetchReviewCart() async {
+    final firebaseUser = await FirebaseAuth.instance.currentUser;
+    if (firebaseUser != null)
+      await FirebaseFirestore.instance
+          .collection('ReviewCart')
+          .doc(firebaseUser.uid)
+          .collection('YourReviewCart')
+          .doc()
+          .get()
+          .then((ds) {
+        cartImage = ds.data()!['cartImage'];
+        cartName = ds.data()!['cartName'];
+        cartPrice = ds.data()!['cartPrice'];
+        cartQuantity = ds.data()!['cartQuantity'];
         print(myName);
         print(myEmail);
         print(myPhoneNum);

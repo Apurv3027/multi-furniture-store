@@ -15,17 +15,21 @@ class SingleItem extends StatefulWidget {
   bool wishList = false;
   int productPrice;
   String productId;
+  String paymentMethod;
+  String paymentStatus;
   int productQuantity;
   Function onDelete;
   SingleItem(
       {required this.productQuantity,
-        required this.productId,
-        required this.onDelete,
-        required this.isBool,
-        required this.productImage,
-        required this.productName,
-        required this.productPrice,
-        required this.wishList});
+      required this.productId,
+      required this.paymentMethod,
+      required this.paymentStatus,
+      required this.onDelete,
+      required this.isBool,
+      required this.productImage,
+      required this.productName,
+      required this.productPrice,
+      required this.wishList});
 
   @override
   _SingleItemState createState() => _SingleItemState();
@@ -100,172 +104,151 @@ class _SingleItemState extends State<SingleItem> {
                       : EdgeInsets.only(left: 15, right: 15),
                   child: widget.isBool == false
                       ? Count(
-                    productId: widget.productId,
-                    productImage: widget.productImage,
-                    productName: widget.productName,
-                    productPrice: widget.productPrice,
-                  )
-                      : Padding(
-                    padding: const EdgeInsets.only(top: 8),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // InkWell(
-                        //   // onTap: widget.onDelete,
-                        //   onTap: () {
-                        //     showDialog(
-                        //       context: context,
-                        //       builder: (context) => AlertDialog(
-                        //         title: Text("Cart Product"),
-                        //         content: Text("Are you sure you want to delete your cart product?"),
-                        //         actions: [
-                        //           MaterialButton(
-                        //             child: Text("No"),
-                        //             onPressed: () {
-                        //               Navigator.of(context).pop();
-                        //             },
-                        //           ),
-                        //           MaterialButton(
-                        //             child: Text("Yes"),
-                        //             onPressed: () {
-                        //               reviewCartProvider.reviewCartDataDelete(widget.productId);
-                        //               Navigator.of(context).pop();
-                        //             },
-                        //           ),
-                        //         ],
-                        //       ),
-                        //     );
-                        //   },
-                        //   child: Icon(
-                        //     Icons.delete,
-                        //     size: 30,
-                        //     color: Colors.black54,
-                        //   ),
-                        // ),
-                        // SizedBox(
-                        //   height: 5,
-                        // ),
-                        widget.wishList == false
-                            ? Container(
-                          height: 30,
-                          width: 80,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    if (count == 1) {
-                                      Fluttertoast.showToast(
-                                        msg:
-                                        "You reach minimum limit",
-
-                                      );
-                                    } else {
-                                      setState(() {
-                                        count--;
-                                      });
-                                      reviewCartProvider.updateReviewCartData(
-                                        cartImage: widget.productImage,
-                                        cartId: widget.productId,
-                                        cartName: widget.productName,
-                                        cartPrice: widget.productPrice,
-                                        cartQuantity: count,
-                                      );
-                                    }
-                                  },
-                                  child: Icon(
-                                    Icons.remove,
-                                    color: primaryColor,
-                                    size: 20,
-                                  ),
-                                ).paddingOnly(left: 5),
-                                Text(
-                                  "$count",
-                                  style: TextStyle(
-                                    color: primaryColor,
-                                    fontSize: 20
-                                  ),
-                                ).paddingOnly(left: 5,right: 5),
-                                InkWell(
-                                  onTap: () {
-                                    if (count < 10) {
-                                      setState(() {
-                                        count++;
-                                      });
-                                      reviewCartProvider.updateReviewCartData(
-                                        cartImage: widget.productImage,
-                                        cartId: widget.productId,
-                                        cartName: widget.productName,
-                                        cartPrice: widget.productPrice,
-                                        cartQuantity: count,
-                                      );
-                                    }
-                                  },
-                                  child: Icon(
-                                    Icons.add,
-                                    color: primaryColor,
-                                    size: 20,
-                                  ),
-                                ).paddingOnly(right: 5),
-                              ],
-                            ),
-                          ),
+                          productId: widget.productId,
+                          productImage: widget.productImage,
+                          productName: widget.productName,
+                          productPrice: widget.productPrice,
                         )
-                            : Container(),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        InkWell(
-                          // onTap: widget.onDelete,
-                          onTap: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                title: Text("Cart Product"),
-                                content: Text("Are you sure you want to delete your cart product?"),
-                                actions: [
-                                  MaterialButton(
-                                    child: Text("No"),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
-                                  MaterialButton(
-                                    child: Text("Yes"),
-                                    onPressed: () {
-                                      reviewCartProvider.reviewCartDataDelete(widget.productId);
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
-                                ],
+                      : Padding(
+                          padding: const EdgeInsets.only(top: 8),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              widget.wishList == false
+                                  ? Container(
+                                      height: 30,
+                                      width: 80,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(color: Colors.grey),
+                                        borderRadius: BorderRadius.circular(30),
+                                      ),
+                                      child: Center(
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            InkWell(
+                                              onTap: () {
+                                                if (count == 1) {
+                                                  Fluttertoast.showToast(
+                                                    msg:
+                                                        "You reach minimum limit",
+                                                  );
+                                                } else {
+                                                  setState(() {
+                                                    count--;
+                                                  });
+                                                  reviewCartProvider
+                                                      .updateReviewCartData(
+                                                    cartImage:
+                                                        widget.productImage,
+                                                    cartId: widget.productId,
+                                                    cartName:
+                                                        widget.productName,
+                                                    cartPrice:
+                                                        widget.productPrice,
+                                                    cartQuantity: count,
+                                                  );
+                                                }
+                                              },
+                                              child: Icon(
+                                                Icons.remove,
+                                                color: primaryColor,
+                                                size: 20,
+                                              ),
+                                            ).paddingOnly(left: 5),
+                                            Text(
+                                              "$count",
+                                              style: TextStyle(
+                                                  color: primaryColor,
+                                                  fontSize: 20),
+                                            ).paddingOnly(left: 5, right: 5),
+                                            InkWell(
+                                              onTap: () {
+                                                if (count < 10) {
+                                                  setState(() {
+                                                    count++;
+                                                  });
+                                                  reviewCartProvider
+                                                      .updateReviewCartData(
+                                                    cartImage:
+                                                        widget.productImage,
+                                                    cartId: widget.productId,
+                                                    cartName:
+                                                        widget.productName,
+                                                    cartPrice:
+                                                        widget.productPrice,
+                                                    cartQuantity: count,
+                                                    paymentMethod:
+                                                        widget.paymentMethod,
+                                                    paymentStatus:
+                                                        widget.paymentStatus,
+                                                  );
+                                                }
+                                              },
+                                              child: Icon(
+                                                Icons.add,
+                                                color: primaryColor,
+                                                size: 20,
+                                              ),
+                                            ).paddingOnly(right: 5),
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                  : Container(),
+                              SizedBox(
+                                height: 5,
                               ),
-                            );
-                          },
-                          child: Container(
-                            height: 30,
-                            width: 80,
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Delete',
-                                style: TextStyle(
-                                  color: Colors.red,
+                              InkWell(
+                                // onTap: widget.onDelete,
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: Text("Cart Product"),
+                                      content: Text(
+                                          "Are you sure you want to delete your cart product?"),
+                                      actions: [
+                                        MaterialButton(
+                                          child: Text("No"),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                        MaterialButton(
+                                          child: Text("Yes"),
+                                          onPressed: () {
+                                            reviewCartProvider
+                                                .reviewCartDataDelete(
+                                                    widget.productId);
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  height: 30,
+                                  width: 80,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.grey),
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'Delete',
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
-                  ),
                 ),
               ),
             ],
@@ -274,9 +257,9 @@ class _SingleItemState extends State<SingleItem> {
         widget.isBool == false
             ? Container()
             : Divider(
-          height: 1,
-          color: Colors.black45,
-        )
+                height: 1,
+                color: Colors.black45,
+              )
       ],
     );
   }
@@ -293,13 +276,13 @@ class WishListSingleItem extends StatefulWidget {
   Function onDelete;
   WishListSingleItem(
       {required this.productQuantity,
-        required this.productId,
-        required this.onDelete,
-        required this.isBool,
-        required this.productImage,
-        required this.productName,
-        required this.productPrice,
-        required this.wishList});
+      required this.productId,
+      required this.onDelete,
+      required this.isBool,
+      required this.productImage,
+      required this.productName,
+      required this.productPrice,
+      required this.wishList});
 
   @override
   _WishListSingleItemState createState() => _WishListSingleItemState();
@@ -379,7 +362,8 @@ class _WishListSingleItemState extends State<WishListSingleItem> {
                         context: context,
                         builder: (context) => AlertDialog(
                           title: Text("Wish List Product"),
-                          content: Text("Are you sure you want to delete your wish list product?"),
+                          content: Text(
+                              "Are you sure you want to delete your wish list product?"),
                           actions: [
                             MaterialButton(
                               child: Text("No"),
@@ -390,7 +374,8 @@ class _WishListSingleItemState extends State<WishListSingleItem> {
                             MaterialButton(
                               child: Text("Yes"),
                               onPressed: () {
-                                wishListProvider.wishlistDataDelete(widget.productId);
+                                wishListProvider
+                                    .wishlistDataDelete(widget.productId);
                                 Navigator.of(context).pop();
                               },
                             ),
@@ -412,9 +397,9 @@ class _WishListSingleItemState extends State<WishListSingleItem> {
         widget.isBool == false
             ? Container()
             : Divider(
-          height: 1,
-          color: Colors.black45,
-        )
+                height: 1,
+                color: Colors.black45,
+              )
       ],
     );
   }

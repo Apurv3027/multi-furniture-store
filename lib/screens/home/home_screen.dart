@@ -20,10 +20,20 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late ProductProvider productProvider;
 
-  final Stream<QuerySnapshot> _bannerStream = FirebaseFirestore.instance.collection('banners').snapshots();
-  final Stream<QuerySnapshot> _chairStream = FirebaseFirestore.instance.collection('products').where('productCategory', isEqualTo: 'Chairs').snapshots();
-  final Stream<QuerySnapshot> _lightStream = FirebaseFirestore.instance.collection('products').where('productCategory', isEqualTo: 'Lights').snapshots();
-  final Stream<QuerySnapshot> _lampStream = FirebaseFirestore.instance.collection('products').where('productCategory', isEqualTo: 'Lamps').snapshots();
+  final Stream<QuerySnapshot> _bannerStream =
+      FirebaseFirestore.instance.collection('banners').snapshots();
+  final Stream<QuerySnapshot> _chairStream = FirebaseFirestore.instance
+      .collection('products')
+      .where('productCategory', isEqualTo: 'Chairs')
+      .snapshots();
+  final Stream<QuerySnapshot> _lightStream = FirebaseFirestore.instance
+      .collection('products')
+      .where('productCategory', isEqualTo: 'Lights')
+      .snapshots();
+  final Stream<QuerySnapshot> _lampStream = FirebaseFirestore.instance
+      .collection('products')
+      .where('productCategory', isEqualTo: 'Lamps')
+      .snapshots();
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           Padding(
                             padding:
-                            const EdgeInsets.only(right: 130, bottom: 10),
+                                const EdgeInsets.only(right: 130, bottom: 10),
                             child: Container(
                               height: 50,
                               width: 100,
@@ -167,7 +177,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 StreamBuilder<QuerySnapshot>(
                   stream: _chairStream,
-                  builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.hasError) {
                       return Text('Something went wrong');
                     }
@@ -188,7 +199,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemCount: snapshot.data!.size,
                         itemBuilder: (context, index) {
                           final productData = snapshot.data!.docs[index];
-                          final firebaseUser = FirebaseAuth.instance.currentUser;
+                          final firebaseUser =
+                              FirebaseAuth.instance.currentUser;
                           return GestureDetector(
                             onTap: () {
                               Get.to(ProductOverview(
@@ -203,16 +215,32 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Image.network(productData['image']),
+                                  Image.network(
+                                    productData['image'],
+                                    fit: BoxFit.fill,
+                                    height: 200,
+                                    width: 200,
+                                  ),
                                   Text(
                                     productData['productName'],
-                                    style: TextStyle(color: Color(0xFF000000), fontSize: 20, fontWeight: FontWeight.w500, fontFamily: 'Poppins').copyWith(),
+                                    style: TextStyle(
+                                            color: Color(0xFF000000),
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w500,
+                                            fontFamily: 'Poppins')
+                                        .copyWith(),
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
                                   ).paddingOnly(top: 10),
                                   Text(
-                                    rupees + productData['productPrice'].toString(),
-                                    style: TextStyle(color: Color(0xFF999999), fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'Poppins').copyWith(fontSize: 18),
+                                    rupees +
+                                        productData['productPrice'].toString(),
+                                    style: TextStyle(
+                                            color: Color(0xFF999999),
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: 'Poppins')
+                                        .copyWith(fontSize: 18),
                                   ).paddingOnly(top: 5),
                                 ],
                               ).paddingOnly(top: 10),
@@ -275,7 +303,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 StreamBuilder<QuerySnapshot>(
                   stream: _lightStream,
-                  builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.hasError) {
                       return Text('Something went wrong');
                     }
@@ -296,7 +325,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemCount: snapshot.data!.size,
                         itemBuilder: (context, index) {
                           final productData = snapshot.data!.docs[index];
-                          final firebaseUser = FirebaseAuth.instance.currentUser;
+                          final firebaseUser =
+                              FirebaseAuth.instance.currentUser;
                           return GestureDetector(
                             onTap: () {
                               Get.to(ProductOverview(
@@ -311,16 +341,32 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Image.network(productData['image']),
+                                  Image.network(
+                                    productData['image'],
+                                    fit: BoxFit.fill,
+                                    height: 200,
+                                    width: 200,
+                                  ),
                                   Text(
                                     productData['productName'],
-                                    style: TextStyle(color: Color(0xFF000000), fontSize: 20, fontWeight: FontWeight.w500, fontFamily: 'Poppins').copyWith(),
+                                    style: TextStyle(
+                                            color: Color(0xFF000000),
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w500,
+                                            fontFamily: 'Poppins')
+                                        .copyWith(),
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
                                   ).paddingOnly(top: 10),
                                   Text(
-                                    rupees + productData['productPrice'].toString(),
-                                    style: TextStyle(color: Color(0xFF999999), fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'Poppins').copyWith(fontSize: 18),
+                                    rupees +
+                                        productData['productPrice'].toString(),
+                                    style: TextStyle(
+                                            color: Color(0xFF999999),
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: 'Poppins')
+                                        .copyWith(fontSize: 18),
                                   ).paddingOnly(top: 5),
                                 ],
                               ).paddingOnly(top: 10),
@@ -383,7 +429,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 StreamBuilder<QuerySnapshot>(
                   stream: _lampStream,
-                  builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.hasError) {
                       return Text('Something went wrong');
                     }
@@ -404,7 +451,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemCount: snapshot.data!.size,
                         itemBuilder: (context, index) {
                           final productData = snapshot.data!.docs[index];
-                          final firebaseUser = FirebaseAuth.instance.currentUser;
+                          final firebaseUser =
+                              FirebaseAuth.instance.currentUser;
                           return GestureDetector(
                             onTap: () {
                               Get.to(ProductOverview(
@@ -419,16 +467,32 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Image.network(productData['image']),
+                                  Image.network(
+                                    productData['image'],
+                                    fit: BoxFit.fill,
+                                    height: 200,
+                                    width: 200,
+                                  ),
                                   Text(
                                     productData['productName'],
-                                    style: TextStyle(color: Color(0xFF000000), fontSize: 20, fontWeight: FontWeight.w500, fontFamily: 'Poppins').copyWith(),
+                                    style: TextStyle(
+                                            color: Color(0xFF000000),
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w500,
+                                            fontFamily: 'Poppins')
+                                        .copyWith(),
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
                                   ).paddingOnly(top: 10),
                                   Text(
-                                    rupees + productData['productPrice'].toString(),
-                                    style: TextStyle(color: Color(0xFF999999), fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'Poppins').copyWith(fontSize: 18),
+                                    rupees +
+                                        productData['productPrice'].toString(),
+                                    style: TextStyle(
+                                            color: Color(0xFF999999),
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: 'Poppins')
+                                        .copyWith(fontSize: 18),
                                   ).paddingOnly(top: 5),
                                 ],
                               ).paddingOnly(top: 10),

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_furniture_store/config/colors.dart';
 import 'package:multi_furniture_store/providers/review_cart_provider.dart';
@@ -25,6 +26,9 @@ class _CountState extends State<Count> {
   int count = 1;
   bool isTrue = false;
 
+  String? paymentMethod;
+  String? paymentStatus;
+
   String? productName;
   String? productPrice;
   double? productQuantity;
@@ -38,18 +42,18 @@ class _CountState extends State<Count> {
         .get()
         .then(
           (value) => {
-        if (this.mounted)
-          {
-            if (value.exists)
+            if (this.mounted)
               {
-                setState(() {
-                  count = value.get("cartQuantity");
-                  isTrue = value.get("isAdd");
-                })
+                if (value.exists)
+                  {
+                    setState(() {
+                      count = value.get("cartQuantity");
+                      isTrue = value.get("isAdd");
+                    })
+                  }
               }
-          }
-      },
-    );
+          },
+        );
   }
 
   @override
@@ -66,83 +70,89 @@ class _CountState extends State<Count> {
       ),
       child: isTrue == true
           ? Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          InkWell(
-            onTap: () {
-              if (count == 1) {
-                setState(() {
-                  isTrue = false;
-                });
-                reviewCartProvider.reviewCartDataDelete(widget.productId);
-              } else if (count > 1) {
-                setState(() {
-                  count--;
-                });
-                reviewCartProvider.updateReviewCartData(
-                  cartId: widget.productId,
-                  cartImage: widget.productImage,
-                  cartName: widget.productName,
-                  cartPrice: widget.productPrice,
-                  cartQuantity: count,
-                );
-              }
-            },
-            child: Icon(
-              Icons.remove,
-              size: 20,
-              color: color5254A8,
-            ),
-          ),
-          Text(
-            "$count",
-            style: TextStyle(
-              color: color5254A8,
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-            ),
-          ),
-          InkWell(
-            onTap: () {
-              setState(() {
-                count++;
-              });
-              reviewCartProvider.updateReviewCartData(
-                cartId: widget.productId,
-                cartImage: widget.productImage,
-                cartName: widget.productName,
-                cartPrice: widget.productPrice,
-                cartQuantity: count,
-              );
-            },
-            child: Icon(
-              Icons.add,
-              size: 20,
-              color: color5254A8,
-            ),
-          ),
-        ],
-      )
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                InkWell(
+                  onTap: () {
+                    if (count == 1) {
+                      setState(() {
+                        isTrue = false;
+                      });
+                      reviewCartProvider.reviewCartDataDelete(widget.productId);
+                    } else if (count > 1) {
+                      setState(() {
+                        count--;
+                      });
+                      reviewCartProvider.updateReviewCartData(
+                        cartId: widget.productId,
+                        cartImage: widget.productImage,
+                        cartName: widget.productName,
+                        cartPrice: widget.productPrice,
+                        cartQuantity: count,
+                        paymentMethod: '',
+                        paymentStatus: '',
+                      );
+                    }
+                  },
+                  child: Icon(
+                    Icons.remove,
+                    size: 20,
+                    color: color5254A8,
+                  ),
+                ).paddingOnly(right: 5),
+                Text(
+                  "$count",
+                  style: TextStyle(
+                    color: color5254A8,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      count++;
+                    });
+                    reviewCartProvider.updateReviewCartData(
+                      cartId: widget.productId,
+                      cartImage: widget.productImage,
+                      cartName: widget.productName,
+                      cartPrice: widget.productPrice,
+                      cartQuantity: count,
+                      paymentMethod: '',
+                      paymentStatus: '',
+                    );
+                  },
+                  child: Icon(
+                    Icons.add,
+                    size: 20,
+                    color: color5254A8,
+                  ),
+                ).paddingOnly(left: 5),
+              ],
+            )
           : Center(
-        child: InkWell(
-          onTap: () {
-            setState(() {
-              isTrue = true;
-            });
-            reviewCartProvider.addReviewCartData(
-              cartId: widget.productId,
-              cartImage: widget.productImage,
-              cartName: widget.productName,
-              cartPrice: widget.productPrice,
-              cartQuantity: count,
-            );
-          },
-          child: Text(
-            "ADD",
-            style: TextStyle(color: primaryColor),
-          ),
-        ),
-      ),
+              child: InkWell(
+                onTap: () {
+                  setState(() {
+                    isTrue = true;
+                  });
+                  reviewCartProvider.addReviewCartData(
+                    cartId: widget.productId,
+                    cartImage: widget.productImage,
+                    cartName: widget.productName,
+                    cartPrice: widget.productPrice,
+                    cartQuantity: count,
+                    paymentMethod: '',
+                    paymentStatus: '',
+                  );
+                },
+                child: Text(
+                  "ADD",
+                  style: TextStyle(color: primaryColor),
+                ),
+              ),
+            ),
     );
   }
 
@@ -166,5 +176,4 @@ class _CountState extends State<Count> {
         print(e);
       });
   }
-
 }

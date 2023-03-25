@@ -26,8 +26,8 @@ class _DrawerSideState extends State<DrawerSide> {
 
   Widget listTile(
       {required String title,
-        required IconData iconData,
-        required Function onTap}) {
+      required IconData iconData,
+      required Function onTap}) {
     return Container(
       height: 50,
       child: ListTile(
@@ -89,10 +89,11 @@ class _DrawerSideState extends State<DrawerSide> {
                           );
                         return Center(
                           child: CircleAvatar(
-                            backgroundImage: myProfile == null || myProfile == ''
-                                ? AssetImage('assets/icons/accountrb.png')
-                            as ImageProvider
-                                : NetworkImage(myProfile!),
+                            backgroundImage:
+                                myProfile == null || myProfile == ''
+                                    ? AssetImage('assets/icons/accountrb.png')
+                                        as ImageProvider
+                                    : NetworkImage(myProfile!),
                             backgroundColor: colorFFCA27,
                             radius: 50,
                           ),
@@ -186,22 +187,22 @@ class _DrawerSideState extends State<DrawerSide> {
                     onTap: () => Get.to(WishLsit()),
                   ),
                 ).paddingOnly(top: 25),
-                Container(
-                  height: 30,
-                  child: ListTile(
-                    title: Text(
-                      'Rating & Review',
-                      style: TextStyle(color: textColor),
-                    ),
-                    leading: Icon(
-                      Icons.star_outline,
-                      size: 28,
-                    ),
-                    onTap: () {
-                      Get.to(RatingAndReview());
-                    },
-                  ),
-                ).paddingOnly(top: 25),
+                // Container(
+                //   height: 30,
+                //   child: ListTile(
+                //     title: Text(
+                //       'Rating & Review',
+                //       style: TextStyle(color: textColor),
+                //     ),
+                //     leading: Icon(
+                //       Icons.star_outline,
+                //       size: 28,
+                //     ),
+                //     onTap: () {
+                //       Get.to(RatingAndReview());
+                //     },
+                //   ),
+                // ).paddingOnly(top: 25),
                 Container(
                   height: 30,
                   child: ListTile(

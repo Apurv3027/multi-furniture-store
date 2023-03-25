@@ -20,7 +20,10 @@ class ProductOverview extends StatefulWidget {
   final int productPrice;
   final String productId;
   ProductOverview(
-      {required this.productId, required this.productImage, required this.productName, required this.productPrice});
+      {required this.productId,
+      required this.productImage,
+      required this.productName,
+      required this.productPrice});
 
   @override
   _ProductOverviewState createState() => _ProductOverviewState();
@@ -39,7 +42,7 @@ class _ProductOverviewState extends State<ProductOverview> {
   }) {
     return Expanded(
       child: GestureDetector(
-        onTap: (){},
+        onTap: () {},
         child: Container(
           padding: EdgeInsets.all(20),
           color: backgroundColor,
@@ -75,40 +78,49 @@ class _ProductOverviewState extends State<ProductOverview> {
         .doc(widget.productId)
         .get()
         .then((value) => {
-      if (this.mounted)
-        {
-          if (value.exists)
-            {
-              setState(
-                    () {
-                  wishListBool = value.get("wishList");
-                },
-              ),
-            }
-        }
-    });
+              if (this.mounted)
+                {
+                  if (value.exists)
+                    {
+                      setState(
+                        () {
+                          wishListBool = value.get("wishList");
+                        },
+                      ),
+                    }
+                }
+            });
   }
 
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _reviewController = TextEditingController();
-  double _rating = 0.0;
+  // TextEditingController _reviewController = TextEditingController();
+  // double _rating = 0.0;
 
-  final Stream<QuerySnapshot> _reviewStream = FirebaseFirestore.instance.collection('Ratings').doc(FirebaseAuth.instance.currentUser!.uid).collection('Reviews').where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid).snapshots();
+  // final Stream<QuerySnapshot> _reviewStream = FirebaseFirestore.instance
+  //     .collection('Ratings')
+  //     .doc(FirebaseAuth.instance.currentUser!.uid)
+  //     .collection('Reviews')
+  //     .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+  //     .snapshots();
 
   String? myEmail;
   String? myName;
   String? myProfile;
+
+  String? paymentMethod;
+  String? paymentStatus;
 
   @override
   Widget build(BuildContext context) {
     WishListProvider wishListProvider = Provider.of(context);
     getWishtListBool();
     return Scaffold(
+      backgroundColor: colorFFFFFF,
       bottomNavigationBar: Row(
         children: [
           Expanded(
             child: GestureDetector(
-              onTap: (){
+              onTap: () {
                 setState(() {
                   wishListBool = !wishListBool;
                 });
@@ -119,7 +131,6 @@ class _ProductOverviewState extends State<ProductOverview> {
                     wishListName: widget.productName,
                     wishListPrice: widget.productPrice,
                     wishListQuantity: 2,
-
                   );
                 } else {
                   wishListProvider.wishlistDataDelete(widget.productId);
@@ -152,7 +163,7 @@ class _ProductOverviewState extends State<ProductOverview> {
           ),
           Expanded(
             child: GestureDetector(
-              onTap: (){
+              onTap: () {
                 Get.to(ReviewCart());
               },
               child: Container(
@@ -320,156 +331,178 @@ class _ProductOverviewState extends State<ProductOverview> {
                   ],
                 ),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Rating & Review",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ).paddingOnly(left: 20,top: 10),
-                    RatingBar.builder(
-                      initialRating: _rating,
-                      minRating: 1,
-                      direction: Axis.horizontal,
-                      allowHalfRating: true,
-                      itemCount: 5,
-                      itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                      itemBuilder: (context, _) => Icon(
-                        Icons.star,
-                        color: color5254A8,
-                      ),
-                      onRatingUpdate: (rating) {
-                        setState(() {
-                          _rating = rating;
-                        });
-                      },
-                    ).paddingOnly(left: 15,right: 15,top: 15,bottom: 10),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        hintText: 'Describe your experience',
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: color5254A8,
-                          ),
-                        ),
-                      ),
-                      cursorColor: color5254A8,
-                      maxLength: 500,
-                      controller: _reviewController,
-                    ).paddingOnly(left: 15,right: 15,bottom: 10),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            _formKey.currentState!.save();
-                            FirebaseFirestore.instance
-                                .collection('Ratings')
-                                .doc(FirebaseAuth.instance.currentUser!.uid)
-                                .collection('Reviews')
-                                .add({
-                              'productId': widget.productId,
-                              'userId': FirebaseAuth.instance.currentUser!.uid,
-                              'productName': widget.productName,
-                              'userName': myName,
-                              'userEmail': myEmail,
-                              'userProfile': myProfile,
-                              'rating': _rating,
-                              'review': _reviewController.text.trim(),
-                              'timestamp': DateTime.now(),
-                            });
-                            showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                title: const Text('Rating & Review'),
-                                content: Text('Your rating & review is submitted successfully.'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Get.back();
-                                    },
-                                    child: Text('OK'),
-                                  ),
-                                ],
-                              ),
-                            );
-                            _formKey.currentState!.reset();
-                          }
-                        },
-                        child: Text('Submit'),
-                      ).paddingOnly(left: 15,right: 15,bottom: 10),
-                    ),
-                  ],
-                ),
-              ).paddingAll(10),
-              SizedBox(height: 20.0),
-              StreamBuilder<QuerySnapshot>(
-                stream: _reviewStream,
-                builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (snapshot.hasError) {
-                    return Text('Something went wrong');
-                  }
+              // Container(
+              //   decoration: BoxDecoration(
+              //     border: Border.all(color: Colors.black),
+              //     borderRadius: BorderRadius.circular(8),
+              //   ),
+              //   child: Column(
+              //     crossAxisAlignment: CrossAxisAlignment.start,
+              //     children: [
+              //       Text(
+              //         "Rating & Review",
+              //         style: TextStyle(
+              //           fontSize: 18,
+              //           fontWeight: FontWeight.w600,
+              //         ),
+              //       ).paddingOnly(left: 20, top: 10),
+              //       RatingBar.builder(
+              //         initialRating: _rating,
+              //         minRating: 1,
+              //         direction: Axis.horizontal,
+              //         allowHalfRating: true,
+              //         itemCount: 5,
+              //         itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+              //         itemBuilder: (context, _) => Icon(
+              //           Icons.star,
+              //           color: color5254A8,
+              //         ),
+              //         onRatingUpdate: (rating) {
+              //           setState(() {
+              //             _rating = rating;
+              //           });
+              //         },
+              //       ).paddingOnly(left: 15, right: 15, top: 15, bottom: 10),
+              //       TextFormField(
+              //         decoration: InputDecoration(
+              //           hintText: 'Describe your experience',
+              //           focusedBorder: UnderlineInputBorder(
+              //             borderSide: BorderSide(
+              //               color: color5254A8,
+              //             ),
+              //           ),
+              //         ),
+              //         cursorColor: color5254A8,
+              //         maxLength: 500,
+              //         controller: _reviewController,
+              //       ).paddingOnly(left: 15, right: 15, bottom: 10),
+              //       Align(
+              //         alignment: Alignment.bottomRight,
+              //         child: ElevatedButton(
+              //           onPressed: () {
+              //             if (_formKey.currentState!.validate()) {
+              //               _formKey.currentState!.save();
+              //               FirebaseFirestore.instance
+              //                   .collection('Ratings')
+              //                   .doc(FirebaseAuth.instance.currentUser!.uid)
+              //                   .collection('Reviews')
+              //                   .add({
+              //                 'productId': widget.productId,
+              //                 'userId': FirebaseAuth.instance.currentUser!.uid,
+              //                 'productName': widget.productName,
+              //                 'userName': myName,
+              //                 'userEmail': myEmail,
+              //                 'userProfile': myProfile,
+              //                 'rating': _rating,
+              //                 'review': _reviewController.text.trim(),
+              //                 'timestamp': DateTime.now(),
+              //               });
+              //               showDialog(
+              //                 context: context,
+              //                 builder: (context) => AlertDialog(
+              //                   title: const Text('Rating & Review'),
+              //                   content: Text(
+              //                       'Your rating & review is submitted successfully.'),
+              //                   actions: [
+              //                     TextButton(
+              //                       onPressed: () {
+              //                         Get.back();
+              //                       },
+              //                       child: Text('OK'),
+              //                     ),
+              //                   ],
+              //                 ),
+              //               );
+              //               _formKey.currentState!.reset();
+              //             }
+              //           },
+              //           child: Text('Submit'),
+              //         ).paddingOnly(left: 15, right: 15, bottom: 10),
+              //       ),
+              //     ],
+              //   ),
+              // ).paddingAll(10),
+              // SizedBox(height: 20.0),
+              // StreamBuilder<QuerySnapshot>(
+              //   stream: _reviewStream,
+              //   builder: (BuildContext context,
+              //       AsyncSnapshot<QuerySnapshot> snapshot) {
+              //     if (snapshot.hasError) {
+              //       return Text('Something went wrong');
+              //     }
 
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
-                      child: CircularProgressIndicator(
-                        color: Colors.cyan,
-                      ),
-                    );
-                  }
+              //     if (snapshot.connectionState == ConnectionState.waiting) {
+              //       return Center(
+              //         child: CircularProgressIndicator(
+              //           color: Colors.cyan,
+              //         ),
+              //       );
+              //     }
 
-                  return SizedBox(
-                    height: 380,
-                    child: ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      scrollDirection: Axis.vertical,
-                      itemCount: snapshot.data!.size,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        final productData = snapshot.data!.docs[index];
-                        return GestureDetector(
-                          onTap: () {},
-                          child: Container(
-                            width: 180,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  productData['productId'],
-                                  style: TextStyle(color: Color(0xFF000000), fontSize: 20, fontWeight: FontWeight.w500, fontFamily: 'Poppins').copyWith(),
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 2,
-                                ).paddingOnly(top: 10),
-                                Text(
-                                  productData['rating'].toString(),
-                                  style: TextStyle(color: Color(0xFF999999), fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'Poppins').copyWith(fontSize: 18),
-                                ).paddingOnly(top: 5),
-                                Text(
-                                  productData['review'],
-                                  style: TextStyle(color: Color(0xFF999999), fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'Poppins').copyWith(fontSize: 18),
-                                ).paddingOnly(top: 5),
-                                Text(
-                                  productData['userId'],
-                                  style: TextStyle(color: Color(0xFF999999), fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'Poppins').copyWith(fontSize: 18),
-                                ).paddingOnly(top: 5),
-                              ],
-                            ).paddingOnly(top: 10),
-                          ),
-                        ).paddingOnly(left: 10);
-                      },
-                    ),
-                  );
-                },
-              ).paddingOnly(bottom: 20),
+              //     return SizedBox(
+              //       height: 380,
+              //       child: ListView.builder(
+              //         physics: NeverScrollableScrollPhysics(),
+              //         padding: const EdgeInsets.symmetric(horizontal: 10),
+              //         scrollDirection: Axis.vertical,
+              //         itemCount: snapshot.data!.size,
+              //         shrinkWrap: true,
+              //         itemBuilder: (context, index) {
+              //           final productData = snapshot.data!.docs[index];
+              //           return GestureDetector(
+              //             onTap: () {},
+              //             child: Container(
+              //               width: 180,
+              //               child: Column(
+              //                 crossAxisAlignment: CrossAxisAlignment.start,
+              //                 children: [
+              //                   Text(
+              //                     productData['productId'],
+              //                     style: TextStyle(
+              //                             color: Color(0xFF000000),
+              //                             fontSize: 20,
+              //                             fontWeight: FontWeight.w500,
+              //                             fontFamily: 'Poppins')
+              //                         .copyWith(),
+              //                     overflow: TextOverflow.ellipsis,
+              //                     maxLines: 2,
+              //                   ).paddingOnly(top: 10),
+              //                   Text(
+              //                     productData['rating'].toString(),
+              //                     style: TextStyle(
+              //                             color: Color(0xFF999999),
+              //                             fontSize: 14,
+              //                             fontWeight: FontWeight.w400,
+              //                             fontFamily: 'Poppins')
+              //                         .copyWith(fontSize: 18),
+              //                   ).paddingOnly(top: 5),
+              //                   Text(
+              //                     productData['review'],
+              //                     style: TextStyle(
+              //                             color: Color(0xFF999999),
+              //                             fontSize: 14,
+              //                             fontWeight: FontWeight.w400,
+              //                             fontFamily: 'Poppins')
+              //                         .copyWith(fontSize: 18),
+              //                   ).paddingOnly(top: 5),
+              //                   Text(
+              //                     productData['userId'],
+              //                     style: TextStyle(
+              //                             color: Color(0xFF999999),
+              //                             fontSize: 14,
+              //                             fontWeight: FontWeight.w400,
+              //                             fontFamily: 'Poppins')
+              //                         .copyWith(fontSize: 18),
+              //                   ).paddingOnly(top: 5),
+              //                 ],
+              //               ).paddingOnly(top: 10),
+              //             ),
+              //           ).paddingOnly(left: 10);
+              //         },
+              //       ),
+              //     );
+              //   },
+              // ).paddingOnly(bottom: 20),
             ],
           ),
         ),
@@ -495,5 +528,4 @@ class _ProductOverviewState extends State<ProductOverview> {
         print(e);
       });
   }
-
 }
