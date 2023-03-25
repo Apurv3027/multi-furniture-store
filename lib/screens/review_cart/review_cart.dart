@@ -6,6 +6,7 @@ import 'package:multi_furniture_store/config/text.dart';
 import 'package:multi_furniture_store/models/review_cart_model.dart';
 import 'package:multi_furniture_store/providers/review_cart_provider.dart';
 import 'package:multi_furniture_store/screens/check_out/delivery_details/delivery_details.dart';
+import 'package:multi_furniture_store/screens/home/home_screen.dart';
 import 'package:multi_furniture_store/widgets/single_item.dart';
 import 'package:provider/provider.dart';
 
@@ -46,6 +47,10 @@ class ReviewCart extends StatelessWidget {
     );
   }
 
+  String? paymentMethod;
+  String? paymentStatus;
+  int? cartQuantity;
+
   @override
   Widget build(BuildContext context) {
     reviewCartProvider = Provider.of<ReviewCartProvider>(context);
@@ -60,35 +65,55 @@ class ReviewCart extends StatelessWidget {
             color: Colors.green[900],
           ),
         ),
-        trailing: Container(
-          width: 190,
-          child: MaterialButton(
-            child: Text(
-              "Proceed to Buy (" +
-                  reviewCartProvider.getReviewCartDataList.length.toString() +
-                  " item)",
-              style: TextStyle(color: colorFFFFFF),
-            ),
-            color: primaryColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-                30,
+        trailing: reviewCartProvider.getReviewCartDataList.isEmpty
+            ? Container(
+                width: 190,
+                child: MaterialButton(
+                  child: Text(
+                    "Buy Product",
+                    style: TextStyle(color: colorFFFFFF),
+                  ),
+                  color: primaryColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                      30,
+                    ),
+                  ),
+                  onPressed: () {
+                    Get.off(HomeScreen());
+                  },
+                ),
+              )
+            : Container(
+                width: 190,
+                child: MaterialButton(
+                  child: Text(
+                    "Proceed to Buy (" +
+                        reviewCartProvider.getReviewCartDataList.length
+                            .toString() +
+                        " item)",
+                    style: TextStyle(color: colorFFFFFF),
+                  ),
+                  color: primaryColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                      30,
+                    ),
+                  ),
+                  onPressed: () {
+                    if (reviewCartProvider.getReviewCartDataList.isEmpty) {
+                      // return Fluttertoast.showToast(msg: "No Cart Data Found");
+                      // return Center(child: Text('No Cart Data Found'));
+                    }
+                    Get.off(DeliveryDetails());
+                    // Navigator.of(context).push(
+                    //   MaterialPageRoute(
+                    //     builder: (context) => DeliveryDetails(),
+                    //   ),
+                    // );
+                  },
+                ),
               ),
-            ),
-            onPressed: () {
-              if (reviewCartProvider.getReviewCartDataList.isEmpty) {
-                // return Fluttertoast.showToast(msg: "No Cart Data Found");
-                // return Center(child: Text('No Cart Data Found'));
-              }
-              Get.to(DeliveryDetails());
-              // Navigator.of(context).push(
-              //   MaterialPageRoute(
-              //     builder: (context) => DeliveryDetails(),
-              //   ),
-              // );
-            },
-          ),
-        ),
       ),
       appBar: AppBar(
         backgroundColor: color5254A8,
@@ -106,6 +131,7 @@ class ReviewCart extends StatelessWidget {
               itemBuilder: (context, index) {
                 ReviewCartModel data =
                     reviewCartProvider.getReviewCartDataList[index];
+                cartQuantity = data.cartQuantity;
                 return Column(
                   children: [
                     SizedBox(
@@ -119,6 +145,8 @@ class ReviewCart extends StatelessWidget {
                       productPrice: data.cartPrice,
                       productId: data.cartId,
                       productQuantity: data.cartQuantity,
+                      paymentMethod: data.paymentMethod,
+                      paymentStatus: data.paymentStatus,
                       onDelete: () {
                         showAlertDialog(context, data);
                       },

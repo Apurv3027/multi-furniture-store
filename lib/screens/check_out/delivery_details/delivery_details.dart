@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:multi_furniture_store/config/colors.dart';
 import 'package:multi_furniture_store/models/delivery_address_model.dart';
 import 'package:multi_furniture_store/providers/check_out_provider.dart';
 import 'package:multi_furniture_store/screens/check_out/add_delivery_address/add_delivery_address.dart';
 import 'package:multi_furniture_store/screens/check_out/delivery_details/single_delivery_item.dart';
 import 'package:multi_furniture_store/screens/check_out/payment_summary/payment_summary.dart';
+import 'package:multi_furniture_store/screens/home/home_screen.dart';
 import 'package:provider/provider.dart';
 
 class DeliveryDetails extends StatefulWidget {
@@ -23,6 +25,16 @@ class _DeliveryDetailsState extends State<DeliveryDetails> {
       appBar: AppBar(
         backgroundColor: color5254A8,
         title: Text("Delivery Details"),
+        automaticallyImplyLeading: false,
+        leading: GestureDetector(
+          onTap: () {
+            Get.back();
+          },
+          child: Image.asset(
+            'assets/icons/ArrowLeft.png',
+            color: colorFFFFFF,
+          ),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: primaryColor,
@@ -30,9 +42,7 @@ class _DeliveryDetailsState extends State<DeliveryDetails> {
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => AddDeliverAddress(
-
-              ),
+              builder: (context) => AddDeliverAddress(),
             ),
           );
         },
@@ -44,27 +54,27 @@ class _DeliveryDetailsState extends State<DeliveryDetails> {
         child: MaterialButton(
           child: deliveryAddressProvider.getDeliveryAddressList.isEmpty
               ? Text(
-            "Add new Address",
-            style: TextStyle(color: colorFFFFFF),
-          )
+                  "Add new Address",
+                  style: TextStyle(color: colorFFFFFF),
+                )
               : Text(
-            "Payment Summary",
-            style: TextStyle(color: colorFFFFFF),
-          ),
+                  "Deliver to this address",
+                  style: TextStyle(color: colorFFFFFF),
+                ),
           onPressed: () {
             deliveryAddressProvider.getDeliveryAddressList.isEmpty
                 ? Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => AddDeliverAddress(),
-              ),
-            )
+                    MaterialPageRoute(
+                      builder: (context) => AddDeliverAddress(),
+                    ),
+                  )
                 : Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => PaymentSummary(
-                  deliverAddressList: value,
-                ),
-              ),
-            );
+                    MaterialPageRoute(
+                      builder: (context) => PaymentSummary(
+                        deliverAddressList: value,
+                      ),
+                    ),
+                  );
           },
           color: primaryColor,
           shape: RoundedRectangleBorder(
@@ -94,31 +104,31 @@ class _DeliveryDetailsState extends State<DeliveryDetails> {
           ),
           deliveryAddressProvider.getDeliveryAddressList.isEmpty
               ? Center(
-            child: Container(
-              child: Center(
-                child: Text("No Data"),
-              ),
-            ),
-          )
+                  child: Container(
+                    child: Center(
+                      child: Text("No Data"),
+                    ),
+                  ),
+                )
               : Column(
-            children: deliveryAddressProvider.getDeliveryAddressList
-                .map<Widget>((e) {
-              setState(() {
-                value  = e;
-              });
-              return SingleDeliveryItem(
-                address:
-                "${e.aera}, ${e.street}, ${e.scoirty}, \npincode - ${e.pinCode}",
-                title: "${e.firstName} ${e.lastName}",
-                number: e.mobileNo,
-                addressType: e.addressType == "AddressTypes.Home"
-                    ? "Home"
-                    : e.addressType == "AddressTypes.Other"
-                    ? "Other"
-                    : "Work",
-              );
-            }).toList(),
-          )
+                  children: deliveryAddressProvider.getDeliveryAddressList
+                      .map<Widget>((e) {
+                    setState(() {
+                      value = e;
+                    });
+                    return SingleDeliveryItem(
+                      address:
+                          "${e.aera}, ${e.street}, ${e.scoirty}, \npincode - ${e.pinCode}",
+                      title: "${e.firstName} ${e.lastName}",
+                      number: e.mobileNo,
+                      addressType: e.addressType == "AddressTypes.Home"
+                          ? "Home"
+                          : e.addressType == "AddressTypes.Other"
+                              ? "Other"
+                              : "Work",
+                    );
+                  }).toList(),
+                )
         ],
       ),
     );

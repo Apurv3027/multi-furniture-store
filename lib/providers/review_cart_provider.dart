@@ -8,6 +8,8 @@ class ReviewCartProvider with ChangeNotifier {
     String? cartId,
     String? cartName,
     String? cartImage,
+    String? paymentMethod,
+    String? paymentStatus,
     int? cartPrice,
     int? cartQuantity,
   }) async {
@@ -21,19 +23,21 @@ class ReviewCartProvider with ChangeNotifier {
         "cartId": cartId,
         "cartName": cartName,
         "cartImage": cartImage,
+        "paymentMethod": paymentMethod,
+        "paymentStatus": paymentStatus,
         "cartPrice": cartPrice,
         "cartQuantity": cartQuantity,
-        "isAdd":true,
+        "isAdd": true,
       },
     );
   }
-
-
 
   void updateReviewCartData({
     String? cartId,
     String? cartName,
     String? cartImage,
+    String? paymentMethod,
+    String? paymentStatus,
     int? cartPrice,
     int? cartQuantity,
   }) async {
@@ -47,17 +51,14 @@ class ReviewCartProvider with ChangeNotifier {
         "cartId": cartId,
         "cartName": cartName,
         "cartImage": cartImage,
+        "paymentMethod": '',
+        "paymentStatus": '',
         "cartPrice": cartPrice,
         "cartQuantity": cartQuantity,
-        "isAdd":true,
+        "isAdd": true,
       },
     );
   }
-
-
-
-
-
 
   List<ReviewCartModel> reviewCartDataList = [];
   void getReviewCartData() async {
@@ -67,12 +68,16 @@ class ReviewCartProvider with ChangeNotifier {
         .collection("ReviewCart")
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .collection("YourReviewCart")
+        .where('paymentMethod', isEqualTo: '')
+        .where('paymentStatus', isEqualTo: '')
         .get();
     reviewCartValue.docs.forEach((element) {
       ReviewCartModel reviewCartModel = ReviewCartModel(
         cartId: element.get("cartId"),
         cartImage: element.get("cartImage"),
         cartName: element.get("cartName"),
+        paymentMethod: '',
+        paymentStatus: '',
         cartPrice: element.get("cartPrice"),
         cartQuantity: element.get("cartQuantity"),
       );
@@ -86,19 +91,15 @@ class ReviewCartProvider with ChangeNotifier {
     return reviewCartDataList;
   }
 
-
 //// TotalPrice  ///
 
-
-  getTotalPrice(){
+  getTotalPrice() {
     double total = 0.0;
     reviewCartDataList.forEach((element) {
       total += element.cartPrice * element.cartQuantity;
-
     });
     return total;
   }
-
 
 ////////////// ReviCartDeleteFunction ////////////
   reviewCartDataDelete(cartId) {

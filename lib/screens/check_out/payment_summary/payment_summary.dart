@@ -5,9 +5,9 @@ import 'package:multi_furniture_store/config/text.dart';
 import 'package:multi_furniture_store/models/delivery_address_model.dart';
 import 'package:multi_furniture_store/providers/review_cart_provider.dart';
 import 'package:multi_furniture_store/screens/check_out/delivery_details/single_delivery_item.dart';
-import 'package:multi_furniture_store/screens/check_out/payment_methods/online_payment.dart';
 import 'package:multi_furniture_store/screens/check_out/payment_methods/razorpay.dart';
 import 'package:multi_furniture_store/screens/check_out/payment_summary/order_item.dart';
+import 'package:multi_furniture_store/screens/new_features/confirm_order.dart';
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
@@ -21,7 +21,7 @@ class PaymentSummary extends StatefulWidget {
 
 enum AddressTypes {
   Cash_on_Delivery,
-  OnlinePayment,
+  Online_Payment,
 }
 
 class _PaymentSummaryState extends State<PaymentSummary> {
@@ -66,12 +66,14 @@ class _PaymentSummaryState extends State<PaymentSummary> {
           width: 160,
           child: MaterialButton(
             onPressed: () {
-              myType == AddressTypes.OnlinePayment
+              myType == AddressTypes.Online_Payment
                   ? Get.to(RazorPay(
                       paymentAmount: total.toInt(),
+                      paymentDiscountValue: discountValue.toInt(),
+                      paymentShippingCharge: shippingCharge.toInt(),
                     ))
                   // ? Get.to(OnlinePayment())
-                  : Container();
+                  : Get.to(ConfirmOrder());
             },
             child: Text(
               "Place Order",
@@ -185,9 +187,9 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                   ),
                 ),
                 RadioListTile(
-                  value: AddressTypes.OnlinePayment,
+                  value: AddressTypes.Online_Payment,
                   groupValue: myType,
-                  title: Text("OnlinePayment"),
+                  title: Text("Online Payment"),
                   onChanged: (value) {
                     setState(() {
                       myType = value!;
