@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:multi_furniture_store/config/colors.dart';
 import 'package:multi_furniture_store/config/text.dart';
@@ -33,6 +34,16 @@ class _HomeScreenState extends State<HomeScreen> {
   final Stream<QuerySnapshot> _lampStream = FirebaseFirestore.instance
       .collection('products')
       .where('productCategory', isEqualTo: 'Lamps')
+      .snapshots();
+
+  TextEditingController _reviewController = TextEditingController();
+  double _rating = 0.0;
+
+  final Stream<QuerySnapshot> _reviewStream = FirebaseFirestore.instance
+      .collection('Ratings')
+      .doc(FirebaseAuth.instance.currentUser!.uid)
+      .collection('Reviews')
+      .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
       .snapshots();
 
   @override
