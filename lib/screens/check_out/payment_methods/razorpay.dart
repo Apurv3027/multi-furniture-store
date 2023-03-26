@@ -94,6 +94,113 @@ class _RazorPayState extends State<RazorPay> {
       });
     });
     Get.off(HomeScreen());
+    Fluttertoast.showToast(msg: 'Thanks for shopping...');
+    // showDialog(
+    //   context: context,
+    //   builder: (context) => AlertDialog(
+    //     insetPadding: EdgeInsets.symmetric(vertical: 230),
+    //     title: Text(
+    //       "Rating & Review",
+    //       style: TextStyle(
+    //         fontSize: 18,
+    //         fontWeight: FontWeight.w600,
+    //       ),
+    //     ),
+    //     content: Container(
+    //       decoration: BoxDecoration(
+    //         borderRadius: BorderRadius.circular(10),
+    //         border: Border.all(
+    //           color: color000000,
+    //           width: 1,
+    //         ),
+    //       ),
+    //       child: Column(
+    //         children: [
+    //           RatingBar.builder(
+    //             initialRating: _rating,
+    //             minRating: 1,
+    //             direction: Axis.horizontal,
+    //             allowHalfRating: true,
+    //             itemCount: 5,
+    //             itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+    //             itemBuilder: (context, _) => Icon(
+    //               Icons.sentiment_very_satisfied,
+    //               color: Colors.green,
+    //             ),
+    //             onRatingUpdate: (rating) {
+    //               setState(() {
+    //                 _rating = rating;
+    //               });
+    //             },
+    //           ),
+    //           Divider(
+    //             height: 2.5,
+    //             color: color000000,
+    //             thickness: 1,
+    //           ).paddingOnly(top: 5, bottom: 5),
+    //           TextFormField(
+    //             decoration: InputDecoration(
+    //               hintText: 'Please describe your experience with our app.',
+    //               focusedBorder: UnderlineInputBorder(
+    //                 borderSide: BorderSide(
+    //                   color: color5254A8,
+    //                 ),
+    //               ),
+    //             ),
+    //             cursorColor: color5254A8,
+    //             maxLength: 500,
+    //             controller: _reviewController,
+    //           )
+    //         ],
+    //       ).paddingAll(10),
+    //     ),
+    //     actions: [
+    //       MaterialButton(
+    //         child: Text("Back"),
+    //         onPressed: () {
+    //           Get.back();
+    //         },
+    //       ),
+    //       ElevatedButton(
+    //         onPressed: () {
+    //           FirebaseFirestore.instance
+    //               .collection('Ratings')
+    //               .doc(FirebaseAuth.instance.currentUser!.uid)
+    //               .collection('Reviews')
+    //               .add({
+    //             'productId': "widget.productId",
+    //             'userId': FirebaseAuth.instance.currentUser!.uid,
+    //             'productName': "widget.productName",
+    //             'userName': "myName",
+    //             'userEmail': "myEmail",
+    //             'userProfile': "myProfile",
+    //             'rating': _rating,
+    //             'review': _reviewController.text.trim(),
+    //             'timestamp': DateTime.now(),
+    //           });
+    //           Get.back();
+    //           showDialog(
+    //             context: context,
+    //             builder: (context) => AlertDialog(
+    //               title: const Text('Rating & Review'),
+    //               content:
+    //                   Text('Your rating & review is submitted successfully.'),
+    //               actions: [
+    //                 TextButton(
+    //                   onPressed: () {
+    //                     Get.back();
+    //                   },
+    //                   child: Text('OK'),
+    //                 ),
+    //               ],
+    //             ),
+    //           );
+    //         },
+    //         child: Text('Submit'),
+    //       ),
+    //     ],
+    //   ),
+    // );
     // List<OrderModel>? oderItemList;
     // FirebaseFirestore.instance
     //     .collection("Order")
@@ -151,7 +258,21 @@ class _RazorPayState extends State<RazorPay> {
     // Do something when payment fails
     print('Payment Fail');
     Fluttertoast.showToast(msg: 'Failed to Payment');
-    Get.back();
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text("Reflex Furniture"),
+        content: Text("Oh no, your payment failed"),
+        actions: [
+          MaterialButton(
+            child: Text("Try Again"),
+            onPressed: () {
+              Get.back();
+            },
+          ),
+        ],
+      ),
+    );
   }
 
   // void _handleExternalWallet(ExternalWalletResponse response) {
@@ -160,6 +281,8 @@ class _RazorPayState extends State<RazorPay> {
   // }
 
   TextEditingController amountController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
