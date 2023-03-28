@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:multi_furniture_store/config/colors.dart';
 import 'package:multi_furniture_store/config/text.dart';
+import 'package:multi_furniture_store/config/text_style.dart';
 import 'package:multi_furniture_store/providers/product_provider.dart';
 import 'package:multi_furniture_store/providers/user_provider.dart';
 import 'package:multi_furniture_store/screens/home/drawer_side.dart';
@@ -23,6 +25,20 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final Stream<QuerySnapshot> _bannerStream =
       FirebaseFirestore.instance.collection('banners').snapshots();
+
+  final List _bannerImage = [];
+  getBanners() {
+    return FirebaseFirestore.instance.collection('banners').get().then(
+      (QuerySnapshot querySnapshot) {
+        querySnapshot.docs.forEach((doc) {
+          setState(() {
+            _bannerImage.add(doc['image']);
+          });
+        });
+      },
+    );
+  }
+
   final Stream<QuerySnapshot> _chairStream = FirebaseFirestore.instance
       .collection('products')
       .where('productCategory', isEqualTo: 'Chairs')
@@ -35,6 +51,10 @@ class _HomeScreenState extends State<HomeScreen> {
       .collection('products')
       .where('productCategory', isEqualTo: 'Lamps')
       .snapshots();
+  final Stream<QuerySnapshot> _tableStream = FirebaseFirestore.instance
+      .collection('products')
+      .where('productCategory', isEqualTo: 'Tables')
+      .snapshots();
 
   TextEditingController _reviewController = TextEditingController();
   double _rating = 0.0;
@@ -45,6 +65,12 @@ class _HomeScreenState extends State<HomeScreen> {
       .collection('Reviews')
       .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
       .snapshots();
+
+  @override
+  void initState() {
+    getBanners();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -164,9 +190,37 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            // _buildHerbsProduct(context),
-            // _buildFreshProduct(context),
-            // _buildRootProduct(),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Collections')
+                    .paddingSymmetric(vertical: 20)
+                    .paddingOnly(bottom: 15),
+                CarouselSlider.builder(
+                  itemCount: _bannerImage.length,
+                  itemBuilder: (context, index, realIndex) {
+                    return ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.network(
+                        _bannerImage[index],
+                        fit: BoxFit.cover,
+                      ),
+                    );
+                  },
+                  options: CarouselOptions(
+                    height: 200,
+                    reverse: false,
+                    autoPlay: true,
+                    autoPlayInterval: Duration(seconds: 5),
+                    autoPlayAnimationDuration: Duration(milliseconds: 800),
+                    autoPlayCurve: Curves.bounceInOut,
+                    enlargeCenterPage: true,
+                    enlargeFactor: 0.3,
+                    scrollDirection: Axis.horizontal,
+                  ),
+                ).paddingAll(15),
+              ],
+            ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -262,37 +316,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     );
                   },
                 ),
-                // Row(
-                //   children: productProvider.getChairProductDataList.map(
-                //         (chairProductData) {
-                //       return SingalProduct(
-                //         onTap: () {
-                //           Navigator.of(context).push(
-                //             MaterialPageRoute(
-                //               builder: (context) => ProductOverview(
-                //                 productId: chairProductData.productId,
-                //                 productPrice: chairProductData.productPrice,
-                //                 productName: chairProductData.productName,
-                //                 productImage: chairProductData.productImage,
-                //               ),
-                //             ),
-                //           );
-                //         },
-                //         productId: chairProductData.productId,
-                //         productPrice: chairProductData.productPrice,
-                //         productImage: chairProductData.productImage,
-                //         productName: chairProductData.productName,
-                //         // productUnit:herbsProductData ,
-                //       );
-                //     },
-                //   ).toList(),
-                //   // children: [
-                //
-                //   // ],
-                // ),
               ],
             ),
-            // _buildFreshProduct(context),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -388,37 +413,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     );
                   },
                 ),
-                // Row(
-                //   children: productProvider.getChairProductDataList.map(
-                //         (chairProductData) {
-                //       return SingalProduct(
-                //         onTap: () {
-                //           Navigator.of(context).push(
-                //             MaterialPageRoute(
-                //               builder: (context) => ProductOverview(
-                //                 productId: chairProductData.productId,
-                //                 productPrice: chairProductData.productPrice,
-                //                 productName: chairProductData.productName,
-                //                 productImage: chairProductData.productImage,
-                //               ),
-                //             ),
-                //           );
-                //         },
-                //         productId: chairProductData.productId,
-                //         productPrice: chairProductData.productPrice,
-                //         productImage: chairProductData.productImage,
-                //         productName: chairProductData.productName,
-                //         // productUnit:herbsProductData ,
-                //       );
-                //     },
-                //   ).toList(),
-                //   // children: [
-                //
-                //   // ],
-                // ),
               ],
             ),
-            // _buildRootProduct(),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -514,34 +510,103 @@ class _HomeScreenState extends State<HomeScreen> {
                     );
                   },
                 ),
-                // Row(
-                //   children: productProvider.getChairProductDataList.map(
-                //         (chairProductData) {
-                //       return SingalProduct(
-                //         onTap: () {
-                //           Navigator.of(context).push(
-                //             MaterialPageRoute(
-                //               builder: (context) => ProductOverview(
-                //                 productId: chairProductData.productId,
-                //                 productPrice: chairProductData.productPrice,
-                //                 productName: chairProductData.productName,
-                //                 productImage: chairProductData.productImage,
-                //               ),
-                //             ),
-                //           );
-                //         },
-                //         productId: chairProductData.productId,
-                //         productPrice: chairProductData.productPrice,
-                //         productImage: chairProductData.productImage,
-                //         productName: chairProductData.productName,
-                //         // productUnit:herbsProductData ,
-                //       );
-                //     },
-                //   ).toList(),
-                //   // children: [
-                //
-                //   // ],
-                // ),
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Tables'),
+                      GestureDetector(
+                        onTap: () {},
+                        child: Text(
+                          'view all',
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                StreamBuilder<QuerySnapshot>(
+                  stream: _tableStream,
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasError) {
+                      return Text('Something went wrong');
+                    }
+
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.cyan,
+                        ),
+                      );
+                    }
+
+                    return SizedBox(
+                      height: 270,
+                      child: ListView.builder(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        scrollDirection: Axis.horizontal,
+                        itemCount: snapshot.data!.size,
+                        itemBuilder: (context, index) {
+                          final productData = snapshot.data!.docs[index];
+                          final firebaseUser =
+                              FirebaseAuth.instance.currentUser;
+                          return GestureDetector(
+                            onTap: () {
+                              Get.to(ProductOverview(
+                                productId: productData['productID'],
+                                productImage: productData['image'],
+                                productName: productData['productName'],
+                                productPrice: productData['productPrice'],
+                              ));
+                            },
+                            child: Container(
+                              width: 180,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Image.network(
+                                    productData['image'],
+                                    fit: BoxFit.fill,
+                                    height: 200,
+                                    width: 200,
+                                  ),
+                                  Text(
+                                    productData['productName'],
+                                    style: TextStyle(
+                                            color: Color(0xFF000000),
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w500,
+                                            fontFamily: 'Poppins')
+                                        .copyWith(),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
+                                  ).paddingOnly(top: 10),
+                                  Text(
+                                    rupees +
+                                        productData['productPrice'].toString(),
+                                    style: TextStyle(
+                                            color: Color(0xFF999999),
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: 'Poppins')
+                                        .copyWith(fontSize: 18),
+                                  ).paddingOnly(top: 5),
+                                ],
+                              ).paddingOnly(top: 10),
+                            ),
+                          ).paddingOnly(left: 10);
+                        },
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
           ],

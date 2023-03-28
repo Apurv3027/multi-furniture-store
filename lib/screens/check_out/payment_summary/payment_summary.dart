@@ -32,7 +32,7 @@ class _PaymentSummaryState extends State<PaymentSummary> {
     ReviewCartProvider reviewCartProvider = Provider.of(context);
     reviewCartProvider.getReviewCartData();
 
-    double discount = 5;
+    double discount = 10;
     late double discountValue;
     double shippingCharge = 100;
     late double total;
@@ -158,7 +158,7 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                 ListTile(
                   minVerticalPadding: 5,
                   leading: Text(
-                    "Compen Discount",
+                    "Compen Discount (10%)",
                     style: TextStyle(color: Colors.grey[600]),
                   ),
                   trailing: Text(
