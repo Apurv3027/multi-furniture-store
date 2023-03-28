@@ -352,7 +352,7 @@ class _RazorPayState extends State<RazorPay> {
                           ).paddingOnly(top: 20),
                           Text(
                             myPhoneNum == null || myPhoneNum == ''
-                                ? 'Phone Number Not Found'
+                                ? 'Phone Number : !! Not Found !!'
                                 : myPhoneNum!,
                             style: colorFFFFFFw50016.copyWith(fontSize: 15),
                           ).paddingOnly(top: 20),
@@ -377,7 +377,7 @@ class _RazorPayState extends State<RazorPay> {
                     style: colorFFFFFFw50016.copyWith(fontSize: 15),
                   ).paddingOnly(top: 5),
                   Text(
-                    'Discount',
+                    'Discount (10%)',
                     style: colorFFFFFFw50016.copyWith(fontSize: 15),
                   ).paddingOnly(top: 20),
                   Text(

@@ -8,6 +8,7 @@ import 'package:multi_furniture_store/config/colors.dart';
 import 'package:multi_furniture_store/config/text_style.dart';
 import 'package:multi_furniture_store/providers/user_provider.dart';
 import 'package:multi_furniture_store/screens/my_profile/my_profile.dart';
+import 'package:multi_furniture_store/screens/categories/categories_screen.dart';
 import 'package:multi_furniture_store/screens/new_features/rating_and_review.dart';
 import 'package:multi_furniture_store/screens/review_cart/review_cart.dart';
 import 'package:multi_furniture_store/screens/wish_list/wish_list.dart';
@@ -157,6 +158,20 @@ class _DrawerSideState extends State<DrawerSide> {
                     ),
                     onTap: () =>
                         Get.to(MyProfile(userProvider: widget.userProvider)),
+                  ),
+                ).paddingOnly(top: 25),
+                Container(
+                  height: 30,
+                  child: ListTile(
+                    title: Text(
+                      'Categories',
+                      style: TextStyle(color: textColor),
+                    ),
+                    leading: Icon(
+                      Icons.category_outlined,
+                      size: 28,
+                    ),
+                    onTap: () => Get.to(CategoriesScreen()),
                   ),
                 ).paddingOnly(top: 25),
                 Container(

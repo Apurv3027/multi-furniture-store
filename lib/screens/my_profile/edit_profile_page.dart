@@ -8,7 +8,6 @@ import 'package:multi_furniture_store/config/common_button.dart';
 import 'package:multi_furniture_store/config/common_text_field.dart';
 import 'package:multi_furniture_store/config/text.dart';
 import 'package:multi_furniture_store/config/text_style.dart';
-import 'package:multi_furniture_store/screens/my_profile/profile_image.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({Key? key}) : super(key: key);
@@ -18,12 +17,11 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-
-  TextEditingController nameController =TextEditingController();
-  TextEditingController emailController =TextEditingController();
-  TextEditingController passController =TextEditingController();
-  TextEditingController phoneController =TextEditingController();
-  TextEditingController addressController =TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
 
   String? myName;
   String? myEmail;
@@ -40,24 +38,24 @@ class _EditProfilePageState extends State<EditProfilePage> {
   String? userAddress;
   String? userProfile;
 
-  updateUser() async{
+  updateUser() async {
     EasyLoading.show();
     final firebaseUser = await FirebaseAuth.instance.currentUser;
-    if(_formKey.currentState!.validate()){
+    if (_formKey.currentState!.validate()) {
       await _firestore.collection('buyers').doc(firebaseUser!.uid).update({
-        'email' : myEmail,
-        'fullName' : myName,
-        'phoneNumber' : myPhoneNumber,
-        'buyerId' : firebaseUser.uid,
-        'address' : myAddress,
-        'profile' : myProfile,
+        'email': myEmail,
+        'fullName': myName,
+        'phoneNumber': myPhoneNumber,
+        'buyerId': firebaseUser.uid,
+        'address': myAddress,
+        'profile': myProfile,
       }).whenComplete(() {
         EasyLoading.dismiss();
         setState(() {
           _formKey.currentState!.reset();
         });
       });
-    }else{
+    } else {
       print('O Bad Guy');
     }
   }
@@ -104,22 +102,20 @@ class _EditProfilePageState extends State<EditProfilePage> {
               FutureBuilder(
                 future: _fetch(),
                 builder: (context, snapshot) {
-                  if(snapshot.connectionState != ConnectionState.done)
+                  if (snapshot.connectionState != ConnectionState.done)
                     return Center(
                       child: CircularProgressIndicator(
                         color: Colors.blue,
                       ).paddingOnly(top: 30),
                     );
-                  return GestureDetector(
-                    onTap: () {
-                      Get.to(ProfileImage());
-                    },
-                    child: Center(
-                      child: CircleAvatar(
-                        backgroundImage: myProfile == null || myProfile == '' ? AssetImage('assets/icons/accountrb.png') as ImageProvider : NetworkImage(myProfile!),
-                        backgroundColor: colorFFCA27,
-                        radius: 50,
-                      ),
+                  return Center(
+                    child: CircleAvatar(
+                      backgroundImage: myProfile == null || myProfile == ''
+                          ? AssetImage('assets/icons/accountrb.png')
+                              as ImageProvider
+                          : NetworkImage(myProfile!),
+                      backgroundColor: colorFFCA27,
+                      radius: 50,
                     ),
                   );
                 },
@@ -129,12 +125,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 padding: EdgeInsets.all(14),
                 decoration: BoxDecoration(
                   border: Border.all(color: colorCCCCCC),
-                  borderRadius:BorderRadius.circular(5),
+                  borderRadius: BorderRadius.circular(5),
                 ),
                 child: FutureBuilder(
                   future: _fetch(),
                   builder: (context, snapshot) {
-                    if(snapshot.connectionState != ConnectionState.done)
+                    if (snapshot.connectionState != ConnectionState.done)
                       return Text(
                         'Loading Data...Please Wait',
                         style: color999999w40016,
@@ -162,12 +158,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 padding: EdgeInsets.all(14),
                 decoration: BoxDecoration(
                   border: Border.all(color: colorCCCCCC),
-                  borderRadius:BorderRadius.circular(5),
+                  borderRadius: BorderRadius.circular(5),
                 ),
                 child: FutureBuilder(
                   future: _fetch(),
                   builder: (context, snapshot) {
-                    if(snapshot.connectionState != ConnectionState.done)
+                    if (snapshot.connectionState != ConnectionState.done)
                       return Text(
                         'Loading Data...Please Wait',
                         style: color999999w40016,
@@ -195,12 +191,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 padding: EdgeInsets.all(14),
                 decoration: BoxDecoration(
                   border: Border.all(color: colorCCCCCC),
-                  borderRadius:BorderRadius.circular(5),
+                  borderRadius: BorderRadius.circular(5),
                 ),
                 child: FutureBuilder(
                   future: _fetch(),
                   builder: (context, snapshot) {
-                    if(snapshot.connectionState != ConnectionState.done)
+                    if (snapshot.connectionState != ConnectionState.done)
                       return Text(
                         'Loading Data...Please Wait',
                         style: color999999w40016,
@@ -228,12 +224,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 padding: EdgeInsets.all(14),
                 decoration: BoxDecoration(
                   border: Border.all(color: colorCCCCCC),
-                  borderRadius:BorderRadius.circular(5),
+                  borderRadius: BorderRadius.circular(5),
                 ),
                 child: FutureBuilder(
                   future: _fetch(),
                   builder: (context, snapshot) {
-                    if(snapshot.connectionState != ConnectionState.done)
+                    if (snapshot.connectionState != ConnectionState.done)
                       return Text(
                         'Loading Data...Please Wait',
                         style: color999999w40016,
@@ -246,7 +242,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         myAddress = value;
                       },
                       validator: (value) {
-                        if(value!.isEmpty){
+                        if (value!.isEmpty) {
                           return 'Please User Address Must Not Be Empty';
                         } else {
                           return null;
@@ -301,10 +297,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
               child: Text(
                 save,
                 style: color172F49w40014.copyWith(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: colorFFFFFF
-                ),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: colorFFFFFF),
               ),
               buttonColor: color5254A8,
               width: 355,
@@ -317,27 +312,26 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   _fetch() async {
     final firebaseUser = await FirebaseAuth.instance.currentUser;
-    if(firebaseUser != null)
+    if (firebaseUser != null)
       await FirebaseFirestore.instance
           .collection('buyers')
           .doc(firebaseUser.uid)
           .get()
-          .then((ds){
-        myName=ds.data()!['fullName'];
-        myEmail=ds.data()!['email'];
-        myPhoneNumber=ds.data()!['phoneNumber'];
-        myAddress=ds.data()!['address'];
-        myProfile=ds.data()!['profile'];
+          .then((ds) {
+        myName = ds.data()!['fullName'];
+        myEmail = ds.data()!['email'];
+        myPhoneNumber = ds.data()!['phoneNumber'];
+        myAddress = ds.data()!['address'];
+        myProfile = ds.data()!['profile'];
         print(myName);
         print(myEmail);
         print(myPhoneNumber);
         print(myAddress);
         print(myProfile);
-      }).catchError((e){
+      }).catchError((e) {
         print(e);
       });
   }
-
 }
 
 
