@@ -194,19 +194,19 @@ class _ConfirmOrderState extends State<ConfirmOrder> {
 
   final Stream<QuerySnapshot> _cartStream = FirebaseFirestore.instance
       .collection('ReviewCart')
-      .doc(FirebaseAuth.instance.currentUser!.uid)
-      .collection("YourReviewCart")
+      .where('userName',
+          isEqualTo: FirebaseAuth.instance.currentUser!.displayName)
       .where('paymentMethod', isEqualTo: '')
       .where('paymentStatus', isEqualTo: '')
       .snapshots();
 
   update() async {
-    CollectionReference ref = FirebaseFirestore.instance
-        .collection("ReviewCart")
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .collection("YourReviewCart");
+    CollectionReference ref =
+        FirebaseFirestore.instance.collection("ReviewCart");
 
     QuerySnapshot eventsQuery = await ref
+        .where('userName',
+            isEqualTo: FirebaseAuth.instance.currentUser!.displayName)
         .where('paymentMethod', isEqualTo: '')
         .where('paymentStatus', isEqualTo: '')
         .get();
@@ -342,12 +342,13 @@ class _ConfirmOrderState extends State<ConfirmOrder> {
             height: 50,
             child: MaterialButton(
               onPressed: () async {
-                CollectionReference ref = FirebaseFirestore.instance
-                    .collection("ReviewCart")
-                    .doc(FirebaseAuth.instance.currentUser!.uid)
-                    .collection("YourReviewCart");
+                CollectionReference ref =
+                    FirebaseFirestore.instance.collection("ReviewCart");
 
                 QuerySnapshot eventsQuery = await ref
+                    .where('userName',
+                        isEqualTo:
+                            FirebaseAuth.instance.currentUser!.displayName)
                     .where('paymentMethod', isEqualTo: '')
                     .where('paymentStatus', isEqualTo: '')
                     .get();

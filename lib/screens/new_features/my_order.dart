@@ -16,8 +16,8 @@ class MyOrder extends StatefulWidget {
 class _MyOrderState extends State<MyOrder> {
   final Stream<QuerySnapshot> _orderStream = FirebaseFirestore.instance
       .collection('ReviewCart')
-      .doc(FirebaseAuth.instance.currentUser!.uid)
-      .collection('YourReviewCart')
+      .where('userName',
+          isEqualTo: FirebaseAuth.instance.currentUser!.displayName)
       .where('paymentStatus', isEqualTo: 'Payment Success')
       .snapshots();
 

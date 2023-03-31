@@ -52,7 +52,7 @@ class _BannerWidgetState extends State<BannerWidget> {
             autoPlay: true,
             autoPlayInterval: Duration(seconds: 5),
             autoPlayAnimationDuration: Duration(milliseconds: 800),
-            autoPlayCurve: Curves.bounceInOut,
+            autoPlayCurve: Curves.linear,
             enlargeCenterPage: true,
             enlargeFactor: 0.3,
             scrollDirection: Axis.horizontal,

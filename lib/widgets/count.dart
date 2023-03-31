@@ -91,6 +91,9 @@ class _CountState extends State<Count> {
                         cartQuantity: count,
                         paymentMethod: '',
                         paymentStatus: '',
+                        userName:
+                            FirebaseAuth.instance.currentUser!.displayName,
+                        userEmail: FirebaseAuth.instance.currentUser!.email,
                       );
                     }
                   },
@@ -121,6 +124,8 @@ class _CountState extends State<Count> {
                       cartQuantity: count,
                       paymentMethod: '',
                       paymentStatus: '',
+                      userName: FirebaseAuth.instance.currentUser!.displayName,
+                      userEmail: FirebaseAuth.instance.currentUser!.email,
                     );
                   },
                   child: Icon(
@@ -145,6 +150,8 @@ class _CountState extends State<Count> {
                     cartQuantity: count,
                     paymentMethod: '',
                     paymentStatus: '',
+                    userName: FirebaseAuth.instance.currentUser!.displayName,
+                    userEmail: FirebaseAuth.instance.currentUser!.email,
                   );
                 },
                 child: Text(
