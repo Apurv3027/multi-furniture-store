@@ -213,7 +213,7 @@ class _ProductOverviewState extends State<ProductOverview> {
                         height: 250,
                         padding: EdgeInsets.all(40),
                         child: Image.network(
-                          widget.productImage ?? "",
+                          widget.productImage,
                         )),
                     Container(
                       padding: EdgeInsets.symmetric(horizontal: 20),

@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:multi_furniture_store/config/colors.dart';
 import 'package:multi_furniture_store/config/text.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:multi_furniture_store/providers/review_cart_provider.dart';
 import 'package:multi_furniture_store/providers/wishlist_provider.dart';
 import 'package:multi_furniture_store/widgets/count.dart';
@@ -148,6 +149,14 @@ class _SingleItemState extends State<SingleItem> {
                                                     cartPrice:
                                                         widget.productPrice,
                                                     cartQuantity: count,
+                                                    userName: FirebaseAuth
+                                                        .instance
+                                                        .currentUser!
+                                                        .displayName,
+                                                    userEmail: FirebaseAuth
+                                                        .instance
+                                                        .currentUser!
+                                                        .email,
                                                   );
                                                 }
                                               },
@@ -183,6 +192,14 @@ class _SingleItemState extends State<SingleItem> {
                                                         widget.paymentMethod,
                                                     paymentStatus:
                                                         widget.paymentStatus,
+                                                    userName: FirebaseAuth
+                                                        .instance
+                                                        .currentUser!
+                                                        .displayName,
+                                                    userEmail: FirebaseAuth
+                                                        .instance
+                                                        .currentUser!
+                                                        .email,
                                                   );
                                                 }
                                               },

@@ -13,6 +13,7 @@ import 'package:multi_furniture_store/providers/user_provider.dart';
 import 'package:multi_furniture_store/screens/home/drawer_side.dart';
 import 'package:multi_furniture_store/screens/product_overview/product_overview.dart';
 import 'package:multi_furniture_store/screens/review_cart/review_cart.dart';
+import 'package:multi_furniture_store/widgets/banner_widget.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -196,29 +197,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Text('Collections')
                     .paddingSymmetric(vertical: 20)
                     .paddingOnly(bottom: 15),
-                CarouselSlider.builder(
-                  itemCount: _bannerImage.length,
-                  itemBuilder: (context, index, realIndex) {
-                    return ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.network(
-                        _bannerImage[index],
-                        fit: BoxFit.cover,
-                      ),
-                    );
-                  },
-                  options: CarouselOptions(
-                    height: 200,
-                    reverse: false,
-                    autoPlay: true,
-                    autoPlayInterval: Duration(seconds: 5),
-                    autoPlayAnimationDuration: Duration(milliseconds: 800),
-                    autoPlayCurve: Curves.bounceInOut,
-                    enlargeCenterPage: true,
-                    enlargeFactor: 0.3,
-                    scrollDirection: Axis.horizontal,
-                  ),
-                ).paddingAll(15),
+                BannerWidget().paddingAll(15),
               ],
             ),
             Column(

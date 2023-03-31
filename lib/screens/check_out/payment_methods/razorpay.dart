@@ -56,8 +56,8 @@ class _RazorPayState extends State<RazorPay> {
 
   final Stream<QuerySnapshot> _cartStream = FirebaseFirestore.instance
       .collection('ReviewCart')
-      .doc(FirebaseAuth.instance.currentUser!.uid)
-      .collection("YourReviewCart")
+      .where('userName',
+          isEqualTo: FirebaseAuth.instance.currentUser!.displayName)
       .where('paymentMethod', isEqualTo: '')
       .where('paymentStatus', isEqualTo: '')
       .snapshots();
@@ -77,12 +77,12 @@ class _RazorPayState extends State<RazorPay> {
     // Do something when payment succeeds
     print('Payment Success');
     Fluttertoast.showToast(msg: 'Payment Success: ' + myName!);
-    CollectionReference ref = FirebaseFirestore.instance
-        .collection("ReviewCart")
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .collection("YourReviewCart");
+    CollectionReference ref =
+        FirebaseFirestore.instance.collection("ReviewCart");
 
     QuerySnapshot eventsQuery = await ref
+        .where('userName',
+            isEqualTo: FirebaseAuth.instance.currentUser!.displayName)
         .where('paymentMethod', isEqualTo: '')
         .where('paymentStatus', isEqualTo: '')
         .get();

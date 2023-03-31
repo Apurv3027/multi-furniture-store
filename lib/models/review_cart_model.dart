@@ -1,4 +1,6 @@
 class ReviewCartModel {
+  String userName;
+  String userEmail;
   String cartId;
   String cartImage;
   String cartName;
@@ -7,6 +9,8 @@ class ReviewCartModel {
   int cartPrice;
   int cartQuantity;
   ReviewCartModel({
+    required this.userName,
+    required this.userEmail,
     required this.cartId,
     required this.cartImage,
     required this.cartName,

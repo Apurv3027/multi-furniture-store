@@ -5,6 +5,8 @@ import 'package:multi_furniture_store/models/review_cart_model.dart';
 
 class ReviewCartProvider with ChangeNotifier {
   void addReviewCartData({
+    String? userName,
+    String? userEmail,
     String? cartId,
     String? cartName,
     String? cartImage,
@@ -15,11 +17,11 @@ class ReviewCartProvider with ChangeNotifier {
   }) async {
     FirebaseFirestore.instance
         .collection("ReviewCart")
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .collection("YourReviewCart")
         .doc(cartId)
         .set(
       {
+        "userName": userName,
+        "userEmail": userEmail,
         "cartId": cartId,
         "cartName": cartName,
         "cartImage": cartImage,
@@ -33,6 +35,8 @@ class ReviewCartProvider with ChangeNotifier {
   }
 
   void updateReviewCartData({
+    String? userName,
+    String? userEmail,
     String? cartId,
     String? cartName,
     String? cartImage,
@@ -43,11 +47,11 @@ class ReviewCartProvider with ChangeNotifier {
   }) async {
     FirebaseFirestore.instance
         .collection("ReviewCart")
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .collection("YourReviewCart")
         .doc(cartId)
         .update(
       {
+        "userName": FirebaseAuth.instance.currentUser!.displayName,
+        "userEmail": FirebaseAuth.instance.currentUser!.email,
         "cartId": cartId,
         "cartName": cartName,
         "cartImage": cartImage,
@@ -66,13 +70,14 @@ class ReviewCartProvider with ChangeNotifier {
 
     QuerySnapshot reviewCartValue = await FirebaseFirestore.instance
         .collection("ReviewCart")
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .collection("YourReviewCart")
+        .where('userName', isEqualTo: FirebaseAuth.instance.currentUser!.displayName)
         .where('paymentMethod', isEqualTo: '')
         .where('paymentStatus', isEqualTo: '')
         .get();
     reviewCartValue.docs.forEach((element) {
       ReviewCartModel reviewCartModel = ReviewCartModel(
+        userName: FirebaseAuth.instance.currentUser!.displayName!,
+        userEmail: FirebaseAuth.instance.currentUser!.email!,
         cartId: element.get("cartId"),
         cartImage: element.get("cartImage"),
         cartName: element.get("cartName"),
@@ -105,8 +110,6 @@ class ReviewCartProvider with ChangeNotifier {
   reviewCartDataDelete(cartId) {
     FirebaseFirestore.instance
         .collection("ReviewCart")
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .collection("YourReviewCart")
         .doc(cartId)
         .delete();
     notifyListeners();

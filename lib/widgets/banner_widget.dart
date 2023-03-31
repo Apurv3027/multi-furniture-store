@@ -3,27 +3,23 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class BannerWidget extends StatefulWidget {
-
   @override
   State<BannerWidget> createState() => _BannerWidgetState();
 }
 
 class _BannerWidgetState extends State<BannerWidget> {
-
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final List _bannerImage = [];
 
-  getBanners(){
-    return _firestore
-        .collection('banners')
-        .get()
-        .then((QuerySnapshot querySnapshot) {
-          querySnapshot.docs.forEach((doc) {
-            setState(() {
-              _bannerImage.add(doc['image']);
-            });
+  getBanners() {
+    return _firestore.collection('banners').get().then(
+      (QuerySnapshot querySnapshot) {
+        querySnapshot.docs.forEach((doc) {
+          setState(() {
+            _bannerImage.add(doc['image']);
           });
-        },
+        });
+      },
     );
   }
 
@@ -38,25 +34,10 @@ class _BannerWidgetState extends State<BannerWidget> {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Container(
-        height: 140,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: Colors.yellow.shade900,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        // child: CarouselSlider(
-        //   items: ,
-        //   options: CarouselOptions(
-        //     autoPlay: true,
-        //       height: 350,
-        //       pauseAutoPlayOnTouch: true,
-        //       viewportFraction: 1.0
-        //   ),
-        // ),
-        child: PageView.builder(
+        width: MediaQuery.of(context).size.width,
+        child: CarouselSlider.builder(
           itemCount: _bannerImage.length,
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) {
+          itemBuilder: (context, index, realIndex) {
             return ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image.network(
@@ -65,6 +46,17 @@ class _BannerWidgetState extends State<BannerWidget> {
               ),
             );
           },
+          options: CarouselOptions(
+            height: 200,
+            reverse: false,
+            autoPlay: true,
+            autoPlayInterval: Duration(seconds: 5),
+            autoPlayAnimationDuration: Duration(milliseconds: 800),
+            autoPlayCurve: Curves.linear,
+            enlargeCenterPage: true,
+            enlargeFactor: 0.3,
+            scrollDirection: Axis.horizontal,
+          ),
         ),
       ),
     );
