@@ -33,9 +33,9 @@ class _PaymentSummaryState extends State<PaymentSummary> {
     reviewCartProvider.getReviewCartData();
 
     double discount = 10;
-    late double discountValue;
+    late double discountValue = 0;
     double shippingCharge = 100;
-    late double total;
+    late double total = 0;
     double totalPrice = reviewCartProvider.getTotalPrice();
     if (totalPrice > 300) {
       discountValue = (totalPrice * discount) / 100;
