@@ -3,10 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_furniture_store/screens/categories/chairs_categories_screen.dart';
-import 'package:multi_furniture_store/screens/categories/clocks_categories_screen.dart';
-import 'package:multi_furniture_store/screens/categories/lamps_categories_screen.dart';
-import 'package:multi_furniture_store/screens/categories/lights_categories_screen.dart';
-import 'package:multi_furniture_store/screens/categories/tables_categories_screen.dart';
+import 'package:multi_furniture_store/screens/categories/beds_categories_screen.dart';
+import 'package:multi_furniture_store/screens/categories/drawer_units_categories_screen.dart';
+import 'package:multi_furniture_store/screens/categories/mirrors_categories_screen.dart';
+import 'package:multi_furniture_store/screens/categories/outdoors_categories_screen.dart';
+import 'package:multi_furniture_store/screens/categories/sofas_categories_screen.dart';
+import 'package:multi_furniture_store/screens/categories/wardrobes_categories_screen.dart';
 
 class CategoriesScreen extends StatefulWidget {
   const CategoriesScreen({super.key});
@@ -59,16 +61,20 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                 final productData = snapshot.data!.docs[index];
                 return GestureDetector(
                   onTap: () {
-                    if (productData['categoryName'] == 'Lights') {
-                      Get.to(LightCategoriesScreen());
-                    } else if (productData['categoryName'] == 'Chairs') {
+                    if (productData['categoryName'] == 'Chair') {
                       Get.to(ChairCategoriesScreen());
-                    } else if (productData['categoryName'] == 'Clocks') {
-                      Get.to(ClocksCategoriesScreen());
-                    } else if (productData['categoryName'] == 'Lamps') {
-                      Get.to(LampsCategoriesScreen());
+                    } else if (productData['categoryName'] == 'Bed') {
+                      Get.to(BedsCategoriesScreen());
+                    } else if (productData['categoryName'] == 'Drawer Units') {
+                      Get.to(DrawerUnitsCategoriesScreen());
+                    } else if (productData['categoryName'] == 'Mirror') {
+                      Get.to(MirrorsCategoriesScreen());
+                    } else if (productData['categoryName'] == 'Outdoor') {
+                      Get.to(OutdoorsCategoriesScreen());
+                    } else if (productData['categoryName'] == 'Sofa') {
+                      Get.to(SofasCategoriesScreen());
                     } else {
-                      Get.to(TablesCategoriesScreen());
+                      Get.to(WardrobesCategoriesScreen());
                     }
                   },
                   child: Container(

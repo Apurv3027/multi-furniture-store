@@ -4,18 +4,18 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_furniture_store/config/text.dart';
 
-class TablesCategoriesScreen extends StatefulWidget {
-  const TablesCategoriesScreen({super.key});
+class BedsCategoriesScreen extends StatefulWidget {
+  const BedsCategoriesScreen({super.key});
 
   @override
-  State<TablesCategoriesScreen> createState() => _TablesCategoriesScreenState();
+  State<BedsCategoriesScreen> createState() => _BedsCategoriesScreenState();
 }
 
-class _TablesCategoriesScreenState extends State<TablesCategoriesScreen> {
-  final Stream<QuerySnapshot> _tablesCategorieStream = FirebaseFirestore
+class _BedsCategoriesScreenState extends State<BedsCategoriesScreen> {
+  final Stream<QuerySnapshot> _clocksCategorieStream = FirebaseFirestore
       .instance
       .collection('products')
-      .where('productCategory', isEqualTo: 'Tables')
+      .where('productCategory', isEqualTo: 'Bed')
       .snapshots();
 
   @override
@@ -26,7 +26,7 @@ class _TablesCategoriesScreenState extends State<TablesCategoriesScreen> {
         backgroundColor: color5254A8,
         elevation: 0.0,
         title: Text(
-          "Tables",
+          "Bed",
           style: TextStyle(
             fontSize: 18,
             color: colorFFFFFF,
@@ -34,7 +34,7 @@ class _TablesCategoriesScreenState extends State<TablesCategoriesScreen> {
         ),
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: _tablesCategorieStream,
+        stream: _clocksCategorieStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             return Text('Something went wrong');

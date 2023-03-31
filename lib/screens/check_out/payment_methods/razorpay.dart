@@ -1,10 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:multi_furniture_store/config/text.dart';
 import 'package:multi_furniture_store/screens/home/home_screen.dart';
-// import 'package:multi_furniture_store/models/order_model.dart';
-import 'package:multi_furniture_store/screens/new_features/refer_a_friends.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:get/get.dart';
 import 'package:multi_furniture_store/config/colors.dart';
@@ -12,8 +8,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:multi_furniture_store/config/text_style.dart';
-import 'package:multi_furniture_store/models/review_cart_model.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class RazorPay extends StatefulWidget {
   final int paymentAmount;
@@ -95,163 +89,6 @@ class _RazorPayState extends State<RazorPay> {
     });
     Get.off(HomeScreen());
     Fluttertoast.showToast(msg: 'Thanks for shopping...');
-    // showDialog(
-    //   context: context,
-    //   builder: (context) => AlertDialog(
-    //     insetPadding: EdgeInsets.symmetric(vertical: 230),
-    //     title: Text(
-    //       "Rating & Review",
-    //       style: TextStyle(
-    //         fontSize: 18,
-    //         fontWeight: FontWeight.w600,
-    //       ),
-    //     ),
-    //     content: Container(
-    //       decoration: BoxDecoration(
-    //         borderRadius: BorderRadius.circular(10),
-    //         border: Border.all(
-    //           color: color000000,
-    //           width: 1,
-    //         ),
-    //       ),
-    //       child: Column(
-    //         children: [
-    //           RatingBar.builder(
-    //             initialRating: _rating,
-    //             minRating: 1,
-    //             direction: Axis.horizontal,
-    //             allowHalfRating: true,
-    //             itemCount: 5,
-    //             itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-    //             itemBuilder: (context, _) => Icon(
-    //               Icons.sentiment_very_satisfied,
-    //               color: Colors.green,
-    //             ),
-    //             onRatingUpdate: (rating) {
-    //               setState(() {
-    //                 _rating = rating;
-    //               });
-    //             },
-    //           ),
-    //           Divider(
-    //             height: 2.5,
-    //             color: color000000,
-    //             thickness: 1,
-    //           ).paddingOnly(top: 5, bottom: 5),
-    //           TextFormField(
-    //             decoration: InputDecoration(
-    //               hintText: 'Please describe your experience with our app.',
-    //               focusedBorder: UnderlineInputBorder(
-    //                 borderSide: BorderSide(
-    //                   color: color5254A8,
-    //                 ),
-    //               ),
-    //             ),
-    //             cursorColor: color5254A8,
-    //             maxLength: 500,
-    //             controller: _reviewController,
-    //           )
-    //         ],
-    //       ).paddingAll(10),
-    //     ),
-    //     actions: [
-    //       MaterialButton(
-    //         child: Text("Back"),
-    //         onPressed: () {
-    //           Get.back();
-    //         },
-    //       ),
-    //       ElevatedButton(
-    //         onPressed: () {
-    //           FirebaseFirestore.instance
-    //               .collection('Ratings')
-    //               .doc(FirebaseAuth.instance.currentUser!.uid)
-    //               .collection('Reviews')
-    //               .add({
-    //             'productId': "widget.productId",
-    //             'userId': FirebaseAuth.instance.currentUser!.uid,
-    //             'productName': "widget.productName",
-    //             'userName': "myName",
-    //             'userEmail': "myEmail",
-    //             'userProfile': "myProfile",
-    //             'rating': _rating,
-    //             'review': _reviewController.text.trim(),
-    //             'timestamp': DateTime.now(),
-    //           });
-    //           Get.back();
-    //           showDialog(
-    //             context: context,
-    //             builder: (context) => AlertDialog(
-    //               title: const Text('Rating & Review'),
-    //               content:
-    //                   Text('Your rating & review is submitted successfully.'),
-    //               actions: [
-    //                 TextButton(
-    //                   onPressed: () {
-    //                     Get.back();
-    //                   },
-    //                   child: Text('OK'),
-    //                 ),
-    //               ],
-    //             ),
-    //           );
-    //         },
-    //         child: Text('Submit'),
-    //       ),
-    //     ],
-    //   ),
-    // );
-    // List<OrderModel>? oderItemList;
-    // FirebaseFirestore.instance
-    //     .collection("Order")
-    //     .doc(FirebaseAuth.instance.currentUser!.uid)
-    //     .collection("MyOrders")
-    //     .doc()
-    //     .set(
-    //   {
-    //     "subTotal": widget.paymentAmount,
-    //     "Shipping Charge": widget.paymentShippingCharge,
-    //     "Discount": widget.paymentDiscountValue,
-    //     "orderTime": DateTime.now(),
-    //     "orderItems": oderItemList!
-    //         .map((e) => {
-    //               "productId": e.id,
-    //               "productImage": e.img,
-    //               "productName": e.name,
-    //               "productPrice": e.price,
-    //               "productQuantity": e.qun
-    //             })
-    //         .toList(),
-
-    //     // "subTotal": widget.paymentAmount,
-    //     // "Shipping Charge": widget.paymentShippingCharge,
-    //     // "Discount": widget.paymentDiscountValue,
-    //     // "orderTime": DateTime.now(),
-    //     // "orderItems": {
-    //     //   "orderId": id,
-    //     //   "orderImage": img,
-    //     //   "orderName": name,
-    //     //   "orderPrice": price,
-    //     //   "orderQuantity": qun,
-    //     // }
-    //   },
-    //   SetOptions(merge: true),
-    // );
-    // print(oderItemList);
-    // FirebaseFirestore.instance
-    //     .collection('Order')
-    //     .doc(FirebaseAuth.instance.currentUser!.uid)
-    //     .collection("MyOrders")
-    //     .doc()
-    //     .set({
-    //       "subTotal": widget.paymentAmount,
-    //       "Shipping Charge": "",
-    //       "Discount": "10",
-    //       "orderTime": DateTime.now(),
-    //       "orderImage": e.cartImage,
-    //       "orderPrice": e.cartPrice,
-    //       "orderQuantity": e.cartQuantity
-    //     });
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {

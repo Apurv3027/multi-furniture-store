@@ -42,19 +42,31 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final Stream<QuerySnapshot> _chairStream = FirebaseFirestore.instance
       .collection('products')
-      .where('productCategory', isEqualTo: 'Chairs')
+      .where('productCategory', isEqualTo: 'Chair')
       .snapshots();
-  final Stream<QuerySnapshot> _lightStream = FirebaseFirestore.instance
+  final Stream<QuerySnapshot> _bedStream = FirebaseFirestore.instance
       .collection('products')
-      .where('productCategory', isEqualTo: 'Lights')
+      .where('productCategory', isEqualTo: 'Bed')
       .snapshots();
-  final Stream<QuerySnapshot> _lampStream = FirebaseFirestore.instance
+  final Stream<QuerySnapshot> _drawerUnitsStream = FirebaseFirestore.instance
       .collection('products')
-      .where('productCategory', isEqualTo: 'Lamps')
+      .where('productCategory', isEqualTo: 'Drawer Units')
       .snapshots();
-  final Stream<QuerySnapshot> _tableStream = FirebaseFirestore.instance
+  final Stream<QuerySnapshot> _mirrorStream = FirebaseFirestore.instance
       .collection('products')
-      .where('productCategory', isEqualTo: 'Tables')
+      .where('productCategory', isEqualTo: 'Mirror')
+      .snapshots();
+  final Stream<QuerySnapshot> _outdoorStream = FirebaseFirestore.instance
+      .collection('products')
+      .where('productCategory', isEqualTo: 'Outdoor')
+      .snapshots();
+  final Stream<QuerySnapshot> _sofaStream = FirebaseFirestore.instance
+      .collection('products')
+      .where('productCategory', isEqualTo: 'Sofa')
+      .snapshots();
+  final Stream<QuerySnapshot> _wardrobesStream = FirebaseFirestore.instance
+      .collection('products')
+      .where('productCategory', isEqualTo: 'Wardrobes')
       .snapshots();
 
   TextEditingController _reviewController = TextEditingController();
@@ -191,15 +203,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Collections')
-                    .paddingSymmetric(vertical: 20)
-                    .paddingOnly(bottom: 15),
-                BannerWidget().paddingAll(15),
-              ],
-            ),
+            // Column(
+            //   crossAxisAlignment: CrossAxisAlignment.start,
+            //   children: [
+            //     Text('Collections')
+            //         .paddingSymmetric(vertical: 20)
+            //         .paddingOnly(bottom: 15),
+            //     BannerWidget().paddingAll(15),
+            //   ],
+            // ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -236,7 +248,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     }
 
                     return SizedBox(
-                      height: 270,
+                      height: 300,
                       child: ListView.builder(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         scrollDirection: Axis.horizontal,
@@ -305,7 +317,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Lights'),
+                      Text('Beds'),
                       GestureDetector(
                         onTap: () {},
                         child: Text(
@@ -317,7 +329,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 StreamBuilder<QuerySnapshot>(
-                  stream: _lightStream,
+                  stream: _bedStream,
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.hasError) {
@@ -333,7 +345,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     }
 
                     return SizedBox(
-                      height: 270,
+                      height: 300,
                       child: ListView.builder(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         scrollDirection: Axis.horizontal,
@@ -402,7 +414,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Lamps'),
+                      Text('Drawer Units'),
                       GestureDetector(
                         onTap: () {},
                         child: Text(
@@ -414,7 +426,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 StreamBuilder<QuerySnapshot>(
-                  stream: _lampStream,
+                  stream: _drawerUnitsStream,
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.hasError) {
@@ -430,7 +442,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     }
 
                     return SizedBox(
-                      height: 270,
+                      height: 300,
                       child: ListView.builder(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         scrollDirection: Axis.horizontal,
@@ -499,7 +511,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Tables'),
+                      Text('Mirror'),
                       GestureDetector(
                         onTap: () {},
                         child: Text(
@@ -511,7 +523,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 StreamBuilder<QuerySnapshot>(
-                  stream: _tableStream,
+                  stream: _mirrorStream,
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.hasError) {
@@ -527,7 +539,298 @@ class _HomeScreenState extends State<HomeScreen> {
                     }
 
                     return SizedBox(
-                      height: 270,
+                      height: 300,
+                      child: ListView.builder(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        scrollDirection: Axis.horizontal,
+                        itemCount: snapshot.data!.size,
+                        itemBuilder: (context, index) {
+                          final productData = snapshot.data!.docs[index];
+                          final firebaseUser =
+                              FirebaseAuth.instance.currentUser;
+                          return GestureDetector(
+                            onTap: () {
+                              Get.to(ProductOverview(
+                                productId: productData['productID'],
+                                productImage: productData['image'],
+                                productName: productData['productName'],
+                                productPrice: productData['productPrice'],
+                              ));
+                            },
+                            child: Container(
+                              width: 180,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Image.network(
+                                    productData['image'],
+                                    fit: BoxFit.fill,
+                                    height: 200,
+                                    width: 200,
+                                  ),
+                                  Text(
+                                    productData['productName'],
+                                    style: TextStyle(
+                                            color: Color(0xFF000000),
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w500,
+                                            fontFamily: 'Poppins')
+                                        .copyWith(),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
+                                  ).paddingOnly(top: 10),
+                                  Text(
+                                    rupees +
+                                        productData['productPrice'].toString(),
+                                    style: TextStyle(
+                                            color: Color(0xFF999999),
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: 'Poppins')
+                                        .copyWith(fontSize: 18),
+                                  ).paddingOnly(top: 5),
+                                ],
+                              ).paddingOnly(top: 10),
+                            ),
+                          ).paddingOnly(left: 10);
+                        },
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Outdoors'),
+                      GestureDetector(
+                        onTap: () {},
+                        child: Text(
+                          'view all',
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                StreamBuilder<QuerySnapshot>(
+                  stream: _outdoorStream,
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasError) {
+                      return Text('Something went wrong');
+                    }
+
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.cyan,
+                        ),
+                      );
+                    }
+
+                    return SizedBox(
+                      height: 300,
+                      child: ListView.builder(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        scrollDirection: Axis.horizontal,
+                        itemCount: snapshot.data!.size,
+                        itemBuilder: (context, index) {
+                          final productData = snapshot.data!.docs[index];
+                          final firebaseUser =
+                              FirebaseAuth.instance.currentUser;
+                          return GestureDetector(
+                            onTap: () {
+                              Get.to(ProductOverview(
+                                productId: productData['productID'],
+                                productImage: productData['image'],
+                                productName: productData['productName'],
+                                productPrice: productData['productPrice'],
+                              ));
+                            },
+                            child: Container(
+                              width: 180,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Image.network(
+                                    productData['image'],
+                                    fit: BoxFit.fill,
+                                    height: 200,
+                                    width: 200,
+                                  ),
+                                  Text(
+                                    productData['productName'],
+                                    style: TextStyle(
+                                            color: Color(0xFF000000),
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w500,
+                                            fontFamily: 'Poppins')
+                                        .copyWith(),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
+                                  ).paddingOnly(top: 10),
+                                  Text(
+                                    rupees +
+                                        productData['productPrice'].toString(),
+                                    style: TextStyle(
+                                            color: Color(0xFF999999),
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: 'Poppins')
+                                        .copyWith(fontSize: 18),
+                                  ).paddingOnly(top: 5),
+                                ],
+                              ).paddingOnly(top: 10),
+                            ),
+                          ).paddingOnly(left: 10);
+                        },
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Sofas'),
+                      GestureDetector(
+                        onTap: () {},
+                        child: Text(
+                          'view all',
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                StreamBuilder<QuerySnapshot>(
+                  stream: _sofaStream,
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasError) {
+                      return Text('Something went wrong');
+                    }
+
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.cyan,
+                        ),
+                      );
+                    }
+
+                    return SizedBox(
+                      height: 300,
+                      child: ListView.builder(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        scrollDirection: Axis.horizontal,
+                        itemCount: snapshot.data!.size,
+                        itemBuilder: (context, index) {
+                          final productData = snapshot.data!.docs[index];
+                          final firebaseUser =
+                              FirebaseAuth.instance.currentUser;
+                          return GestureDetector(
+                            onTap: () {
+                              Get.to(ProductOverview(
+                                productId: productData['productID'],
+                                productImage: productData['image'],
+                                productName: productData['productName'],
+                                productPrice: productData['productPrice'],
+                              ));
+                            },
+                            child: Container(
+                              width: 180,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Image.network(
+                                    productData['image'],
+                                    fit: BoxFit.fill,
+                                    height: 200,
+                                    width: 200,
+                                  ),
+                                  Text(
+                                    productData['productName'],
+                                    style: TextStyle(
+                                            color: Color(0xFF000000),
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w500,
+                                            fontFamily: 'Poppins')
+                                        .copyWith(),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
+                                  ).paddingOnly(top: 10),
+                                  Text(
+                                    rupees +
+                                        productData['productPrice'].toString(),
+                                    style: TextStyle(
+                                            color: Color(0xFF999999),
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: 'Poppins')
+                                        .copyWith(fontSize: 18),
+                                  ).paddingOnly(top: 5),
+                                ],
+                              ).paddingOnly(top: 10),
+                            ),
+                          ).paddingOnly(left: 10);
+                        },
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Wardrobes'),
+                      GestureDetector(
+                        onTap: () {},
+                        child: Text(
+                          'view all',
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                StreamBuilder<QuerySnapshot>(
+                  stream: _wardrobesStream,
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasError) {
+                      return Text('Something went wrong');
+                    }
+
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.cyan,
+                        ),
+                      );
+                    }
+
+                    return SizedBox(
+                      height: 300,
                       child: ListView.builder(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         scrollDirection: Axis.horizontal,
