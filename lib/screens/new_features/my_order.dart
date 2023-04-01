@@ -14,11 +14,11 @@ class MyOrder extends StatefulWidget {
 }
 
 class _MyOrderState extends State<MyOrder> {
-  final Stream<QuerySnapshot> _orderStream = FirebaseFirestore.instance
+  final Stream<QuerySnapshot> _orderCompleteStream = FirebaseFirestore.instance
       .collection('ReviewCart')
       .where('userName',
           isEqualTo: FirebaseAuth.instance.currentUser!.displayName)
-      .where('paymentStatus', isEqualTo: 'Payment Success')
+      .where('paymentStatus', isEqualTo: 'In Progress')
       .snapshots();
 
   @override
@@ -36,7 +36,7 @@ class _MyOrderState extends State<MyOrder> {
         child: Column(
           children: [
             StreamBuilder<QuerySnapshot>(
-              stream: _orderStream,
+              stream: _orderCompleteStream,
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.hasError) {

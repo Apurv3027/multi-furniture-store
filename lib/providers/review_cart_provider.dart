@@ -12,13 +12,11 @@ class ReviewCartProvider with ChangeNotifier {
     String? cartImage,
     String? paymentMethod,
     String? paymentStatus,
+    String? deliveryStatus,
     int? cartPrice,
     int? cartQuantity,
   }) async {
-    FirebaseFirestore.instance
-        .collection("ReviewCart")
-        .doc(cartId)
-        .set(
+    FirebaseFirestore.instance.collection("ReviewCart").doc(cartId).set(
       {
         "userName": userName,
         "userEmail": userEmail,
@@ -27,6 +25,7 @@ class ReviewCartProvider with ChangeNotifier {
         "cartImage": cartImage,
         "paymentMethod": paymentMethod,
         "paymentStatus": paymentStatus,
+        "deliveryStatus": deliveryStatus,
         "cartPrice": cartPrice,
         "cartQuantity": cartQuantity,
         "isAdd": true,
@@ -42,13 +41,11 @@ class ReviewCartProvider with ChangeNotifier {
     String? cartImage,
     String? paymentMethod,
     String? paymentStatus,
+    String? deliveryStatus,
     int? cartPrice,
     int? cartQuantity,
   }) async {
-    FirebaseFirestore.instance
-        .collection("ReviewCart")
-        .doc(cartId)
-        .update(
+    FirebaseFirestore.instance.collection("ReviewCart").doc(cartId).update(
       {
         "userName": FirebaseAuth.instance.currentUser!.displayName,
         "userEmail": FirebaseAuth.instance.currentUser!.email,
@@ -57,6 +54,7 @@ class ReviewCartProvider with ChangeNotifier {
         "cartImage": cartImage,
         "paymentMethod": '',
         "paymentStatus": '',
+        "deliveryStatus": '',
         "cartPrice": cartPrice,
         "cartQuantity": cartQuantity,
         "isAdd": true,
@@ -70,7 +68,8 @@ class ReviewCartProvider with ChangeNotifier {
 
     QuerySnapshot reviewCartValue = await FirebaseFirestore.instance
         .collection("ReviewCart")
-        .where('userName', isEqualTo: FirebaseAuth.instance.currentUser!.displayName)
+        .where('userName',
+            isEqualTo: FirebaseAuth.instance.currentUser!.displayName)
         .where('paymentMethod', isEqualTo: '')
         .where('paymentStatus', isEqualTo: '')
         .get();
@@ -83,6 +82,7 @@ class ReviewCartProvider with ChangeNotifier {
         cartName: element.get("cartName"),
         paymentMethod: '',
         paymentStatus: '',
+        deliveryStatus: '',
         cartPrice: element.get("cartPrice"),
         cartQuantity: element.get("cartQuantity"),
       );
@@ -108,10 +108,7 @@ class ReviewCartProvider with ChangeNotifier {
 
 ////////////// ReviCartDeleteFunction ////////////
   reviewCartDataDelete(cartId) {
-    FirebaseFirestore.instance
-        .collection("ReviewCart")
-        .doc(cartId)
-        .delete();
+    FirebaseFirestore.instance.collection("ReviewCart").doc(cartId).delete();
     notifyListeners();
   }
 }

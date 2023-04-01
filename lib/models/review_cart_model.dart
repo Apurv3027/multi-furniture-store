@@ -6,6 +6,7 @@ class ReviewCartModel {
   String cartName;
   String paymentMethod;
   String paymentStatus;
+  String deliveryStatus;
   int cartPrice;
   int cartQuantity;
   ReviewCartModel({
@@ -16,6 +17,7 @@ class ReviewCartModel {
     required this.cartName,
     required this.paymentMethod,
     required this.paymentStatus,
+    required this.deliveryStatus,
     required this.cartPrice,
     required this.cartQuantity,
   });

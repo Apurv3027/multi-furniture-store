@@ -79,12 +79,14 @@ class _RazorPayState extends State<RazorPay> {
             isEqualTo: FirebaseAuth.instance.currentUser!.displayName)
         .where('paymentMethod', isEqualTo: '')
         .where('paymentStatus', isEqualTo: '')
+        .where('deliveryStatus', isEqualTo: '')
         .get();
 
     eventsQuery.docs.forEach((msgDoc) {
       msgDoc.reference.update({
         "paymentMethod": 'Online Payment',
         "paymentStatus": 'Payment Success',
+        "deliveryStatus": 'Pending',
       });
     });
     Get.off(HomeScreen());

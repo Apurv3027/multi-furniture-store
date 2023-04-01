@@ -18,6 +18,7 @@ class SingleItem extends StatefulWidget {
   String productId;
   String paymentMethod;
   String paymentStatus;
+  String deliveryStatus;
   int productQuantity;
   Function onDelete;
   SingleItem(
@@ -25,6 +26,7 @@ class SingleItem extends StatefulWidget {
       required this.productId,
       required this.paymentMethod,
       required this.paymentStatus,
+      required this.deliveryStatus,
       required this.onDelete,
       required this.isBool,
       required this.productImage,
@@ -191,6 +193,8 @@ class _SingleItemState extends State<SingleItem> {
                                                     paymentMethod:
                                                         widget.paymentMethod,
                                                     paymentStatus:
+                                                        widget.paymentStatus,
+                                                    deliveryStatus:
                                                         widget.paymentStatus,
                                                     userName: FirebaseAuth
                                                         .instance
