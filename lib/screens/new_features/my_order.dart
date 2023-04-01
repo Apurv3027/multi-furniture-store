@@ -18,7 +18,7 @@ class _MyOrderState extends State<MyOrder> {
       .collection('ReviewCart')
       .where('userName',
           isEqualTo: FirebaseAuth.instance.currentUser!.displayName)
-      .where('paymentStatus', isEqualTo: 'In Progress')
+      .where('paymentStatus', isEqualTo: 'Payment Success')
       .snapshots();
 
   @override
@@ -115,8 +115,8 @@ class _MyOrderState extends State<MyOrder> {
                       children: [
                         Image.network(
                           productData['cartImage'],
-                          height: 135,
-                          width: 135,
+                          height: 100,
+                          width: 100,
                           fit: BoxFit.fill,
                         ),
                         Text(
@@ -139,6 +139,9 @@ class _MyOrderState extends State<MyOrder> {
                                   fontFamily: 'Poppins')
                               .copyWith(fontSize: 18),
                         ).paddingOnly(top: 5),
+                        productData['deliveryStatus'] == 'Pending'
+                            ? Icon(Icons.pending_actions_rounded)
+                            : Icon(Icons.done_all_rounded),
                       ],
                     );
                   },
