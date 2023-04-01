@@ -91,6 +91,7 @@ class _CountState extends State<Count> {
                         cartQuantity: count,
                         paymentMethod: '',
                         paymentStatus: '',
+                        deliveryStatus: '',
                         userName:
                             FirebaseAuth.instance.currentUser!.displayName,
                         userEmail: FirebaseAuth.instance.currentUser!.email,
@@ -124,6 +125,7 @@ class _CountState extends State<Count> {
                       cartQuantity: count,
                       paymentMethod: '',
                       paymentStatus: '',
+                      deliveryStatus: '',
                       userName: FirebaseAuth.instance.currentUser!.displayName,
                       userEmail: FirebaseAuth.instance.currentUser!.email,
                     );
@@ -150,6 +152,7 @@ class _CountState extends State<Count> {
                     cartQuantity: count,
                     paymentMethod: '',
                     paymentStatus: '',
+                    deliveryStatus: '',
                     userName: FirebaseAuth.instance.currentUser!.displayName,
                     userEmail: FirebaseAuth.instance.currentUser!.email,
                   );

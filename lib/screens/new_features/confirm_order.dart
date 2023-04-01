@@ -189,6 +189,7 @@ class _ConfirmOrderState extends State<ConfirmOrder> {
   String? cartName;
   String? paymentMethod;
   String? paymentStatus;
+  String? deliveryStatus;
   int? cartPrice;
   int? cartQuantity;
 
@@ -198,6 +199,7 @@ class _ConfirmOrderState extends State<ConfirmOrder> {
           isEqualTo: FirebaseAuth.instance.currentUser!.displayName)
       .where('paymentMethod', isEqualTo: '')
       .where('paymentStatus', isEqualTo: '')
+      .where('deliveryStatus', isEqualTo: '')
       .snapshots();
 
   update() async {
@@ -209,12 +211,14 @@ class _ConfirmOrderState extends State<ConfirmOrder> {
             isEqualTo: FirebaseAuth.instance.currentUser!.displayName)
         .where('paymentMethod', isEqualTo: '')
         .where('paymentStatus', isEqualTo: '')
+        .where('deliveryStatus', isEqualTo: '')
         .get();
 
     eventsQuery.docs.forEach((msgDoc) {
       msgDoc.reference.update({
         "paymentMethod": 'Cash on Delivery',
         "paymentStatus": 'Payment Success',
+        "deliveryStatus": 'Pending',
       });
     });
   }
@@ -281,6 +285,7 @@ class _ConfirmOrderState extends State<ConfirmOrder> {
                     cartName = productData['cartName'];
                     paymentMethod = productData['paymentMethod'];
                     paymentStatus = productData['paymentStatus'];
+                    deliveryStatus = productData['deliveryStatus'];
                     cartPrice = productData['cartPrice'];
                     cartQuantity = productData['cartQuantity'];
                     return GestureDetector(
@@ -351,12 +356,14 @@ class _ConfirmOrderState extends State<ConfirmOrder> {
                             FirebaseAuth.instance.currentUser!.displayName)
                     .where('paymentMethod', isEqualTo: '')
                     .where('paymentStatus', isEqualTo: '')
+                    .where('deliveryStatus', isEqualTo: '')
                     .get();
 
                 eventsQuery.docs.forEach((msgDoc) {
                   msgDoc.reference.update({
                     "paymentMethod": 'Cash on Delivery',
                     "paymentStatus": 'In Progress',
+                    "deliveryStatus": 'Pending',
                   });
                 });
 
