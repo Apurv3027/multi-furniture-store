@@ -153,7 +153,7 @@ class _CountState extends State<Count> {
                     paymentMethod: '',
                     paymentStatus: '',
                     deliveryStatus: '',
-                    userName: FirebaseAuth.instance.currentUser!.displayName,
+                    userName: FirebaseAuth.instance.currentUser?.displayName,
                     userEmail: FirebaseAuth.instance.currentUser!.email,
                   );
                 },
