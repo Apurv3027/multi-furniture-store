@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +15,7 @@ import 'package:multi_furniture_store/providers/user_provider.dart';
 import 'package:multi_furniture_store/providers/wishlist_provider.dart';
 import 'package:provider/provider.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
@@ -27,7 +29,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<ProductProvider>(
@@ -58,7 +59,7 @@ class MyApp extends StatelessWidget {
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapShot) {
             if (snapShot.hasData) {
-              return SignIn();
+              return SplashScreen();
             }
             return SignIn();
           },
@@ -80,5 +81,71 @@ class MyApp extends StatelessWidget {
     //     home: SplashScreen(),
     //     debugShowCheckedModeBanner: false,
     //   );
+  }
+}
+
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Timer(
+        Duration(seconds: 5),
+        () => Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => SignIn())));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(
+              'assets/icons/bg.png',
+            ),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Image.asset(
+              'assets/icons/shadow.png',
+              fit: BoxFit.cover,
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Reflex Furniture',
+                  // 'Reflex',
+                  // 'REFLEX',
+                  style: TextStyle(fontSize: 50, color: Colors.white, shadows: [
+                    BoxShadow(
+                      blurRadius: 5,
+                      color: Colors.green.shade900,
+                      offset: Offset(3, 3),
+                    )
+                  ]),
+                ).paddingOnly(top: 100),
+                Image.asset(
+                  'assets/icons/reflex-furniture-rb.png',
+                  fit: BoxFit.cover,
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
