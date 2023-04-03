@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_furniture_store/config/colors.dart';
+import 'package:multi_furniture_store/config/text_style.dart';
 import 'package:multi_furniture_store/providers/review_cart_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -29,9 +30,18 @@ class _CountState extends State<Count> {
   String? paymentMethod;
   String? paymentStatus;
 
-  String? productName;
-  String? productPrice;
-  double? productQuantity;
+  String? userName;
+  String? userEmail;
+
+  // String? productName;
+  // String? productPrice;
+  // double? productQuantity;
+
+//   String userName2 = "one@yopmail.com";
+
+// //Removes everything after the first 'A'
+// String result = userName2.substring(0, userName2.indexOf('@'));
+// print(result);
 
   getAddAndQuantity() {
     FirebaseFirestore.instance
@@ -69,21 +79,100 @@ class _CountState extends State<Count> {
         borderRadius: BorderRadius.circular(8),
       ),
       child: isTrue == true
-          ? Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                InkWell(
-                  onTap: () {
-                    if (count == 1) {
+          ? FutureBuilder(
+              future: _fetch(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState != ConnectionState.done)
+                  return Text(
+                    'Loading Data...Please Wait',
+                    style: colorFFFFFFw80024,
+                  ).paddingOnly(top: 30);
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        if (count == 1) {
+                          setState(() {
+                            isTrue = false;
+                          });
+                          reviewCartProvider
+                              .reviewCartDataDelete(widget.productId);
+                        } else if (count > 1) {
+                          setState(() {
+                            count--;
+                          });
+                          reviewCartProvider.updateReviewCartData(
+                            cartId: widget.productId,
+                            cartImage: widget.productImage,
+                            cartName: widget.productName,
+                            cartPrice: widget.productPrice,
+                            cartQuantity: count,
+                            paymentMethod: '',
+                            paymentStatus: '',
+                            deliveryStatus: '',
+                            userName: userName,
+                            userEmail: userEmail,
+                          );
+                        }
+                      },
+                      child: Icon(
+                        Icons.remove,
+                        size: 20,
+                        color: color5254A8,
+                      ),
+                    ).paddingOnly(right: 5),
+                    Text(
+                      "$count",
+                      style: TextStyle(
+                        color: color5254A8,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          count++;
+                        });
+                        reviewCartProvider.updateReviewCartData(
+                          cartId: widget.productId,
+                          cartImage: widget.productImage,
+                          cartName: widget.productName,
+                          cartPrice: widget.productPrice,
+                          cartQuantity: count,
+                          paymentMethod: '',
+                          paymentStatus: '',
+                          deliveryStatus: '',
+                          userName: userName,
+                          userEmail: userEmail,
+                        );
+                      },
+                      child: Icon(
+                        Icons.add,
+                        size: 20,
+                        color: color5254A8,
+                      ),
+                    ).paddingOnly(left: 5),
+                  ],
+                );
+              },
+            )
+          : FutureBuilder(
+              future: _fetch(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState != ConnectionState.done)
+                  return Text(
+                    'Loading Data...Please Wait',
+                    style: colorFFFFFFw80024,
+                  ).paddingOnly(top: 30);
+                return Center(
+                  child: InkWell(
+                    onTap: () {
                       setState(() {
-                        isTrue = false;
+                        isTrue = true;
                       });
-                      reviewCartProvider.reviewCartDataDelete(widget.productId);
-                    } else if (count > 1) {
-                      setState(() {
-                        count--;
-                      });
-                      reviewCartProvider.updateReviewCartData(
+                      reviewCartProvider.addReviewCartData(
                         cartId: widget.productId,
                         cartImage: widget.productImage,
                         cartName: widget.productName,
@@ -92,76 +181,17 @@ class _CountState extends State<Count> {
                         paymentMethod: '',
                         paymentStatus: '',
                         deliveryStatus: '',
-                        userName:
-                            FirebaseAuth.instance.currentUser!.displayName,
-                        userEmail: FirebaseAuth.instance.currentUser!.email,
+                        userName: userName,
+                        userEmail: userEmail,
                       );
-                    }
-                  },
-                  child: Icon(
-                    Icons.remove,
-                    size: 20,
-                    color: color5254A8,
+                    },
+                    child: Text(
+                      "ADD",
+                      style: TextStyle(color: primaryColor),
+                    ),
                   ),
-                ).paddingOnly(right: 5),
-                Text(
-                  "$count",
-                  style: TextStyle(
-                    color: color5254A8,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    setState(() {
-                      count++;
-                    });
-                    reviewCartProvider.updateReviewCartData(
-                      cartId: widget.productId,
-                      cartImage: widget.productImage,
-                      cartName: widget.productName,
-                      cartPrice: widget.productPrice,
-                      cartQuantity: count,
-                      paymentMethod: '',
-                      paymentStatus: '',
-                      deliveryStatus: '',
-                      userName: FirebaseAuth.instance.currentUser!.displayName,
-                      userEmail: FirebaseAuth.instance.currentUser!.email,
-                    );
-                  },
-                  child: Icon(
-                    Icons.add,
-                    size: 20,
-                    color: color5254A8,
-                  ),
-                ).paddingOnly(left: 5),
-              ],
-            )
-          : Center(
-              child: InkWell(
-                onTap: () {
-                  setState(() {
-                    isTrue = true;
-                  });
-                  reviewCartProvider.addReviewCartData(
-                    cartId: widget.productId,
-                    cartImage: widget.productImage,
-                    cartName: widget.productName,
-                    cartPrice: widget.productPrice,
-                    cartQuantity: count,
-                    paymentMethod: '',
-                    paymentStatus: '',
-                    deliveryStatus: '',
-                    userName: FirebaseAuth.instance.currentUser?.displayName,
-                    userEmail: FirebaseAuth.instance.currentUser!.email,
-                  );
-                },
-                child: Text(
-                  "ADD",
-                  style: TextStyle(color: primaryColor),
-                ),
-              ),
+                );
+              },
             ),
     );
   }
@@ -170,18 +200,13 @@ class _CountState extends State<Count> {
     final firebaseUser = await FirebaseAuth.instance.currentUser;
     if (firebaseUser != null)
       await FirebaseFirestore.instance
-          .collection("ReviewCart")
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .collection("YourReviewCart")
-          .doc(widget.productId)
+          .collection("buyers")
+          .doc(firebaseUser.uid)
           .get()
           .then((ds) {
-        productName = ds.data()!['productName'];
-        productPrice = ds.data()!['productPrice'];
-        productQuantity = ds.data()!['productQuantity'];
-        print(productName);
-        print(productPrice);
-        print(productQuantity);
+        userName = ds.data()!['fullName'];
+        userEmail = ds.data()!['email'];
+        print(userName);
       }).catchError((e) {
         print(e);
       });

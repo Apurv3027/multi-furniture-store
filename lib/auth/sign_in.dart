@@ -35,23 +35,27 @@ class _SignInState extends State<SignIn> {
         });
         return;
       }
-      final googleSignInAuthentication = await googleSignInAccount.authentication;
+      final googleSignInAuthentication =
+          await googleSignInAccount.authentication;
       final credential = GoogleAuthProvider.credential(
         accessToken: googleSignInAuthentication.accessToken,
         idToken: googleSignInAuthentication.idToken,
       );
       await FirebaseAuth.instance.signInWithCredential(credential);
-      await FirebaseFirestore.instance.collection('buyers').doc(FirebaseAuth.instance.currentUser!.uid).set({
-        'email' : googleSignInAccount.email,
-        'fullName' : googleSignInAccount.displayName,
-        'phoneNumber' : '',
-        'googleId' : googleSignInAccount.id,
-        'buyerId' : FirebaseAuth.instance.currentUser!.uid,
-        'address' : '',
-        'profile' : googleSignInAccount.photoUrl,
+      await FirebaseFirestore.instance
+          .collection('buyers')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .set({
+        'email': googleSignInAccount.email,
+        'fullName': googleSignInAccount.displayName,
+        'phoneNumber': '',
+        'googleId': googleSignInAccount.id,
+        'buyerId': FirebaseAuth.instance.currentUser!.uid,
+        'address': '',
+        'profile': googleSignInAccount.photoUrl,
       });
       Get.offAll(HomeScreen());
-    } on FirebaseAuthException catch(e) {
+    } on FirebaseAuthException catch (e) {
       var content = '';
       switch (e.code) {
         case 'account-exists-with-different-credential':
@@ -70,37 +74,40 @@ class _SignInState extends State<SignIn> {
           content = 'The user you tried to log into was not found';
           break;
       }
-      showDialog(context: context, builder: (context) => AlertDialog(
-        title: Text('Log in with google failed'),
-        content: Text(content),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Get.back();
-            },
-            child: Text('Ok'),
-          ),
-        ],
-      ));
+      showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                title: Text('Log in with google failed'),
+                content: Text(content),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    child: Text('Ok'),
+                  ),
+                ],
+              ));
     } catch (e) {
-      showDialog(context: context, builder: (context) => AlertDialog(
-        title: Text('Log in with google failed'),
-        content: Text('An unknown error occurred'),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Get.back();
-            },
-            child: Text('Ok'),
-          ),
-        ],
-      ));
+      showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                title: Text('Log in with google failed'),
+                content: Text('An unknown error occurred'),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    child: Text('Ok'),
+                  ),
+                ],
+              ));
     } finally {
       setState(() {
         _isLoading = false;
       });
     }
-
   }
 
   @override
@@ -142,14 +149,16 @@ class _SignInState extends State<SignIn> {
                         'Reflex Furniture',
                         // 'Reflex',
                         // 'REFLEX',
-                        style:
-                        TextStyle(fontSize: 50, color: Colors.white, shadows: [
-                          BoxShadow(
-                            blurRadius: 5,
-                            color: Colors.green.shade900,
-                            offset: Offset(3, 3),
-                          )
-                        ]),
+                        style: TextStyle(
+                            fontSize: 50,
+                            color: Colors.white,
+                            shadows: [
+                              BoxShadow(
+                                blurRadius: 5,
+                                color: Colors.green.shade900,
+                                offset: Offset(3, 3),
+                              )
+                            ]),
                       ),
                       Column(
                         children: [
@@ -195,12 +204,14 @@ class _SignInState extends State<SignIn> {
                             style: TextStyle(color: colorFFFFFF),
                           ),
                           GestureDetector(
-                            onTap: (){
+                            onTap: () {
                               Get.to(RegisterScreen());
                             },
                             child: const Text(
                               "Sign Up",
-                              style: TextStyle(color: colorFFFFFF,fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  color: colorFFFFFF,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ).paddingOnly(left: 10),
                         ],

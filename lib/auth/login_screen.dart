@@ -13,13 +13,11 @@ import 'package:multi_furniture_store/config/text_style.dart';
 import 'package:multi_furniture_store/screens/home/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
-
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   late String email;
@@ -28,19 +26,19 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isLoading = false;
   bool _isLoggingIn = true;
 
-  loginUsers() async{
+  loginUsers() async {
     setState(() {
       _isLoggingIn = true;
     });
     try {
-      if(email.isNotEmpty && password.isNotEmpty){
+      if (email.isNotEmpty && password.isNotEmpty) {
         await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: email,
           password: password,
         );
         Get.offAll(HomeScreen());
         print('User is signed in!');
-      }else{
+      } else {
         setState(() {
           _isLoading = false;
         });
@@ -58,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     } on FirebaseAuthException catch (e) {
       var message = '';
-      switch (e.code){
+      switch (e.code) {
         case 'invalid-email':
           message = 'The email you entered was invalid';
           break;
@@ -71,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
         case 'wrong-password':
           message = 'Incorrect Password';
           break;
-        default :
+        default:
           message = 'Enter Email or Password';
           break;
       }
@@ -92,7 +90,6 @@ class _LoginScreenState extends State<LoginScreen> {
           ],
         ),
       );
-
     } finally {
       setState(() {
         _isLoggingIn = false;
@@ -169,9 +166,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: emailController,
                   action: TextInputAction.next,
                   validator: (value) {
-                    if(value!.isEmpty){
+                    if (value!.isEmpty) {
                       return 'Please Email Must Not Be Empty';
-                    }else{
+                    } else {
                       return null;
                     }
                   },
@@ -189,9 +186,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   suggestionTxt: enterPassword,
                   controller: passwordController,
                   validator: (value) {
-                    if(value!.isEmpty){
+                    if (value!.isEmpty) {
                       return 'Please Password Must Not Be Empty';
-                    }else{
+                    } else {
                       return null;
                     }
                   },
@@ -238,22 +235,25 @@ class _LoginScreenState extends State<LoginScreen> {
                   alignment: Alignment.center,
                   child: commonButton(
                     onPressed: () {
-                      if (_formKey.currentState != null && _formKey.currentState!.validate()) {
+                      if (_formKey.currentState != null &&
+                          _formKey.currentState!.validate()) {
                         loginUsers();
                       }
                     },
                     child: Center(
-                      child: _isLoading ? CircularProgressIndicator(
-                        color: Colors.white,
-                      ) : Text(
-                        'Login',
-                        style: TextStyle(
-                          letterSpacing: 5,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 19,
-                        ),
-                      ),
+                      child: _isLoading
+                          ? CircularProgressIndicator(
+                              color: Colors.white,
+                            )
+                          : Text(
+                              'Login',
+                              style: TextStyle(
+                                letterSpacing: 5,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 19,
+                              ),
+                            ),
                     ),
                     buttonColor: color5254A8,
                   ),
