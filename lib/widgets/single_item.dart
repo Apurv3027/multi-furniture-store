@@ -12,6 +12,8 @@ import 'package:provider/provider.dart';
 class SingleItem extends StatefulWidget {
   bool isBool = false;
   String productImage;
+  String userName;
+  String userEmail;
   String productName;
   bool wishList = false;
   int productPrice;
@@ -30,6 +32,8 @@ class SingleItem extends StatefulWidget {
       required this.onDelete,
       required this.isBool,
       required this.productImage,
+      required this.userName,
+      required this.userEmail,
       required this.productName,
       required this.productPrice,
       required this.wishList});
@@ -151,14 +155,8 @@ class _SingleItemState extends State<SingleItem> {
                                                     cartPrice:
                                                         widget.productPrice,
                                                     cartQuantity: count,
-                                                    userName: FirebaseAuth
-                                                        .instance
-                                                        .currentUser!
-                                                        .displayName,
-                                                    userEmail: FirebaseAuth
-                                                        .instance
-                                                        .currentUser!
-                                                        .email,
+                                                    userName: widget.userName,
+                                                    userEmail: widget.userEmail,
                                                   );
                                                 }
                                               },
@@ -196,14 +194,8 @@ class _SingleItemState extends State<SingleItem> {
                                                         widget.paymentStatus,
                                                     deliveryStatus:
                                                         widget.paymentStatus,
-                                                    userName: FirebaseAuth
-                                                        .instance
-                                                        .currentUser!
-                                                        .displayName,
-                                                    userEmail: FirebaseAuth
-                                                        .instance
-                                                        .currentUser!
-                                                        .email,
+                                                    userName: widget.userName,
+                                                    userEmail: widget.userEmail,
                                                   );
                                                 }
                                               },

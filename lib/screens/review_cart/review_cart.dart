@@ -148,6 +148,8 @@ class ReviewCart extends StatelessWidget {
                       paymentMethod: data.paymentMethod,
                       paymentStatus: data.paymentStatus,
                       deliveryStatus: data.deliveryStatus,
+                      userName: data.userName,
+                      userEmail: data.userEmail,
                       onDelete: () {
                         showAlertDialog(context, data);
                       },

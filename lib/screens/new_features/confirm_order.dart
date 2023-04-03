@@ -195,8 +195,7 @@ class _ConfirmOrderState extends State<ConfirmOrder> {
 
   final Stream<QuerySnapshot> _cartStream = FirebaseFirestore.instance
       .collection('ReviewCart')
-      .where('userName',
-          isEqualTo: FirebaseAuth.instance.currentUser!.displayName)
+      .where('userEmail', isEqualTo: FirebaseAuth.instance.currentUser!.email)
       .where('paymentMethod', isEqualTo: '')
       .where('paymentStatus', isEqualTo: '')
       .where('deliveryStatus', isEqualTo: '')
@@ -207,8 +206,7 @@ class _ConfirmOrderState extends State<ConfirmOrder> {
         FirebaseFirestore.instance.collection("ReviewCart");
 
     QuerySnapshot eventsQuery = await ref
-        .where('userName',
-            isEqualTo: FirebaseAuth.instance.currentUser!.displayName)
+        .where('userEmail', isEqualTo: FirebaseAuth.instance.currentUser!.email)
         .where('paymentMethod', isEqualTo: '')
         .where('paymentStatus', isEqualTo: '')
         .where('deliveryStatus', isEqualTo: '')

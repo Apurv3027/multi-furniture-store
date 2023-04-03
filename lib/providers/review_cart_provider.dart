@@ -47,8 +47,8 @@ class ReviewCartProvider with ChangeNotifier {
   }) async {
     FirebaseFirestore.instance.collection("ReviewCart").doc(cartId).update(
       {
-        "userName": FirebaseAuth.instance.currentUser!.displayName,
-        "userEmail": FirebaseAuth.instance.currentUser!.email,
+        "userName": userName,
+        "userEmail": userEmail,
         "cartId": cartId,
         "cartName": cartName,
         "cartImage": cartImage,
@@ -68,14 +68,13 @@ class ReviewCartProvider with ChangeNotifier {
 
     QuerySnapshot reviewCartValue = await FirebaseFirestore.instance
         .collection("ReviewCart")
-        .where('userName',
-            isEqualTo: FirebaseAuth.instance.currentUser!.displayName)
+        .where('userEmail', isEqualTo: FirebaseAuth.instance.currentUser!.email)
         .where('paymentMethod', isEqualTo: '')
         .where('paymentStatus', isEqualTo: '')
         .get();
     reviewCartValue.docs.forEach((element) {
       ReviewCartModel reviewCartModel = ReviewCartModel(
-        userName: FirebaseAuth.instance.currentUser!.displayName!,
+        userName: element.get("userName"),
         userEmail: FirebaseAuth.instance.currentUser!.email!,
         cartId: element.get("cartId"),
         cartImage: element.get("cartImage"),
