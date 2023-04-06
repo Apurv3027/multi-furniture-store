@@ -1,26 +1,14 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:multi_furniture_store/config/colors.dart';
 import 'package:multi_furniture_store/config/text.dart';
-import 'package:multi_furniture_store/config/text_style.dart';
 import 'package:multi_furniture_store/providers/product_provider.dart';
 import 'package:multi_furniture_store/providers/user_provider.dart';
-import 'package:multi_furniture_store/screens/categories/beds_categories_screen.dart';
-import 'package:multi_furniture_store/screens/categories/chairs_categories_screen.dart';
-import 'package:multi_furniture_store/screens/categories/drawer_units_categories_screen.dart';
-import 'package:multi_furniture_store/screens/categories/mirrors_categories_screen.dart';
-import 'package:multi_furniture_store/screens/categories/outdoors_categories_screen.dart';
-import 'package:multi_furniture_store/screens/categories/sofas_categories_screen.dart';
-import 'package:multi_furniture_store/screens/categories/wardrobes_categories_screen.dart';
 import 'package:multi_furniture_store/screens/home/drawer_side.dart';
 import 'package:multi_furniture_store/screens/product_overview/product_overview.dart';
 import 'package:multi_furniture_store/screens/review_cart/review_cart.dart';
-import 'package:multi_furniture_store/widgets/banner_widget.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -229,9 +217,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Text('Chairs'),
                       GestureDetector(
-                        onTap: () {
-                          Get.to(ChairCategoriesScreen());
-                        },
+                        onTap: () {},
                         child: Text(
                           'view all',
                           style: TextStyle(color: Colors.grey),
@@ -328,9 +314,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Text('Beds'),
                       GestureDetector(
-                        onTap: () {
-                          Get.to(BedsCategoriesScreen());
-                        },
+                        onTap: () {},
                         child: Text(
                           'view all',
                           style: TextStyle(color: Colors.grey),
@@ -427,9 +411,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Text('Drawer Units'),
                       GestureDetector(
-                        onTap: () {
-                          Get.to(DrawerUnitsCategoriesScreen());
-                        },
+                        onTap: () {},
                         child: Text(
                           'view all',
                           style: TextStyle(color: Colors.grey),
@@ -526,9 +508,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Text('Mirror'),
                       GestureDetector(
-                        onTap: () {
-                          Get.to(MirrorsCategoriesScreen());
-                        },
+                        onTap: () {},
                         child: Text(
                           'view all',
                           style: TextStyle(color: Colors.grey),
@@ -625,9 +605,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Text('Outdoors'),
                       GestureDetector(
-                        onTap: () {
-                          Get.to(OutdoorsCategoriesScreen());
-                        },
+                        onTap: () {},
                         child: Text(
                           'view all',
                           style: TextStyle(color: Colors.grey),
@@ -724,9 +702,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Text('Sofas'),
                       GestureDetector(
-                        onTap: () {
-                          Get.to(SofasCategoriesScreen());
-                        },
+                        onTap: () {},
                         child: Text(
                           'view all',
                           style: TextStyle(color: Colors.grey),
@@ -823,9 +799,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Text('Wardrobes'),
                       GestureDetector(
-                        onTap: () {
-                          Get.to(WardrobesCategoriesScreen());
-                        },
+                        onTap: () {},
                         child: Text(
                           'view all',
                           style: TextStyle(color: Colors.grey),

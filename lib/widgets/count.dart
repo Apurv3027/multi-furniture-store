@@ -33,16 +33,6 @@ class _CountState extends State<Count> {
   String? userName;
   String? userEmail;
 
-  // String? productName;
-  // String? productPrice;
-  // double? productQuantity;
-
-//   String userName2 = "one@yopmail.com";
-
-// //Removes everything after the first 'A'
-// String result = userName2.substring(0, userName2.indexOf('@'));
-// print(result);
-
   getAddAndQuantity() {
     FirebaseFirestore.instance
         .collection("ReviewCart")
