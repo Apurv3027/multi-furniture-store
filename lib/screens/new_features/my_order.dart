@@ -145,7 +145,7 @@ class _MyOrderState extends State<MyOrder> {
                       ],
                     );
                   },
-                ).paddingOnly(top: 20);
+                ).paddingOnly(top: 20, bottom: 20);
               },
             ),
           ],
