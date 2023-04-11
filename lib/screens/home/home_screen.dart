@@ -7,6 +7,7 @@ import 'package:multi_furniture_store/config/text.dart';
 import 'package:multi_furniture_store/providers/product_provider.dart';
 import 'package:multi_furniture_store/providers/user_provider.dart';
 import 'package:multi_furniture_store/screens/home/drawer_side.dart';
+import 'package:multi_furniture_store/screens/home/search_screen.dart';
 import 'package:multi_furniture_store/screens/product_overview/product_overview.dart';
 import 'package:multi_furniture_store/screens/review_cart/review_cart.dart';
 import 'package:provider/provider.dart';
@@ -98,6 +99,23 @@ class _HomeScreenState extends State<HomeScreen> {
           style: TextStyle(color: colorFFFFFF, fontSize: 17),
         ),
         actions: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: GestureDetector(
+              onTap: () {
+                Get.to(SearchScreen());
+              },
+              child: CircleAvatar(
+                backgroundColor: Color(0xffd6d382),
+                radius: 20,
+                child: Icon(
+                  Icons.search_rounded,
+                  size: 25,
+                  color: textColor,
+                ),
+              ),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5),
             child: GestureDetector(

@@ -36,8 +36,6 @@ class _CountState extends State<Count> {
   getAddAndQuantity() {
     FirebaseFirestore.instance
         .collection("ReviewCart")
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .collection("YourReviewCart")
         .doc(widget.productId)
         .get()
         .then(
