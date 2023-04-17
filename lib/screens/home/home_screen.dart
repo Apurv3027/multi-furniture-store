@@ -6,6 +6,13 @@ import 'package:multi_furniture_store/config/colors.dart';
 import 'package:multi_furniture_store/config/text.dart';
 import 'package:multi_furniture_store/providers/product_provider.dart';
 import 'package:multi_furniture_store/providers/user_provider.dart';
+import 'package:multi_furniture_store/screens/categories/beds_categories_screen.dart';
+import 'package:multi_furniture_store/screens/categories/chairs_categories_screen.dart';
+import 'package:multi_furniture_store/screens/categories/drawer_units_categories_screen.dart';
+import 'package:multi_furniture_store/screens/categories/mirrors_categories_screen.dart';
+import 'package:multi_furniture_store/screens/categories/outdoors_categories_screen.dart';
+import 'package:multi_furniture_store/screens/categories/sofas_categories_screen.dart';
+import 'package:multi_furniture_store/screens/categories/wardrobes_categories_screen.dart';
 import 'package:multi_furniture_store/screens/home/drawer_side.dart';
 import 'package:multi_furniture_store/screens/home/search_screen.dart';
 import 'package:multi_furniture_store/screens/product_overview/product_overview.dart';
@@ -249,7 +256,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Text('Chairs'),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(ChairCategoriesScreen());
+                        },
                         child: Text(
                           'view all',
                           style: TextStyle(color: Colors.grey),
@@ -279,7 +288,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ListView.builder(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         scrollDirection: Axis.horizontal,
-                        itemCount: snapshot.data!.size,
+                        itemCount: 2,
                         itemBuilder: (context, index) {
                           final productData = snapshot.data!.docs[index];
                           final firebaseUser =
@@ -349,7 +358,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Text('Beds'),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(BedsCategoriesScreen());
+                        },
                         child: Text(
                           'view all',
                           style: TextStyle(color: Colors.grey),
@@ -379,7 +390,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ListView.builder(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         scrollDirection: Axis.horizontal,
-                        itemCount: snapshot.data!.size,
+                        itemCount: 2,
                         itemBuilder: (context, index) {
                           final productData = snapshot.data!.docs[index];
                           final firebaseUser =
@@ -449,7 +460,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Text('Drawer Units'),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(DrawerUnitsCategoriesScreen());
+                        },
                         child: Text(
                           'view all',
                           style: TextStyle(color: Colors.grey),
@@ -479,7 +492,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ListView.builder(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         scrollDirection: Axis.horizontal,
-                        itemCount: snapshot.data!.size,
+                        itemCount: 2,
                         itemBuilder: (context, index) {
                           final productData = snapshot.data!.docs[index];
                           final firebaseUser =
@@ -549,7 +562,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Text('Mirror'),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(MirrorsCategoriesScreen());
+                        },
                         child: Text(
                           'view all',
                           style: TextStyle(color: Colors.grey),
@@ -579,7 +594,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ListView.builder(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         scrollDirection: Axis.horizontal,
-                        itemCount: snapshot.data!.size,
+                        itemCount: 2,
                         itemBuilder: (context, index) {
                           final productData = snapshot.data!.docs[index];
                           final firebaseUser =
@@ -649,7 +664,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Text('Outdoors'),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(OutdoorsCategoriesScreen());
+                        },
                         child: Text(
                           'view all',
                           style: TextStyle(color: Colors.grey),
@@ -679,7 +696,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ListView.builder(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         scrollDirection: Axis.horizontal,
-                        itemCount: snapshot.data!.size,
+                        itemCount: 2,
                         itemBuilder: (context, index) {
                           final productData = snapshot.data!.docs[index];
                           final firebaseUser =
@@ -749,7 +766,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Text('Sofas'),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(SofasCategoriesScreen());
+                        },
                         child: Text(
                           'view all',
                           style: TextStyle(color: Colors.grey),
@@ -779,7 +798,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ListView.builder(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         scrollDirection: Axis.horizontal,
-                        itemCount: snapshot.data!.size,
+                        itemCount: 2,
                         itemBuilder: (context, index) {
                           final productData = snapshot.data!.docs[index];
                           final firebaseUser =
@@ -849,7 +868,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Text('Wardrobes'),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(WardrobesCategoriesScreen());
+                        },
                         child: Text(
                           'view all',
                           style: TextStyle(color: Colors.grey),
@@ -879,7 +900,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ListView.builder(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         scrollDirection: Axis.horizontal,
-                        itemCount: snapshot.data!.size,
+                        itemCount: 2,
                         itemBuilder: (context, index) {
                           final productData = snapshot.data!.docs[index];
                           final firebaseUser =
