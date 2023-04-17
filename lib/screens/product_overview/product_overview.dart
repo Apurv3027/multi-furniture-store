@@ -19,11 +19,18 @@ class ProductOverview extends StatefulWidget {
   final String productImage;
   final int productPrice;
   final String productId;
-  ProductOverview(
-      {required this.productId,
-      required this.productImage,
-      required this.productName,
-      required this.productPrice});
+  final String productDetail;
+  final String userName;
+  final String UserEmail;
+  ProductOverview({
+    required this.productId,
+    required this.productImage,
+    required this.productName,
+    required this.productPrice,
+    required this.productDetail,
+    required this.userName,
+    required this.UserEmail,
+  });
 
   @override
   _ProductOverviewState createState() => _ProductOverviewState();
@@ -270,7 +277,17 @@ class _ProductOverviewState extends State<ProductOverview> {
                             productImage: widget.productImage,
                             productName: widget.productName,
                             productPrice: widget.productPrice,
+                            userName: widget.userName,
+                            userEmail: widget.UserEmail,
                           ),
+                          // CountProduct(
+                          //   productId: widget.productId,
+                          //   productImage: widget.productImage,
+                          //   productName: widget.productName,
+                          //   productPrice: widget.productPrice,
+                          //   userName: widget.userName,
+                          //   userEmail: widget.UserEmail,
+                          // ),
                           // Container(
                           //   padding: EdgeInsets.symmetric(
                           //     horizontal: 30,
@@ -322,7 +339,8 @@ class _ProductOverviewState extends State<ProductOverview> {
                       height: 20,
                     ),
                     Text(
-                      "of a customer. Wikipedi In marketing, a product is an object or system made available for consumer use; it is anything that can be offered to a market to satisfy the desire or need of a customer. Wikipedi",
+                      // "of a customer. Wikipedi In marketing, a product is an object or system made available for consumer use; it is anything that can be offered to a market to satisfy the desire or need of a customer. Wikipedi",
+                      widget.productDetail,
                       style: TextStyle(
                         fontSize: 16,
                         color: textColor,

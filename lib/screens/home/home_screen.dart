@@ -20,6 +20,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late ProductProvider productProvider;
 
+  String? userName;
+  String? userEmail;
+
   final Stream<QuerySnapshot> _bannerStream =
       FirebaseFirestore.instance.collection('banners').snapshots();
 
@@ -94,9 +97,20 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: color5254A8,
         iconTheme: IconThemeData(color: colorFFFFFF),
-        title: Text(
-          'Home',
-          style: TextStyle(color: colorFFFFFF, fontSize: 17),
+        title: FutureBuilder(
+          future: _fetchUser(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState != ConnectionState.done)
+              return Center(
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                ).paddingOnly(top: 20),
+              );
+            return Text(
+              'Hello, ' + userName!,
+              style: TextStyle(color: colorFFFFFF, fontSize: 17),
+            );
+          },
         ),
         actions: [
           Padding(
@@ -265,7 +279,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ListView.builder(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         scrollDirection: Axis.horizontal,
-                        itemCount: 2,
+                        itemCount: snapshot.data!.size,
                         itemBuilder: (context, index) {
                           final productData = snapshot.data!.docs[index];
                           final firebaseUser =
@@ -277,6 +291,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 productImage: productData['image'],
                                 productName: productData['productName'],
                                 productPrice: productData['productPrice'],
+                                productDetail: productData['productDetail'],
+                                userName: userName!,
+                                UserEmail: userEmail!,
                               ));
                             },
                             child: Container(
@@ -362,7 +379,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ListView.builder(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         scrollDirection: Axis.horizontal,
-                        itemCount: 2,
+                        itemCount: snapshot.data!.size,
                         itemBuilder: (context, index) {
                           final productData = snapshot.data!.docs[index];
                           final firebaseUser =
@@ -374,6 +391,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 productImage: productData['image'],
                                 productName: productData['productName'],
                                 productPrice: productData['productPrice'],
+                                productDetail: productData['productDetail'],
+                                userName: userName!,
+                                UserEmail: userEmail!,
                               ));
                             },
                             child: Container(
@@ -459,7 +479,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ListView.builder(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         scrollDirection: Axis.horizontal,
-                        itemCount: 2,
+                        itemCount: snapshot.data!.size,
                         itemBuilder: (context, index) {
                           final productData = snapshot.data!.docs[index];
                           final firebaseUser =
@@ -471,6 +491,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 productImage: productData['image'],
                                 productName: productData['productName'],
                                 productPrice: productData['productPrice'],
+                                productDetail: productData['productDetail'],
+                                userName: userName!,
+                                UserEmail: userEmail!,
                               ));
                             },
                             child: Container(
@@ -556,7 +579,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ListView.builder(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         scrollDirection: Axis.horizontal,
-                        itemCount: 2,
+                        itemCount: snapshot.data!.size,
                         itemBuilder: (context, index) {
                           final productData = snapshot.data!.docs[index];
                           final firebaseUser =
@@ -568,6 +591,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 productImage: productData['image'],
                                 productName: productData['productName'],
                                 productPrice: productData['productPrice'],
+                                productDetail: productData['productDetail'],
+                                userName: userName!,
+                                UserEmail: userEmail!,
                               ));
                             },
                             child: Container(
@@ -653,7 +679,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ListView.builder(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         scrollDirection: Axis.horizontal,
-                        itemCount: 2,
+                        itemCount: snapshot.data!.size,
                         itemBuilder: (context, index) {
                           final productData = snapshot.data!.docs[index];
                           final firebaseUser =
@@ -665,6 +691,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 productImage: productData['image'],
                                 productName: productData['productName'],
                                 productPrice: productData['productPrice'],
+                                productDetail: productData['productDetail'],
+                                userName: userName!,
+                                UserEmail: userEmail!,
                               ));
                             },
                             child: Container(
@@ -750,7 +779,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ListView.builder(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         scrollDirection: Axis.horizontal,
-                        itemCount: 2,
+                        itemCount: snapshot.data!.size,
                         itemBuilder: (context, index) {
                           final productData = snapshot.data!.docs[index];
                           final firebaseUser =
@@ -762,6 +791,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 productImage: productData['image'],
                                 productName: productData['productName'],
                                 productPrice: productData['productPrice'],
+                                productDetail: productData['productDetail'],
+                                userName: userName!,
+                                UserEmail: userEmail!,
                               ));
                             },
                             child: Container(
@@ -847,7 +879,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ListView.builder(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         scrollDirection: Axis.horizontal,
-                        itemCount: 2,
+                        itemCount: snapshot.data!.size,
                         itemBuilder: (context, index) {
                           final productData = snapshot.data!.docs[index];
                           final firebaseUser =
@@ -859,6 +891,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 productImage: productData['image'],
                                 productName: productData['productName'],
                                 productPrice: productData['productPrice'],
+                                productDetail: productData['productDetail'],
+                                userName: userName!,
+                                UserEmail: userEmail!,
                               ));
                             },
                             child: Container(
@@ -908,5 +943,22 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  _fetchUser() async {
+    final firebaseUser = await FirebaseAuth.instance.currentUser;
+    if (firebaseUser != null)
+      await FirebaseFirestore.instance
+          .collection("buyers")
+          .doc(firebaseUser.uid)
+          .get()
+          .then((ds) {
+        userName = ds.data()!['fullName'];
+        userEmail = ds.data()!['email'];
+        print(userName);
+        print(userEmail);
+      }).catchError((e) {
+        print(e);
+      });
   }
 }

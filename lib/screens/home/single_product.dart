@@ -10,12 +10,17 @@ class SingalProduct extends StatefulWidget {
   final int productPrice;
   final Function onTap;
   final String productId;
-  SingalProduct(
-      {required this.productId,
-        required this.productImage,
-        required this.productName,
-        required this.onTap,
-        required this.productPrice});
+  final String userName;
+  final String userEmail;
+  SingalProduct({
+    required this.productId,
+    required this.productImage,
+    required this.productName,
+    required this.onTap,
+    required this.productPrice,
+    required this.userName,
+    required this.userEmail,
+  });
 
   @override
   _SingalProductState createState() => _SingalProductState();
@@ -48,7 +53,7 @@ class _SingalProductState extends State<SingalProduct> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 GestureDetector(
-                  onTap: (){},
+                  onTap: () {},
                   child: Container(
                     height: 150,
                     padding: EdgeInsets.all(5),
@@ -62,7 +67,7 @@ class _SingalProductState extends State<SingalProduct> {
                   flex: 2,
                   child: Padding(
                     padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -74,7 +79,7 @@ class _SingalProductState extends State<SingalProduct> {
                           ),
                         ),
                         Text(
-                          '${widget.productPrice}\$/${unitData == null?firstValue:unitData}',
+                          '${widget.productPrice}\$/${unitData == null ? firstValue : unitData}',
                           style: TextStyle(
                             color: Colors.grey,
                           ),
@@ -137,6 +142,8 @@ class _SingalProductState extends State<SingalProduct> {
                               productImage: widget.productImage,
                               productName: widget.productName,
                               productPrice: widget.productPrice,
+                              userName: widget.userName,
+                              userEmail: widget.userEmail,
                             ),
                           ],
                         ),

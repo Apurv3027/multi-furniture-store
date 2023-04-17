@@ -134,12 +134,13 @@ class _SearchScreenState extends State<SearchScreen> {
                   final firebaseUser = FirebaseAuth.instance.currentUser;
                   return GestureDetector(
                     onTap: () {
-                      Get.to(ProductOverview(
-                        productId: productData['productID'],
-                        productImage: productData['image'],
-                        productName: productData['productName'],
-                        productPrice: productData['productPrice'],
-                      ));
+                      // Get.to(ProductOverview(
+                      //   productId: productData['productID'],
+                      //   productImage: productData['image'],
+                      //   productName: productData['productName'],
+                      //   productPrice: productData['productPrice'],
+                      //   productDetail: productData['productDetail'],
+                      // ));
                     },
                     child: Container(
                       child: ListTile(
