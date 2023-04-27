@@ -115,6 +115,8 @@ class _SingleItemState extends State<SingleItem> {
                           productImage: widget.productImage,
                           productName: widget.productName,
                           productPrice: widget.productPrice,
+                          userName: widget.userName,
+                          userEmail: widget.userEmail,
                         )
                       : Padding(
                           padding: const EdgeInsets.only(top: 8),

@@ -1,13 +1,9 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:multi_furniture_store/config/colors.dart';
 import 'package:multi_furniture_store/config/text.dart';
-import 'package:multi_furniture_store/config/text_style.dart';
 import 'package:multi_furniture_store/providers/product_provider.dart';
 import 'package:multi_furniture_store/providers/user_provider.dart';
 import 'package:multi_furniture_store/screens/categories/beds_categories_screen.dart';
@@ -18,9 +14,9 @@ import 'package:multi_furniture_store/screens/categories/outdoors_categories_scr
 import 'package:multi_furniture_store/screens/categories/sofas_categories_screen.dart';
 import 'package:multi_furniture_store/screens/categories/wardrobes_categories_screen.dart';
 import 'package:multi_furniture_store/screens/home/drawer_side.dart';
+import 'package:multi_furniture_store/screens/home/search_screen.dart';
 import 'package:multi_furniture_store/screens/product_overview/product_overview.dart';
 import 'package:multi_furniture_store/screens/review_cart/review_cart.dart';
-import 'package:multi_furniture_store/widgets/banner_widget.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -30,6 +26,9 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late ProductProvider productProvider;
+
+  String? userName;
+  String? userEmail;
 
   final Stream<QuerySnapshot> _bannerStream =
       FirebaseFirestore.instance.collection('banners').snapshots();
@@ -105,11 +104,39 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: color5254A8,
         iconTheme: IconThemeData(color: colorFFFFFF),
-        title: Text(
-          'Home',
-          style: TextStyle(color: colorFFFFFF, fontSize: 17),
+        title: FutureBuilder(
+          future: _fetchUser(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState != ConnectionState.done)
+              return Center(
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                ).paddingOnly(top: 20),
+              );
+            return Text(
+              'Hello, ' + userName!,
+              style: TextStyle(color: colorFFFFFF, fontSize: 17),
+            );
+          },
         ),
         actions: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: GestureDetector(
+              onTap: () {
+                Get.to(SearchScreen());
+              },
+              child: CircleAvatar(
+                backgroundColor: Color(0xffd6d382),
+                radius: 20,
+                child: Icon(
+                  Icons.search_rounded,
+                  size: 25,
+                  color: textColor,
+                ),
+              ),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5),
             child: GestureDetector(
@@ -273,6 +300,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 productImage: productData['image'],
                                 productName: productData['productName'],
                                 productPrice: productData['productPrice'],
+                                productDetail: productData['productDetail'],
+                                userName: userName!,
+                                UserEmail: userEmail!,
                               ));
                             },
                             child: Container(
@@ -372,6 +402,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 productImage: productData['image'],
                                 productName: productData['productName'],
                                 productPrice: productData['productPrice'],
+                                productDetail: productData['productDetail'],
+                                userName: userName!,
+                                UserEmail: userEmail!,
                               ));
                             },
                             child: Container(
@@ -471,6 +504,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 productImage: productData['image'],
                                 productName: productData['productName'],
                                 productPrice: productData['productPrice'],
+                                productDetail: productData['productDetail'],
+                                userName: userName!,
+                                UserEmail: userEmail!,
                               ));
                             },
                             child: Container(
@@ -570,6 +606,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 productImage: productData['image'],
                                 productName: productData['productName'],
                                 productPrice: productData['productPrice'],
+                                productDetail: productData['productDetail'],
+                                userName: userName!,
+                                UserEmail: userEmail!,
                               ));
                             },
                             child: Container(
@@ -669,6 +708,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 productImage: productData['image'],
                                 productName: productData['productName'],
                                 productPrice: productData['productPrice'],
+                                productDetail: productData['productDetail'],
+                                userName: userName!,
+                                UserEmail: userEmail!,
                               ));
                             },
                             child: Container(
@@ -768,6 +810,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 productImage: productData['image'],
                                 productName: productData['productName'],
                                 productPrice: productData['productPrice'],
+                                productDetail: productData['productDetail'],
+                                userName: userName!,
+                                UserEmail: userEmail!,
                               ));
                             },
                             child: Container(
@@ -867,6 +912,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 productImage: productData['image'],
                                 productName: productData['productName'],
                                 productPrice: productData['productPrice'],
+                                productDetail: productData['productDetail'],
+                                userName: userName!,
+                                UserEmail: userEmail!,
                               ));
                             },
                             child: Container(
@@ -916,5 +964,22 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  _fetchUser() async {
+    final firebaseUser = await FirebaseAuth.instance.currentUser;
+    if (firebaseUser != null)
+      await FirebaseFirestore.instance
+          .collection("buyers")
+          .doc(firebaseUser.uid)
+          .get()
+          .then((ds) {
+        userName = ds.data()!['fullName'];
+        userEmail = ds.data()!['email'];
+        print(userName);
+        print(userEmail);
+      }).catchError((e) {
+        print(e);
+      });
   }
 }

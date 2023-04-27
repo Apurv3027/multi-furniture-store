@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:multi_furniture_store/auth/sign_in.dart';
@@ -8,7 +9,9 @@ import 'package:multi_furniture_store/config/colors.dart';
 import 'package:multi_furniture_store/config/text_style.dart';
 import 'package:multi_furniture_store/providers/user_provider.dart';
 import 'package:multi_furniture_store/screens/check_out/delivery_details/delivery_address.dart';
+import 'package:multi_furniture_store/screens/my_profile/about.dart';
 import 'package:multi_furniture_store/screens/my_profile/edit_profile_page.dart';
+import 'package:multi_furniture_store/screens/my_profile/privacy_policy.dart';
 import 'package:multi_furniture_store/screens/new_features/my_order.dart';
 import 'package:multi_furniture_store/screens/new_features/refer_a_friends.dart';
 
@@ -252,7 +255,9 @@ class _MyProfileState extends State<MyProfile> {
                           leading: Icon(Icons.file_copy_outlined),
                           title: Text('Terms & Conditions'),
                           trailing: Icon(Icons.arrow_forward_ios),
-                          onTap: () {},
+                          onTap: () {
+                            Fluttertoast.showToast(msg: 'Comming Soon...');
+                          },
                         )
                       ],
                     ),
@@ -265,7 +270,9 @@ class _MyProfileState extends State<MyProfile> {
                           leading: Icon(Icons.policy_outlined),
                           title: Text('Privacy Policy'),
                           trailing: Icon(Icons.arrow_forward_ios),
-                          onTap: () {},
+                          onTap: () {
+                            Get.to(PrivacyPolicy());
+                          },
                         )
                       ],
                     ),
@@ -279,7 +286,7 @@ class _MyProfileState extends State<MyProfile> {
                           title: Text('Refer A Friends'),
                           trailing: Icon(Icons.arrow_forward_ios),
                           onTap: () {
-                            Get.to(ReferFriends());
+                            Fluttertoast.showToast(msg: 'Comming Soon...');
                           },
                         )
                       ],
@@ -293,7 +300,9 @@ class _MyProfileState extends State<MyProfile> {
                           leading: Icon(Icons.add_chart),
                           title: Text('About'),
                           trailing: Icon(Icons.arrow_forward_ios),
-                          onTap: () {},
+                          onTap: () {
+                            Get.to(About());
+                          },
                         )
                       ],
                     ),
