@@ -1,4 +1,4 @@
-# multi_furniture_store
+# Reflex Furniture
 
 A new Flutter project.
 
