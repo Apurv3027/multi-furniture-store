@@ -288,7 +288,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ListView.builder(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         scrollDirection: Axis.horizontal,
-                        itemCount: 2,
+                        itemCount: snapshot.data!.size,
                         itemBuilder: (context, index) {
                           final productData = snapshot.data!.docs[index];
                           final firebaseUser =
@@ -390,7 +390,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ListView.builder(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         scrollDirection: Axis.horizontal,
-                        itemCount: 2,
+                        itemCount: snapshot.data!.size,
                         itemBuilder: (context, index) {
                           final productData = snapshot.data!.docs[index];
                           final firebaseUser =
@@ -492,7 +492,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ListView.builder(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         scrollDirection: Axis.horizontal,
-                        itemCount: 2,
+                        itemCount: snapshot.data!.size,
                         itemBuilder: (context, index) {
                           final productData = snapshot.data!.docs[index];
                           final firebaseUser =
@@ -594,7 +594,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ListView.builder(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         scrollDirection: Axis.horizontal,
-                        itemCount: 2,
+                        itemCount: snapshot.data!.size,
                         itemBuilder: (context, index) {
                           final productData = snapshot.data!.docs[index];
                           final firebaseUser =
@@ -696,7 +696,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ListView.builder(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         scrollDirection: Axis.horizontal,
-                        itemCount: 2,
+                        itemCount: snapshot.data!.size,
                         itemBuilder: (context, index) {
                           final productData = snapshot.data!.docs[index];
                           final firebaseUser =
@@ -798,7 +798,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ListView.builder(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         scrollDirection: Axis.horizontal,
-                        itemCount: 2,
+                        itemCount: snapshot.data!.size,
                         itemBuilder: (context, index) {
                           final productData = snapshot.data!.docs[index];
                           final firebaseUser =
@@ -900,7 +900,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ListView.builder(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         scrollDirection: Axis.horizontal,
-                        itemCount: 2,
+                        itemCount: snapshot.data!.size,
                         itemBuilder: (context, index) {
                           final productData = snapshot.data!.docs[index];
                           final firebaseUser =
