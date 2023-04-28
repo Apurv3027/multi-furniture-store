@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:multi_furniture_store/config/colors.dart';
-import 'package:multi_furniture_store/config/text_style.dart';
+import 'package:Reflex_Furniture/config/colors.dart';
+import 'package:Reflex_Furniture/config/text_style.dart';
 
 Widget commonTextField({
   TextEditingController? controller,
   String? name,
+  bool? enabled,
   TextInputType? keyBoard,
   String? hintText,
   String? suggestionTxt,
@@ -17,6 +18,7 @@ Widget commonTextField({
     children: [
       Text(name ?? '', style: color999999w40016.copyWith(fontSize: 17)),
       TextFormField(
+        enabled: enabled,
         validator: validator,
         onChanged: onChanged,
         textInputAction: action,

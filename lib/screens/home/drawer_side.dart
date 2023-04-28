@@ -3,16 +3,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:multi_furniture_store/auth/sign_in.dart';
-import 'package:multi_furniture_store/config/colors.dart';
-import 'package:multi_furniture_store/config/text_style.dart';
-import 'package:multi_furniture_store/providers/user_provider.dart';
-import 'package:multi_furniture_store/screens/my_profile/my_profile.dart';
-import 'package:multi_furniture_store/screens/categories/categories_screen.dart';
-import 'package:multi_furniture_store/screens/new_features/my_order.dart';
-import 'package:multi_furniture_store/screens/new_features/rating_and_review.dart';
-import 'package:multi_furniture_store/screens/review_cart/review_cart.dart';
-import 'package:multi_furniture_store/screens/wish_list/wish_list.dart';
+import 'package:Reflex_Furniture/auth/sign_in.dart';
+import 'package:Reflex_Furniture/config/colors.dart';
+import 'package:Reflex_Furniture/config/text_style.dart';
+import 'package:Reflex_Furniture/providers/user_provider.dart';
+import 'package:Reflex_Furniture/screens/my_profile/my_profile.dart';
+import 'package:Reflex_Furniture/screens/categories/categories_screen.dart';
+import 'package:Reflex_Furniture/screens/new_features/my_order.dart';
+import 'package:Reflex_Furniture/screens/new_features/rating_and_review.dart';
+import 'package:Reflex_Furniture/screens/review_cart/review_cart.dart';
+import 'package:Reflex_Furniture/screens/wish_list/wish_list.dart';
 
 class DrawerSide extends StatefulWidget {
   UserProvider userProvider;
@@ -96,7 +96,7 @@ class _DrawerSideState extends State<DrawerSide> {
                                     ? AssetImage('assets/icons/accountrb.png')
                                         as ImageProvider
                                     : NetworkImage(myProfile!),
-                            backgroundColor: colorFFCA27,
+                            backgroundColor: color5254A8,
                             radius: 50,
                           ),
                         );

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:multi_furniture_store/config/colors.dart';
+import 'package:Reflex_Furniture/config/colors.dart';
 import 'package:get/get.dart';
 
 class About extends StatefulWidget {
@@ -29,6 +29,14 @@ class _AboutState extends State<About> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Center(
+              child: CircleAvatar(
+                backgroundImage:
+                    AssetImage('assets/icons/reflex-furniture-rb.png'),
+                backgroundColor: color5254A8,
+                radius: 50,
+              ),
+            ).paddingOnly(bottom: 20),
             Text(
               '=> Welcome to our e-commerce application (“Reflex Furniture”)! We are a team of dedicated individuals who are passionate about providing you with a seamless and enjoyable shopping experience.\n',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),

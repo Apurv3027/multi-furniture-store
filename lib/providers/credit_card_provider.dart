@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:multi_furniture_store/models/credit_card_model.dart';
+import 'package:Reflex_Furniture/models/credit_card_model.dart';
 
 class CreditCardProvider with ChangeNotifier {
   void addCreditCardData({

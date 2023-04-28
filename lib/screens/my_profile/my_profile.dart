@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:multi_furniture_store/auth/sign_in.dart';
-import 'package:multi_furniture_store/config/colors.dart';
-import 'package:multi_furniture_store/config/text_style.dart';
-import 'package:multi_furniture_store/providers/user_provider.dart';
-import 'package:multi_furniture_store/screens/check_out/delivery_details/delivery_address.dart';
-import 'package:multi_furniture_store/screens/my_profile/about.dart';
-import 'package:multi_furniture_store/screens/my_profile/edit_profile_page.dart';
-import 'package:multi_furniture_store/screens/my_profile/privacy_policy.dart';
-import 'package:multi_furniture_store/screens/new_features/my_order.dart';
-import 'package:multi_furniture_store/screens/new_features/refer_a_friends.dart';
+import 'package:Reflex_Furniture/auth/sign_in.dart';
+import 'package:Reflex_Furniture/config/colors.dart';
+import 'package:Reflex_Furniture/config/text_style.dart';
+import 'package:Reflex_Furniture/providers/user_provider.dart';
+import 'package:Reflex_Furniture/screens/check_out/delivery_details/delivery_address.dart';
+import 'package:Reflex_Furniture/screens/my_profile/about.dart';
+import 'package:Reflex_Furniture/screens/my_profile/edit_profile_page.dart';
+import 'package:Reflex_Furniture/screens/my_profile/privacy_policy.dart';
+import 'package:Reflex_Furniture/screens/new_features/my_order.dart';
+import 'package:Reflex_Furniture/screens/new_features/refer_a_friends.dart';
 
 class MyProfile extends StatefulWidget {
   UserProvider userProvider;
@@ -345,7 +345,7 @@ class _MyProfileState extends State<MyProfile> {
                       ? AssetImage('assets/icons/accountrb.png')
                           as ImageProvider
                       : NetworkImage(myProfile!),
-                  backgroundColor: colorFFCA27,
+                  backgroundColor: color5254A8,
                   radius: 50,
                 );
               },

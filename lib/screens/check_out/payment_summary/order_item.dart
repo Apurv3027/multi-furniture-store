@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:multi_furniture_store/config/text.dart';
-import 'package:multi_furniture_store/models/review_cart_model.dart';
-import 'package:multi_furniture_store/providers/review_cart_provider.dart';
+import 'package:Reflex_Furniture/config/text.dart';
+import 'package:Reflex_Furniture/models/review_cart_model.dart';
+import 'package:Reflex_Furniture/providers/review_cart_provider.dart';
 
 class OrderItem extends StatelessWidget {
   final ReviewCartModel e;

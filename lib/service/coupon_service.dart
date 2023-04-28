@@ -1,4 +1,4 @@
-import 'package:multi_furniture_store/models/coupon_model.dart';
+import 'package:Reflex_Furniture/models/coupon_model.dart';
 
 class CouponService {
   final double totalPrice = 0;

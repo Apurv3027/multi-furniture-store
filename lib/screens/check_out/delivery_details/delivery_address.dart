@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:multi_furniture_store/config/colors.dart';
-import 'package:multi_furniture_store/models/delivery_address_model.dart';
-import 'package:multi_furniture_store/providers/check_out_provider.dart';
-import 'package:multi_furniture_store/screens/check_out/add_delivery_address/add_delivery_address.dart';
-import 'package:multi_furniture_store/screens/check_out/delivery_details/single_delivery_item.dart';
+import 'package:Reflex_Furniture/config/colors.dart';
+import 'package:Reflex_Furniture/models/delivery_address_model.dart';
+import 'package:Reflex_Furniture/providers/check_out_provider.dart';
+import 'package:Reflex_Furniture/screens/check_out/add_delivery_address/add_delivery_address.dart';
+import 'package:Reflex_Furniture/screens/check_out/delivery_details/single_delivery_item.dart';
 import 'package:provider/provider.dart';
 
 class DeliveryAddress extends StatefulWidget {

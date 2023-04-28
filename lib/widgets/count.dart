@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:multi_furniture_store/config/colors.dart';
-import 'package:multi_furniture_store/config/text_style.dart';
-import 'package:multi_furniture_store/providers/review_cart_provider.dart';
+import 'package:Reflex_Furniture/config/colors.dart';
+import 'package:Reflex_Furniture/config/text_style.dart';
+import 'package:Reflex_Furniture/providers/review_cart_provider.dart';
 import 'package:provider/provider.dart';
 
 class Count extends StatefulWidget {

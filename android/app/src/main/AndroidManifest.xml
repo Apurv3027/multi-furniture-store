@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.multi_furniture_store">
+    package="com.example.Reflex_Furniture">
    <application
         android:requestLegacyExternalStorage="true"
-        android:label="multi_furniture_store"
+        android:label="Reflex_Furniture"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity

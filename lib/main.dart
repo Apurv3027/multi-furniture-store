@@ -5,14 +5,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:multi_furniture_store/auth/sign_in.dart';
-import 'package:multi_furniture_store/config/colors.dart';
-import 'package:multi_furniture_store/providers/check_out_provider.dart';
-import 'package:multi_furniture_store/providers/credit_card_provider.dart';
-import 'package:multi_furniture_store/providers/product_provider.dart';
-import 'package:multi_furniture_store/providers/review_cart_provider.dart';
-import 'package:multi_furniture_store/providers/user_provider.dart';
-import 'package:multi_furniture_store/providers/wishlist_provider.dart';
+import 'package:Reflex_Furniture/auth/sign_in.dart';
+import 'package:Reflex_Furniture/config/colors.dart';
+import 'package:Reflex_Furniture/providers/check_out_provider.dart';
+import 'package:Reflex_Furniture/providers/credit_card_provider.dart';
+import 'package:Reflex_Furniture/providers/product_provider.dart';
+import 'package:Reflex_Furniture/providers/review_cart_provider.dart';
+import 'package:Reflex_Furniture/providers/user_provider.dart';
+import 'package:Reflex_Furniture/providers/wishlist_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() async {

@@ -5,11 +5,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
-import 'package:multi_furniture_store/config/colors.dart';
-import 'package:multi_furniture_store/config/text.dart';
-import 'package:multi_furniture_store/providers/wishlist_provider.dart';
-import 'package:multi_furniture_store/screens/review_cart/review_cart.dart';
-import 'package:multi_furniture_store/widgets/count.dart';
+import 'package:Reflex_Furniture/config/colors.dart';
+import 'package:Reflex_Furniture/config/text.dart';
+import 'package:Reflex_Furniture/providers/wishlist_provider.dart';
+import 'package:Reflex_Furniture/screens/review_cart/review_cart.dart';
+import 'package:Reflex_Furniture/widgets/count.dart';
 import 'package:provider/provider.dart';
 
 enum SinginCharacter { fill, outline }

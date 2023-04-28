@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:multi_furniture_store/config/colors.dart';
-import 'package:multi_furniture_store/config/text.dart';
-import 'package:multi_furniture_store/models/review_cart_model.dart';
-import 'package:multi_furniture_store/providers/review_cart_provider.dart';
-import 'package:multi_furniture_store/screens/check_out/delivery_details/delivery_details.dart';
-import 'package:multi_furniture_store/screens/home/home_screen.dart';
-import 'package:multi_furniture_store/widgets/single_item.dart';
+import 'package:Reflex_Furniture/config/colors.dart';
+import 'package:Reflex_Furniture/config/text.dart';
+import 'package:Reflex_Furniture/models/review_cart_model.dart';
+import 'package:Reflex_Furniture/providers/review_cart_provider.dart';
+import 'package:Reflex_Furniture/screens/check_out/delivery_details/delivery_details.dart';
+import 'package:Reflex_Furniture/screens/home/home_screen.dart';
+import 'package:Reflex_Furniture/widgets/single_item.dart';
 import 'package:provider/provider.dart';
 
 class ReviewCart extends StatelessWidget {

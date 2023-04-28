@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:multi_furniture_store/config/colors.dart';
-import 'package:multi_furniture_store/config/text.dart';
+import 'package:Reflex_Furniture/config/colors.dart';
+import 'package:Reflex_Furniture/config/text.dart';
 import 'package:get/get.dart';
-import 'package:multi_furniture_store/screens/product_overview/product_overview.dart';
+import 'package:Reflex_Furniture/screens/product_overview/product_overview.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});

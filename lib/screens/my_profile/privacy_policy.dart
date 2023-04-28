@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:multi_furniture_store/config/colors.dart';
+import 'package:Reflex_Furniture/config/colors.dart';
 import 'package:get/get.dart';
 
 class PrivacyPolicy extends StatefulWidget {
@@ -29,6 +29,14 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Center(
+              child: CircleAvatar(
+                backgroundImage:
+                    AssetImage('assets/icons/reflex-furniture-rb.png'),
+                backgroundColor: color5254A8,
+                radius: 50,
+              ),
+            ).paddingOnly(bottom: 20),
             Text(
               'Effective date: April 27, 2023\n',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),

@@ -1,4 +1,4 @@
-package com.example.multi_furniture_store;
+package com.example.Reflex_Furniture;
 
 import io.flutter.embedding.android.FlutterActivity;
 

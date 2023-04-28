@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:multi_furniture_store/config/colors.dart';
-import 'package:multi_furniture_store/config/text.dart';
-import 'package:multi_furniture_store/providers/review_cart_provider.dart';
-import 'package:multi_furniture_store/screens/check_out/payment_summary/order_item.dart';
+import 'package:Reflex_Furniture/config/colors.dart';
+import 'package:Reflex_Furniture/config/text.dart';
+import 'package:Reflex_Furniture/providers/review_cart_provider.dart';
+import 'package:Reflex_Furniture/screens/check_out/payment_summary/order_item.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 class Invoice extends StatelessWidget {
@@ -40,13 +41,21 @@ class Invoice extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Center(
+                child: CircleAvatar(
+                  backgroundImage:
+                      AssetImage('assets/icons/reflex-furniture-rb.png'),
+                  backgroundColor: color5254A8,
+                  radius: 50,
+                ),
+              ),
               Text(
                 'Order Details',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
-              ),
+              ).paddingOnly(top: 10),
               SizedBox(height: 10),
               Text('Invoice ID: $orderId'),
               SizedBox(height: 10),
