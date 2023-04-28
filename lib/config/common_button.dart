@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:multi_furniture_store/config/text_style.dart';
+import 'package:Reflex_Furniture/config/text_style.dart';
 
 Widget commonButton({
   Function()? onPressed,

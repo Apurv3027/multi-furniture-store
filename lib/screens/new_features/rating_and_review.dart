@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:multi_furniture_store/config/colors.dart';
+import 'package:Reflex_Furniture/config/colors.dart';
 
 class RatingAndReview extends StatefulWidget {
   const RatingAndReview({Key? key}) : super(key: key);

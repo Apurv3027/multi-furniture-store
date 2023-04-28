@@ -3,8 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:location/location.dart';
-import 'package:multi_furniture_store/models/delivery_address_model.dart';
-import 'package:multi_furniture_store/models/review_cart_model.dart';
+import 'package:Reflex_Furniture/models/delivery_address_model.dart';
+import 'package:Reflex_Furniture/models/review_cart_model.dart';
 
 class CheckoutProvider with ChangeNotifier {
   bool isloadding = false;
@@ -91,7 +91,7 @@ class CheckoutProvider with ChangeNotifier {
         .get();
 
     _db.docs.forEach(
-          (element) {
+      (element) {
         DeliveryAddressModel deliveryAddressModel = DeliveryAddressModel(
           firstName: element.get("firstname"),
           lastName: element.get("lastname"),
@@ -155,12 +155,12 @@ class CheckoutProvider with ChangeNotifier {
         "Discount": "10",
         "orderItems": oderItemList!
             .map((e) => {
-          "orderTime": DateTime.now(),
-          "orderImage": e.cartImage,
-          "orderName": e.cartName,
-          "orderPrice": e.cartPrice,
-          "orderQuantity": e.cartQuantity
-        })
+                  "orderTime": DateTime.now(),
+                  "orderImage": e.cartImage,
+                  "orderName": e.cartName,
+                  "orderPrice": e.cartPrice,
+                  "orderQuantity": e.cartQuantity
+                })
             .toList(),
         // "address": address
         //     .map((e) => {

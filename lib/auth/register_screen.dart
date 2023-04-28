@@ -1,23 +1,21 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:multi_furniture_store/auth/login_screen.dart';
-import 'package:multi_furniture_store/config/colors.dart';
-import 'package:multi_furniture_store/config/common_button.dart';
-import 'package:multi_furniture_store/config/common_text_field.dart';
-import 'package:multi_furniture_store/config/text.dart';
-import 'package:multi_furniture_store/config/text_style.dart';
-import 'package:multi_furniture_store/controllers/auth_controller.dart';
-import 'package:multi_furniture_store/screens/home/home_screen.dart';
+import 'package:Reflex_Furniture/auth/login_screen.dart';
+import 'package:Reflex_Furniture/config/colors.dart';
+import 'package:Reflex_Furniture/config/common_button.dart';
+import 'package:Reflex_Furniture/config/common_text_field.dart';
+import 'package:Reflex_Furniture/config/text.dart';
+import 'package:Reflex_Furniture/config/text_style.dart';
+import 'package:Reflex_Furniture/controllers/auth_controller.dart';
+import 'package:Reflex_Furniture/screens/home/home_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
-
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-
   final AuthController _authController = AuthController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -29,12 +27,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool _isLoading = false;
 
   // For Create User Account
-  _signUpUser() async{
+  _signUpUser() async {
     setState(() {
       _isLoading = true;
     });
-    if(_formKey.currentState!.validate()){
-      await _authController.signUpUsers(email, fullName, phoneNumber, password).whenComplete(() {
+    if (_formKey.currentState!.validate()) {
+      await _authController
+          .signUpUsers(email, fullName, phoneNumber, password)
+          .whenComplete(() {
         setState(() {
           _formKey.currentState!.reset();
           _isLoading = false;
@@ -52,7 +52,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
         ),
       );
-    }else{
+    } else {
       setState(() {
         _isLoading = false;
       });
@@ -139,9 +139,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   controller: nameController,
                   action: TextInputAction.next,
                   validator: (value) {
-                    if(value!.isEmpty){
+                    if (value!.isEmpty) {
                       return 'Please Full Name Must Not Be Empty';
-                    }else{
+                    } else {
                       return null;
                     }
                   },
@@ -158,9 +158,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   controller: emailController,
                   action: TextInputAction.next,
                   validator: (value) {
-                    if(value!.isEmpty){
+                    if (value!.isEmpty) {
                       return 'Please Email Must Not Be Empty';
-                    }else{
+                    } else {
                       return null;
                     }
                   },
@@ -178,9 +178,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   suggestionTxt: enterPassword,
                   controller: passwordController,
                   validator: (value) {
-                    if(value!.isEmpty){
+                    if (value!.isEmpty) {
                       return 'Please Password Must Not Be Empty';
-                    }else{
+                    } else {
                       return null;
                     }
                   },
@@ -214,9 +214,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   controller: phoneController,
                   keyBoard: TextInputType.number,
                   validator: (value) {
-                    if(value!.isEmpty){
+                    if (value!.isEmpty) {
                       return 'Please Phone Number Must Not Be Empty';
-                    }else{
+                    } else {
                       return null;
                     }
                   },
@@ -234,17 +234,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       _signUpUser();
                     },
                     child: Center(
-                      child: _isLoading ? CircularProgressIndicator(
-                        color: Colors.white,
-                      ) : Text(
-                        'Register',
-                        style: TextStyle(
-                          fontSize: 19,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 4,
-                        ),
-                      ),
+                      child: _isLoading
+                          ? CircularProgressIndicator(
+                              color: Colors.white,
+                            )
+                          : Text(
+                              'Register',
+                              style: TextStyle(
+                                fontSize: 19,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 4,
+                              ),
+                            ),
                     ),
                     buttonColor: color5254A8,
                   ),

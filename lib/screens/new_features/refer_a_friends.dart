@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:multi_furniture_store/config/colors.dart';
+import 'package:Reflex_Furniture/config/colors.dart';
 
 class ReferFriends extends StatefulWidget {
   const ReferFriends({Key? key}) : super(key: key);
@@ -30,8 +30,7 @@ class _ReferFriendsState extends State<ReferFriends> {
           children: [
             Text(
               'Refer A Friends',
-              style:
-              TextStyle(fontSize: 50, color: color5254A8, shadows: [
+              style: TextStyle(fontSize: 50, color: color5254A8, shadows: [
                 BoxShadow(
                   blurRadius: 5,
                   color: Colors.black.withOpacity(0.5),
@@ -41,8 +40,7 @@ class _ReferFriendsState extends State<ReferFriends> {
             ),
             Text(
               'Coming Soon ...',
-              style:
-              TextStyle(fontSize: 40, color: color5254A8, shadows: [
+              style: TextStyle(fontSize: 40, color: color5254A8, shadows: [
                 BoxShadow(
                   blurRadius: 5,
                   color: Colors.black.withOpacity(0.5),

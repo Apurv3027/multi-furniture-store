@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:multi_furniture_store/config/colors.dart';
-import 'package:multi_furniture_store/models/product_model.dart';
-import 'package:multi_furniture_store/widgets/count.dart';
-import 'package:multi_furniture_store/widgets/product_unit.dart';
+import 'package:Reflex_Furniture/config/colors.dart';
+import 'package:Reflex_Furniture/models/product_model.dart';
+import 'package:Reflex_Furniture/widgets/count.dart';
+import 'package:Reflex_Furniture/widgets/product_unit.dart';
 
 class SingalProduct extends StatefulWidget {
   final String productImage;

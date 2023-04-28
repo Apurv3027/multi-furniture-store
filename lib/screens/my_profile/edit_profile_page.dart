@@ -3,11 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
-import 'package:multi_furniture_store/config/colors.dart';
-import 'package:multi_furniture_store/config/common_button.dart';
-import 'package:multi_furniture_store/config/common_text_field.dart';
-import 'package:multi_furniture_store/config/text.dart';
-import 'package:multi_furniture_store/config/text_style.dart';
+import 'package:Reflex_Furniture/config/colors.dart';
+import 'package:Reflex_Furniture/config/common_button.dart';
+import 'package:Reflex_Furniture/config/common_text_field.dart';
+import 'package:Reflex_Furniture/config/text.dart';
+import 'package:Reflex_Furniture/config/text_style.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({Key? key}) : super(key: key);
@@ -114,7 +114,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           ? AssetImage('assets/icons/accountrb.png')
                               as ImageProvider
                           : NetworkImage(myProfile!),
-                      backgroundColor: colorFFCA27,
+                      backgroundColor: color5254A8,
                       radius: 50,
                     ),
                   );
@@ -142,6 +142,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       onChanged: (value) {
                         myName = value;
                       },
+                      enabled: false,
                       // validator: (value) {
                       //   if(value!.isEmpty){
                       //     return 'Please User Name Must Not Be Empty';
@@ -175,6 +176,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       onChanged: (value) {
                         myEmail = value;
                       },
+                      enabled: false,
                       // validator: (value) {
                       //   if(value!.isEmpty){
                       //     return 'Please User Email Must Not Be Empty';

@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:multi_furniture_store/config/text.dart';
+import 'package:Reflex_Furniture/config/text.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:multi_furniture_store/config/colors.dart';
+import 'package:Reflex_Furniture/config/colors.dart';
 
 class MyOrder extends StatefulWidget {
   const MyOrder({super.key});

@@ -1,14 +1,14 @@
-import 'package:multi_furniture_store/config/colors.dart';
+import 'package:Reflex_Furniture/config/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:multi_furniture_store/screens/categories/chairs_categories_screen.dart';
-import 'package:multi_furniture_store/screens/categories/beds_categories_screen.dart';
-import 'package:multi_furniture_store/screens/categories/drawer_units_categories_screen.dart';
-import 'package:multi_furniture_store/screens/categories/mirrors_categories_screen.dart';
-import 'package:multi_furniture_store/screens/categories/outdoors_categories_screen.dart';
-import 'package:multi_furniture_store/screens/categories/sofas_categories_screen.dart';
-import 'package:multi_furniture_store/screens/categories/wardrobes_categories_screen.dart';
+import 'package:Reflex_Furniture/screens/categories/chairs_categories_screen.dart';
+import 'package:Reflex_Furniture/screens/categories/beds_categories_screen.dart';
+import 'package:Reflex_Furniture/screens/categories/drawer_units_categories_screen.dart';
+import 'package:Reflex_Furniture/screens/categories/mirrors_categories_screen.dart';
+import 'package:Reflex_Furniture/screens/categories/outdoors_categories_screen.dart';
+import 'package:Reflex_Furniture/screens/categories/sofas_categories_screen.dart';
+import 'package:Reflex_Furniture/screens/categories/wardrobes_categories_screen.dart';
 
 class CategoriesScreen extends StatefulWidget {
   const CategoriesScreen({super.key});

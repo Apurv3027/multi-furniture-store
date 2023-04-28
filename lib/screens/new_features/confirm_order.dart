@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:multi_furniture_store/config/colors.dart';
-import 'package:multi_furniture_store/screens/home/home_screen.dart';
+import 'package:Reflex_Furniture/config/colors.dart';
+import 'package:Reflex_Furniture/screens/home/home_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:multi_furniture_store/providers/review_cart_provider.dart';
-import 'package:multi_furniture_store/widgets/single_item.dart';
-import 'package:multi_furniture_store/config/text.dart';
+import 'package:Reflex_Furniture/providers/review_cart_provider.dart';
+import 'package:Reflex_Furniture/widgets/single_item.dart';
+import 'package:Reflex_Furniture/config/text.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:multi_furniture_store/models/review_cart_model.dart';
+import 'package:Reflex_Furniture/models/review_cart_model.dart';
 
 // class ConfirmOrder extends StatelessWidget {
 //   late ReviewCartProvider reviewCartProvider;

@@ -1,8 +1,8 @@
-import 'package:multi_furniture_store/config/colors.dart';
+import 'package:Reflex_Furniture/config/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:multi_furniture_store/config/text.dart';
+import 'package:Reflex_Furniture/config/text.dart';
 
 class DrawerUnitsCategoriesScreen extends StatefulWidget {
   const DrawerUnitsCategoriesScreen({super.key});

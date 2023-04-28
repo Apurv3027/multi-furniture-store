@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:multi_furniture_store/config/colors.dart';
-import 'package:multi_furniture_store/providers/check_out_provider.dart';
-import 'package:multi_furniture_store/widgets/custome_text_field.dart';
+import 'package:Reflex_Furniture/config/colors.dart';
+import 'package:Reflex_Furniture/providers/check_out_provider.dart';
+import 'package:Reflex_Furniture/widgets/custome_text_field.dart';
 import 'package:provider/provider.dart';
 
 class AddDeliverAddress extends StatefulWidget {

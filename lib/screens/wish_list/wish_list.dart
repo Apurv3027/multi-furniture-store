@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:multi_furniture_store/config/colors.dart';
-import 'package:multi_furniture_store/models/product_model.dart';
-import 'package:multi_furniture_store/providers/wishlist_provider.dart';
-import 'package:multi_furniture_store/widgets/single_item.dart';
+import 'package:Reflex_Furniture/config/colors.dart';
+import 'package:Reflex_Furniture/models/product_model.dart';
+import 'package:Reflex_Furniture/providers/wishlist_provider.dart';
+import 'package:Reflex_Furniture/widgets/single_item.dart';
 import 'package:provider/provider.dart';
 
 class WishLsit extends StatefulWidget {

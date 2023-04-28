@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:multi_furniture_store/auth/login_screen.dart';
-import 'package:multi_furniture_store/auth/register_screen.dart';
-import 'package:multi_furniture_store/config/colors.dart';
-import 'package:multi_furniture_store/providers/user_provider.dart';
-import 'package:multi_furniture_store/screens/home/home_screen.dart';
+import 'package:Reflex_Furniture/auth/login_screen.dart';
+import 'package:Reflex_Furniture/auth/register_screen.dart';
+import 'package:Reflex_Furniture/config/colors.dart';
+import 'package:Reflex_Furniture/providers/user_provider.dart';
+import 'package:Reflex_Furniture/screens/home/home_screen.dart';
 import 'package:provider/provider.dart';
 
 class SignIn extends StatefulWidget {

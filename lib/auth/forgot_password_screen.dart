@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:multi_furniture_store/config/colors.dart';
-import 'package:multi_furniture_store/config/common_button.dart';
-import 'package:multi_furniture_store/config/common_text_field.dart';
-import 'package:multi_furniture_store/config/text.dart';
-import 'package:multi_furniture_store/config/text_style.dart';
+import 'package:Reflex_Furniture/config/colors.dart';
+import 'package:Reflex_Furniture/config/common_button.dart';
+import 'package:Reflex_Furniture/config/common_text_field.dart';
+import 'package:Reflex_Furniture/config/text.dart';
+import 'package:Reflex_Furniture/config/text_style.dart';
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({Key? key}) : super(key: key);
