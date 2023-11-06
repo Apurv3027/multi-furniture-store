@@ -25,3 +25,4 @@ const Color color028C04 = Color(0xFF028C04);
 const Color color127bcb = Color(0xFF127bcb);
 const Color colorbfe4f9 = Color(0xFFbfe4f9);
 const Color color0c58bb = Color(0xFF0c58bb);
+const Color color55a2fa = Color(0xFF55a2fa);
