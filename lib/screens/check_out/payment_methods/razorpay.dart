@@ -328,7 +328,7 @@ class _RazorPayState extends State<RazorPay> {
                 onPressed: () async {
                   ///Make Payment
                   var options = {
-                    'key': 'rzp_test_Iv5oyKJHohxjk5',
+                    'key': 'tgmUk2YeyyLtZOESRIOnrSbT',
                     //Amount will be multiple of 100
                     // 'amount': 50000, // Amount in paisa = Rs/100
                     'amount': widget.paymentAmount * 100,
